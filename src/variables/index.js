@@ -5,13 +5,13 @@
 // SCOPE
 // var can accessible outside the block
 {
-  var demoVar = "Javascript";
+  var demoVar = 'Javascript';
 }
 console.log(demoVar); // => Javascript
 
 // let and const inaccessible outside the block
 {
-  let demoLet = "Javascript variables";
+  let demoLet = 'Javascript variables';
   console.log(demoLet); // => Javascript variables
 }
 console.log(demoLet); // =>  Error: str is not defined
@@ -39,9 +39,9 @@ console.log(c); // => Error: Assignment to constant variable.;
 // it will be assignable because here it will be assigned to the properties "name" ,
 // not directly to the const "d"
 const d = {
-  name: "Javascript",
+  name: 'Javascript',
 };
 
-d.name = "Java";
+d.name = 'Java';
 
 console.log(d.name); // => Java

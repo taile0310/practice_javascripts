@@ -29,13 +29,13 @@ const logicalOr = isTrue || isFalse; // => true
 const logicalNot = !isTrue; // => false
 
 // Operator string
-let firstName = "Tai";
-let lastName = "Le";
+let firstName = 'Tai';
+let lastName = 'Le';
 
-const fullName = firstName + " " + lastName;
+const fullName = firstName + ' ' + lastName;
 console.log(fullName);
 
 //Ternary Operator
 const age = 20;
-const isAdult = age >= 18 ? "Adult" : "Not adult";
+const isAdult = age >= 18 ? 'Adult' : 'Not adult';
 console.log(isAdult); //  age = 20 > 18 => result: "Adult"

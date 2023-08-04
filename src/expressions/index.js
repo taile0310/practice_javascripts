@@ -8,10 +8,10 @@ const product = a * b;
 const result = (a + b) * 2;
 
 // Expressions string
-const firstName = "Tai";
-const lastName = "Le";
+const firstName = 'Tai';
+const lastName = 'Le';
 
-const fullName = firstName + " " + lastName;
+const fullName = firstName + ' ' + lastName;
 console.log(fullName);
 
 const greeting = `Hi, ${fullName}!`;
@@ -39,6 +39,6 @@ const numbers = [1, 2, 3, 4, 5]; // => Array
 const total = numbers.reduce((sum, num) => sum + num, 0);
 console.log(total); // => total array: 15
 
-const person = { name: "Alice", age: 30 }; // => Object
+const person = { name: 'Alice', age: 30 }; // => Object
 const properties = Object.keys(person);
 console.log(properties); // get key of object person
