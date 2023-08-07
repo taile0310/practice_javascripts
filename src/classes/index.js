@@ -1,4 +1,4 @@
-// Class: abstraction, extend, polymorphism
+// Class
 class Person {
   constructor(name, age, city) {
     this.name = name;
