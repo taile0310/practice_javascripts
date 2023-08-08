@@ -1,4 +1,5 @@
 // how to create array
+
 let arr = ['JS', 'Java', 'PHP', 'Python', 'React', 'Angular', undefined, null, function () {}, {}];
 console.log(arr); // => array can contain all the data type
 console.log(arr.length); // => length = 10
