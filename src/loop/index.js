@@ -1,9 +1,7 @@
 // Example: for loop
-for (let i = 1; i <= 5; i++) {
-  // console.log(i);
+for (let index = 1; index <= 5; index++) {
+  console.log(index);
 }
-let i = 1;
-
 // Example: while loop
 
 while (i <= 5) {
