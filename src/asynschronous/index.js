@@ -1,4 +1,4 @@
-// callback
+// callback: is a function that will be executed after another has been done
 function fetchDataFromServer(callback) {
   setTimeout(() => {
     const data = [1, 2, 3, 4, 5];
@@ -18,7 +18,8 @@ function processData(err, data) {
 
 fetchDataFromServer(processData);
 
-// Async/await
+//async used to declare an asynchronous function. Asynchronous functions will always return a value.
+//await used to wait for a Promise. It can only be used inside an Async block.
 function fetchDataFromServer(isSuccessful) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -43,7 +44,7 @@ async function processData() {
 }
 processData();
 
-// Promise
+// Promise is a mechanism in JavaScript that helps you perform asynchronous tasks without falling into callback hell or pyramids of doom.
 function fetchDataFromServer(isSuccessful) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
