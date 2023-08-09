@@ -45,11 +45,19 @@ numbers.forEach((num) => console.log('forEach: ' + num));
 
 //find(): Find the first element in the array that satisfies the condition.
 const firstEven = numbers.find((num) => num % 2 === 0);
-console.log('find: ' + firstEven); // => 2
+console.log('find: ' + firstEven); // the firt element => 2
+
+//findIndex(): Find the first index of the element in the array that satisfies the condition.
+const firstEvenIndex = numbers.findIndex((num) => num % 2 === 0);
+console.log('findIndex: ' + firstEvenIndex); // the first index => 1
 
 //some & every: Checks if some or all elements of an array have opposite conditions.
 const hasEven = numbers.some((num) => num % 2 === 0); // true
 const allEven = numbers.every((num) => num % 2 === 0); // false
+
+//reverse(): Reverses the order of the elements in the array.
+const reversed = numbers.reverse();
+console.log('Reverses: ' + reversed); // => [5, 4, 3, 2, 1]
 
 //sort(): Sort the elements in the array.
 const arrNumbers = [3, 1, 4, 1, 5, 9, 2, 6];
@@ -68,3 +76,16 @@ console.log('firstIndex: ' + firstIndex);
 
 const lastIndex = arrNumbers2.lastIndexOf(1);
 console.log('lastIndex: ' + lastIndex);
+
+//flat(): "Flat" the array by removing one level of nested arrays.
+const nestedArray = [1, [2, 3], [4, [5]]];
+const flattened = nestedArray.flat();
+console.log('flat:' + flattened); // => [1, 2, 3, 4, [5]]
+
+//but if there is 'infinity' it will remove all levels of subarray
+const flattenedWithInfinity = nestedArray.flat(Infinity);
+console.log('flat with infinity:' + flattened); // => [1, 2, 3, 4, 5]
+
+//flatMap(): Combines the "map" and "flat" steps to apply a function to each element of the array and then flatten the result.
+const doubledAndFlattened = flattened.flatMap((num) => [num * 2]);
+console.log('flatMap: ' + doubledAndFlattened); // => [ 2, 4, 6, 8, 10 ]
