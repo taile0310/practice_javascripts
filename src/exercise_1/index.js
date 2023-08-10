@@ -8,8 +8,8 @@ document.getElementById('hometown').innerHTML = 'Da Nang';
 
 // change li with color red
 const items = document.getElementsByTagName('li');
-for (let i = 0; i < items.length; i++) {
-  items[i].className = 'list__item';
+for (let index = 0; index < items.length; index++) {
+  items[index].className = 'list__item';
 }
 
 //add image to list
