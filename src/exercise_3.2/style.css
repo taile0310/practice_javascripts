@@ -1,0 +1,53 @@
+.display-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscribe-form {
+  border: 1px solid black;
+  padding: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.data-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.data-input > div {
+  display: grid;
+  grid-template-columns: 130px auto;
+  grid-template-areas:
+    "label error"
+    "label input";
+  row-gap: 5px;
+}
+
+.data-input > div > label {
+  grid-area: label;
+  align-self: end;
+}
+
+.data-input > div > input {
+  grid-area: input;
+}
+
+.data-input > div > p {
+  grid-area: error;
+  font-size: 14px;
+}
+
+.error-message {
+  color: red;
+}
+
+.subscribe-form > h1,
+.subscribe-form > p,
+.data-input > div > p {
+  margin: 0;
+}
