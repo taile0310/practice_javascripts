@@ -1,0 +1,17 @@
+.table-pomodori {
+  margin: auto;
+}
+
+.thead-pomodori > tr > th {
+  min-width: 150px;
+}
+
+.js-task-table-body > tr > td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.js-add-task {
+  margin-top: 30px;
+  margin-left: 450px;
+}
