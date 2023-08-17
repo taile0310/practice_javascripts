@@ -1,0 +1,19 @@
+.table-shop,
+.table-shop > thead > tr > th,
+.table-shop > tbody > tr > td,
+.table-cart,
+.table-cart > thead > tr > th,
+.table-cart > tbody > tr > td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.checkout-product {
+  display: flex;
+  gap: 20px;
+}
+.checkout-product > button {
+  font-size: 12px;
+  height: 30px;
+  align-self: center;
+}
