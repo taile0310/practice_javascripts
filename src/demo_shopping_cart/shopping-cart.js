@@ -65,7 +65,7 @@ class ShoppingCart {
       removeButton.addEventListener('click', () => {
         this.removeItem(item.product.id);
         this.displayCart();
-        addToCart();
+        updateProductList();
       });
 
       removeButtonCell.appendChild(removeButton);
@@ -83,10 +83,19 @@ class ShoppingCart {
   }
 }
 
+const products = [
+  new Product(1, 'Laptop', 1000, 5),
+  new Product(2, 'IPhone', 500, 10),
+  new Product(3, 'Headphones', 100, 20),
+  new Product(4, 'Samsung', 400, 15),
+  new Product(5, 'Xiaomi', 300, 35),
+  new Product(6, 'Oppo', 200, 50),
+  new Product(7, 'Vivo', 200, 55),
+];
+
 const loadProducts = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const products = [new Product(1, 'Laptop', 1000, 5), new Product(2, 'IPhone', 500, 10), new Product(3, 'Headphones', 100, 20), new Product(4, 'Samsung', 400, 15)];
       resolve(products);
     }, 1000);
   });
@@ -95,53 +104,73 @@ const loadProducts = () => {
 const cart = new ShoppingCart();
 
 // Add to cart event
-const addToCart = async () => {
+const addToCart = () => {
   const productList = document.getElementById('product-list');
   productList.innerHTML = '';
 
-  const loadedProducts = await loadProducts();
+  loadProducts().then((loadedProducts) => {
+    loadedProducts.forEach((product) => {
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-product-id', product.id);
 
-  loadedProducts.forEach((product) => {
-    const tr = document.createElement('tr');
+      const productNameCell = document.createElement('td');
+      productNameCell.textContent = product.name;
 
-    const productNameCell = document.createElement('td');
-    productNameCell.textContent = product.name;
+      const priceCell = document.createElement('td');
+      priceCell.textContent = `$${product.price}`;
 
-    const priceCell = document.createElement('td');
-    priceCell.textContent = `$${product.price}`;
+      const quantityCell = document.createElement('td');
+      const quantitySpan = document.createElement('span');
+      quantitySpan.textContent = product.quantity;
+      quantitySpan.classList.add('product-quantity');
+      quantityCell.appendChild(quantitySpan);
 
-    const quantityCell = document.createElement('td');
-    quantityCell.textContent = product.quantity;
+      const addButtonCell = document.createElement('td');
+      const addButton = document.createElement('button');
+      addButton.textContent = 'Add to Cart';
+      addButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (product.quantity > 0) {
+          const updatedCartItems = cart.addItem(product);
+          product.quantity--;
+          updateProductList();
+          cart.displayCart();
+          console.log(`Updated Cart Items:`, updatedCartItems);
+        } else {
+          alert('The number of products in stock is out of stock');
+        }
+      });
 
-    const addButtonCell = document.createElement('td');
-    const addButton = document.createElement('button');
-    addButton.textContent = 'Add to Cart';
-    addButton.addEventListener('click', () => {
-      if (product.quantity > 0) {
-        const updatedCartItems = cart.addItem(product);
-        product.quantity--;
-        cart.displayCart();
-        addToCart();
-        console.log(`Updated Cart Items:`, updatedCartItems);
-      } else {
-        alert('The number of products in stock is out of stock');
-      }
+      addButtonCell.appendChild(addButton);
+
+      tr.appendChild(productNameCell);
+      tr.appendChild(priceCell);
+      tr.appendChild(quantityCell);
+      tr.appendChild(addButtonCell);
+
+      productList.appendChild(tr);
     });
-
-    addButtonCell.appendChild(addButton);
-
-    tr.appendChild(productNameCell);
-    tr.appendChild(priceCell);
-    tr.appendChild(quantityCell);
-    tr.appendChild(addButtonCell);
-
-    productList.appendChild(tr);
   });
 };
-
 addToCart();
 
-// Add event checkout button
+// Update the number of products in the list after adding the cart successfully
+const updateProductList = () => {
+  const productList = document.getElementById('product-list');
+  const productRows = productList.getElementsByTagName('tr');
+
+  for (let i = 0; i < productRows.length; i++) {
+    const quantitySpan = productRows[i].querySelector('.product-quantity');
+    const productId = parseInt(productRows[i].getAttribute('data-product-id'));
+
+    const productIndex = products.findIndex((product) => product.id === productId);
+    if (productIndex !== -1) {
+      quantitySpan.textContent = products[productIndex].quantity;
+    }
+  }
+};
+
+// Add event checkout
 const checkout = document.getElementById('checkout');
 checkout.addEventListener('click', () => {
   const successCheckout = document.getElementById('success-checkout');
