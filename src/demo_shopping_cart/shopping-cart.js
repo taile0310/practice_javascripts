@@ -92,6 +92,7 @@ const loadProducts = () => {
   });
 };
 
+const products = [new Product(1, 'Laptop', 1000, 5), new Product(2, 'IPhone', 500, 10), new Product(3, 'Headphones', 100, 20), new Product(4, 'Samsung', 400, 15)];
 const cart = new ShoppingCart();
 
 // Add to cart event
@@ -99,7 +100,7 @@ const addToCart = async () => {
   const productList = document.getElementById('product-list');
   productList.innerHTML = '';
 
-  const loadedProducts = await loadProducts();
+  const loadedProducts = products;
 
   loadedProducts.forEach((product) => {
     const tr = document.createElement('tr');
