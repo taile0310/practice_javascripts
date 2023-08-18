@@ -103,56 +103,61 @@ const loadProducts = () => {
 
 const cart = new ShoppingCart();
 
+loadProducts()
+  .then((loadedProducts) => {
+    addToCart(loadedProducts);
+  })
+  .catch((error) => {
+    console.error('Error loading products:', error);
+  });
+
 // Add to cart event
-const addToCart = () => {
+const addToCart = (listProduct) => {
   const productList = document.getElementById('product-list');
   productList.innerHTML = '';
 
-  loadProducts().then((loadedProducts) => {
-    loadedProducts.forEach((product) => {
-      const tr = document.createElement('tr');
-      tr.setAttribute('data-product-id', product.id);
+  listProduct.forEach((product) => {
+    const tr = document.createElement('tr');
+    tr.setAttribute('data-product-id', product.id);
 
-      const productNameCell = document.createElement('td');
-      productNameCell.textContent = product.name;
+    const productNameCell = document.createElement('td');
+    productNameCell.textContent = product.name;
 
-      const priceCell = document.createElement('td');
-      priceCell.textContent = `$${product.price}`;
+    const priceCell = document.createElement('td');
+    priceCell.textContent = `$${product.price}`;
 
-      const quantityCell = document.createElement('td');
-      const quantitySpan = document.createElement('span');
-      quantitySpan.textContent = product.quantity;
-      quantitySpan.classList.add('product-quantity');
-      quantityCell.appendChild(quantitySpan);
+    const quantityCell = document.createElement('td');
+    const quantitySpan = document.createElement('span');
+    quantitySpan.textContent = product.quantity;
+    quantitySpan.classList.add('product-quantity');
+    quantityCell.appendChild(quantitySpan);
 
-      const addButtonCell = document.createElement('td');
-      const addButton = document.createElement('button');
-      addButton.textContent = 'Add to Cart';
-      addButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        if (product.quantity > 0) {
-          const updatedCartItems = cart.addItem(product);
-          product.quantity--;
-          updateProductList();
-          cart.displayCart();
-          console.log(`Updated Cart Items:`, updatedCartItems);
-        } else {
-          alert('The number of products in stock is out of stock');
-        }
-      });
-
-      addButtonCell.appendChild(addButton);
-
-      tr.appendChild(productNameCell);
-      tr.appendChild(priceCell);
-      tr.appendChild(quantityCell);
-      tr.appendChild(addButtonCell);
-
-      productList.appendChild(tr);
+    const addButtonCell = document.createElement('td');
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add to Cart';
+    addButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (product.quantity > 0) {
+        const updatedCartItems = cart.addItem(product);
+        product.quantity--;
+        updateProductList();
+        cart.displayCart();
+        console.log(`Updated Cart Items:`, updatedCartItems);
+      } else {
+        alert('The number of products in stock is out of stock');
+      }
     });
+
+    addButtonCell.appendChild(addButton);
+
+    tr.appendChild(productNameCell);
+    tr.appendChild(priceCell);
+    tr.appendChild(quantityCell);
+    tr.appendChild(addButtonCell);
+
+    productList.appendChild(tr);
   });
 };
-addToCart();
 
 // Update the number of products in the list after adding the cart successfully
 const updateProductList = () => {
