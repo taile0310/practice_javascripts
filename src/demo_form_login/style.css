@@ -1,0 +1,20 @@
+.form-login {
+  border: 1px black solid;
+  width: 250px;
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  margin: auto;
+}
+
+.form-login > h1 {
+  text-align: center;
+}
+
+.form-login > input {
+  width: 250px;
+}
+
+.form-login > button {
+  width: 100px;
+}
