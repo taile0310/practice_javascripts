@@ -5,13 +5,6 @@ class LoginModel extends Observable {
     super();
     this.username = '';
     this.password = '';
-    this.users = [
-      { username: 'admin', password: 'admin' },
-      { username: 'admin1', password: 'admin1' },
-      { username: 'admin2', password: 'admin2' },
-      { username: 'admin3', password: 'admin3' },
-      { username: 'admin4', password: 'admin4' },
-    ];
   }
 
   setUsername(username) {
@@ -30,24 +23,6 @@ class LoginModel extends Observable {
 
   getPassword() {
     return this.password;
-  }
-
-  getUsers() {
-    return this.users;
-  }
-
-  authenticateUser(username, password) {
-    const isAuthenticated = this.users.find((user) => user.username === username && user.password === password);
-
-    if (username === '' || password === '') {
-      this.notify('Username or password cannot be empty', false);
-    } else {
-      if (isAuthenticated) {
-        this.notify('Login successful.', true);
-      } else {
-        this.notify('Invalid username or password.', false);
-      }
-    }
   }
 }
 
