@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Sign Up Page</title>
+  </head>
+  <body class="display-form">
+    <form class="subscribe-form">
+      <h1>Sign Up Page</h1>
+      <div class="data-input">
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" />
+          <p class="error-message"></p>
+        </div>
+        <div>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+          <p class="error-message"></p>
+        </div>
+
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <p class="error-message"></p>
+        </div>
+        <div>
+          <label for="confirm">Confirm Password:</label>
+          <input type="password" id="confirm" name="confirm" />
+          <p class="error-message"></p>
+        </div>
+      </div>
+      <div>
+        <button id="sign-up" type="button">Sign Up</button>
+        <button id="reset-form" type="button">Reset</button>
+      </div>
+      <p id="success-data" class="success-data"></p>
+      <a href="javascript:void(0)">Back to index page</a>
+    </form>
+  </body>
+  <script src="index.js"></script>
+</html>
