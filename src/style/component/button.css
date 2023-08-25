@@ -1,0 +1,18 @@
+.btn-primary {
+  padding: 21px 0;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: var(--text-primary-color);
+}
+
+.btn-secondary {
+  padding: 20px 0;
+  flex-shrink: 0;
+  background: var(--secondary-color);
+}
+
+.btn-nav {
+  padding: 41px 47px;
+  flex-shrink: 0;
+  background: var(--primary-color);
+}

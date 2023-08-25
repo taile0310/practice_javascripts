@@ -1,0 +1,49 @@
+.text-h1 {
+  font-size: var(--fs-huge);
+  font-weight: var(--fw-regular);
+}
+
+.text-h2 {
+  font-size: var(--fs-x-huge);
+  font-weight: var(--fw-regular);
+}
+
+.text-h3 {
+  font-size: var(--fs-large);
+  font-weight: var(--fw-regular);
+}
+
+.text-h4 {
+  font-size: var(--fs-x-large);
+  font-weight: var(--fw-regular);
+}
+
+.text-p {
+  font-size: var(--fs-x-medium);
+  font-weight: var(--fw-regular);
+}
+
+.text-x-small {
+  font-size: var(--fs-x-small);
+  font-weight: var(--fw-semibold);
+}
+
+.text-small {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+}
+
+.text-medium {
+  font-size: var(--fs-x-medium);
+  font-weight: var(--fw-semibold);
+}
+
+.text-large {
+  font-size: var(--fs-medium);
+  font-weight: var(--fw-regular);
+}
+
+.text-price {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-regular);
+}
