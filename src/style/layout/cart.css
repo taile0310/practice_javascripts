@@ -53,18 +53,24 @@
 }
 
 .btn-confirm {
-  padding: 20px 82px;
+  padding: 20px 84px;
+  border: 0;
+  min-width: 365px;
 }
 
-.card-input {
-  border: 1px solid var(--primary-color);
-  padding: 20px 109px 20px 20px;
-  line-height: 36px;
-  /* width: 365px; */
+.detail-total {
+  margin-top: 12px;
+  display: flex;
+  gap: 29px;
 }
 
-.card-input::placeholder {
-  font-size: var(--fs-medium);
-  font-weight: var(--fw-extra);
-  font-family: var(--primary-font);
+.detail-total > span {
+  color: var(--secondary-color);
+}
+
+.btn-apply {
+  padding: 20px 42px;
+  border: 0;
+  max-width: 166px;
+  margin-top: 2px;
 }
