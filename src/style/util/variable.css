@@ -8,9 +8,9 @@
 
   /* Font-family */
   --primary-font: 'Mulish';
-  /* End Font-family */
+  --secondary-font: 'BalooBhai';
 
-  /* Font-weight */
+  /* End Font-family */ /* Font-weight */
   --fw-extra: 200;
   --fw-light: 300;
   --fw-regular: 400;

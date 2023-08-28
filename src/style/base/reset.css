@@ -137,3 +137,12 @@ a {
   padding: 0;
   box-sizing: border-box;
 }
+
+a,
+button,
+input,
+select,
+textarea,
+img {
+  cursor: pointer;
+}

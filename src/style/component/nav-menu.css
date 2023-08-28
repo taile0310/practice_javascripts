@@ -3,4 +3,12 @@
   flex-direction: column;
   border-radius: 24px;
   background: var(--secondary-color);
+  width: 134px;
+  gap: 24px;
+  height: 852px;
+}
+
+.nav-item {
+  padding: 41px 47px;
+  max-height: 122px;
 }

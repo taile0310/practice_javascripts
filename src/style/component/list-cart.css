@@ -1,0 +1,7 @@
+.list-cart {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  background-color: var(--primary-color);
+  margin-top: 24px;
+}
