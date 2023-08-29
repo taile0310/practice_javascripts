@@ -25,3 +25,20 @@
 .copyright-text {
   margin-top: 56px;
 }
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .menu-layout {
+    gap: 35px;
+    padding: 68px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .menu-layout {
+    flex-direction: column;
+    gap: 35px;
+    padding: 30px;
+  }
+}

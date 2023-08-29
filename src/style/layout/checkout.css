@@ -4,7 +4,8 @@
 }
 
 .card-checkout {
-  margin-top: 92px;
+  max-width: 433px;
+  width: 100%;
 }
 
 .total-checkout {
@@ -15,4 +16,44 @@
 
 .total-checkout > span {
   color: var(--secondary-color);
+}
+
+.checkout-container {
+  display: flex;
+  margin-top: 24px;
+  gap: 41px;
+}
+
+.btn-checkout {
+  padding: 20px 113px;
+  border: 0;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .total-checkout {
+    margin-top: 0px;
+  }
+
+  .btn-checkout {
+    padding: 20px 106px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .checkout-container {
+    flex-direction: column;
+    margin-top: 24px;
+    gap: 41px;
+  }
+
+  .btn-checkout {
+    padding: 20px 36px;
+  }
+
+  .total-checkout {
+    margin-top: 0;
+    gap: 20px;
+  }
 }

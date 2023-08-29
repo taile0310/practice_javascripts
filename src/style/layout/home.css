@@ -20,7 +20,6 @@
   text-align: center;
   align-items: center;
   gap: 49px;
-  min-width: 830px;
 }
 
 .home-content > p {
@@ -39,4 +38,33 @@
   width: 20px;
   height: 40px;
   border: 0;
+}
+
+/* Tablet & Mobile  */
+@media screen and (max-width: 1024px) {
+  .btn-prev,
+  .btn-next {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .home-layout {
+    padding: 40px;
+  }
+
+  .span-bold {
+    font-size: 55px;
+    font-weight: 800;
+    line-height: 65px;
+  }
+
+  .home-content {
+    gap: 25px;
+  }
+
+  .nav-button {
+    flex-direction: column;
+  }
 }
