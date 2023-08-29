@@ -8,14 +8,6 @@
   margin-left: 14px;
 }
 
-.list-cart {
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-  padding: 37px 23px 43px 20px;
-  margin-bottom: 208px;
-}
-
 .cart-item {
   display: flex;
   gap: 36px;
@@ -44,7 +36,7 @@
   margin: auto;
 }
 
-.card-groud {
+.card-group {
   margin-top: 92px;
 }
 

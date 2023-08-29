@@ -1,0 +1,29 @@
+.component-layout {
+  display: flex;
+  gap: 41px;
+  padding: 43px 103px 30px 57px;
+}
+
+.detail-layout {
+  margin-left: 14px;
+}
+
+.dash {
+  background-color: var(--primary-color);
+  width: 306px;
+  height: 5px;
+  margin: 0;
+  border: 0;
+}
+
+.dash-menu {
+  width: 306px;
+}
+
+.dash-cart {
+  width: 134px;
+}
+
+.dash-checkout {
+  width: 290px;
+}
