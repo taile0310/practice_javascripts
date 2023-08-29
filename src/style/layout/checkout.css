@@ -1,5 +1,6 @@
 .textarea-size {
   resize: none;
+  line-height: 23px;
 }
 
 .card-checkout {
