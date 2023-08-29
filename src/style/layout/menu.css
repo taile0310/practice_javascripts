@@ -9,27 +9,11 @@
   flex-direction: column;
 }
 
-.list-menu {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 36px;
-  column-gap: 65px;
-  margin-top: 43px;
-}
-
 .menu-item {
   display: flex;
   flex-direction: column;
   text-align: center;
   gap: 8px;
-}
-
-.dash {
-  background-color: var(--primary-color);
-  width: 306px;
-  height: 5px;
-  margin: 0;
-  border: 0;
 }
 
 .btn-item {

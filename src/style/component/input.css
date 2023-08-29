@@ -1,0 +1,11 @@
+.card-input {
+  border: 1px solid var(--primary-color);
+  padding: 20px 109px 20px 20px;
+  line-height: 38px;
+}
+
+.card-input::placeholder {
+  font-size: var(--fs-medium);
+  font-weight: var(--fw-extra);
+  font-family: var(--primary-font);
+}

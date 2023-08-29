@@ -1,0 +1,17 @@
+.textarea-size {
+  resize: none;
+}
+
+.card-checkout {
+  margin-top: 92px;
+}
+
+.total-checkout {
+  margin-top: 12px;
+  display: flex;
+  gap: 29px;
+}
+
+.total-checkout > span {
+  color: var(--secondary-color);
+}
