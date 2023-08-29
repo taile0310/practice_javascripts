@@ -3,7 +3,23 @@
   flex-direction: column;
   gap: 56px;
   background-color: var(--primary-color);
-  margin-top: 24px;
   padding: 37px 23px 43px 20px;
-  margin-bottom: 208px;
+  grid-area: list-cart;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .list-cart {
+    gap: 28px;
+    padding: 15px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .list-cart {
+    align-items: center;
+    gap: 36px;
+    padding: 40px;
+  }
 }

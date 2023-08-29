@@ -1,11 +1,7 @@
 .component-layout {
   display: flex;
-  gap: 41px;
+  gap: 55px;
   padding: 43px 103px 30px 57px;
-}
-
-.detail-layout {
-  margin-left: 14px;
 }
 
 .dash {
@@ -26,4 +22,58 @@
 
 .dash-checkout {
   width: 290px;
+}
+
+.copyright {
+  margin-top: 208px;
+}
+
+/* Tablet & Mobile  */
+@media screen and (max-width: 1024px) {
+  .dash-menu {
+    width: 243px;
+  }
+
+  .copyright {
+    margin-top: 104px;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .component-layout {
+    gap: 35px;
+    padding: 68px;
+  }
+
+  .detail-layout {
+    margin-left: 0px;
+  }
+
+  .dash-checkout {
+    width: 218px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .component-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 41px;
+    padding: 40px;
+  }
+
+  .detail-layout {
+    margin-left: 0px;
+    grid-area: layout;
+  }
+
+  .dash-checkout {
+    width: 218px;
+  }
+
+  .dash-cart {
+    width: 107px;
+  }
 }

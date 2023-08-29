@@ -5,3 +5,17 @@
   column-gap: 65px;
   margin-top: 43px;
 }
+
+/* Tablet & Mobile  */
+@media screen and (max-width: 1024px) {
+  .list-menu {
+    row-gap: 18px;
+    margin-top: 25px;
+  }
+}
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .list-menu {
+    justify-content: center;
+  }
+}

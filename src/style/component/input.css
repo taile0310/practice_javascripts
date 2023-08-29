@@ -9,3 +9,15 @@
   font-weight: var(--fw-extra);
   font-family: var(--primary-font);
 }
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .card-input {
+    padding: 10px;
+    line-height: 20px;
+  }
+
+  .card-input::placeholder {
+    font-size: var(--fs-small);
+  }
+}

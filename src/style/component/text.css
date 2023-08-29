@@ -80,3 +80,61 @@
 .font-family {
   font-family: var(--primary-font);
 }
+
+/* Tablet & Mobile  */
+@media screen and (max-width: 1024px) {
+  .text-h1 {
+    font-size: var(--fs-x-large);
+    line-height: 34px;
+    font-weight: var(--fw-light);
+  }
+
+  .text-h3 {
+    font-size: var(--fs-x-large);
+    line-height: 50px;
+  }
+
+  .text-h4 {
+    font-size: var(--fs-x-medium);
+    line-height: 40px;
+  }
+
+  .text-medium {
+    font-size: var(--fs-x-small);
+    line-height: 24px;
+  }
+
+  .text-large {
+    font-size: var(--fs-small);
+    line-height: 30px;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .text-price {
+    font-size: var(--fs-x-small);
+    line-height: 20px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .text-h2 {
+    font-size: var(--fs-x-large);
+  }
+
+  .text-p {
+    font-size: var(--fs-smallm);
+    line-height: 24px;
+  }
+
+  .text-small {
+    font-size: var(--fs-x-small);
+  }
+
+  .primary-text-btn {
+    font-size: var(--fs-small);
+    line-height: 25px;
+  }
+}
