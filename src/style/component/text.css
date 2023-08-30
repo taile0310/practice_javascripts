@@ -67,6 +67,7 @@
   font-size: var(--fs-medium);
   font-weight: var(--fw-light);
   line-height: 38px;
+  color: var(--secondary-color);
 }
 
 .secondary-text-btn {
