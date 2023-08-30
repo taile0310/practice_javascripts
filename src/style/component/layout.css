@@ -56,12 +56,12 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .component-layout {
     display: flex;
     flex-direction: column;
     gap: 41px;
-    padding: 40px;
+    padding: 35px;
   }
 
   .detail-layout {

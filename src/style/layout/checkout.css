@@ -1,5 +1,5 @@
 .textarea-size {
-  resize: none;
+  resize: vertical;
   line-height: 23px;
 }
 
@@ -41,7 +41,7 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .checkout-container {
     flex-direction: column;
     margin-top: 24px;

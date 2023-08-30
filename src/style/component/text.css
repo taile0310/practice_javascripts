@@ -119,14 +119,15 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .text-h2 {
     font-size: var(--fs-x-large);
+    line-height: 50px;
   }
 
   .text-p {
-    font-size: var(--fs-smallm);
-    line-height: 24px;
+    font-size: var(--fs-small);
+    line-height: 38px;
   }
 
   .text-small {

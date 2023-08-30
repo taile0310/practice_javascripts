@@ -24,7 +24,7 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .nav-menu {
     gap: 0px;
     margin: auto;

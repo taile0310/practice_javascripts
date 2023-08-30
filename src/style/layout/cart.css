@@ -101,7 +101,7 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .grid-container {
     display: flex;
     flex-direction: column;

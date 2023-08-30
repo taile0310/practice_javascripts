@@ -49,9 +49,9 @@
 }
 
 /* Mobile */
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .home-layout {
-    padding: 40px;
+    padding: 100px 50px;
   }
 
   .span-bold {
@@ -61,10 +61,11 @@
   }
 
   .home-content {
-    gap: 25px;
+    gap: 40px;
   }
 
   .nav-button {
     flex-direction: column;
+    gap: 30px;
   }
 }
