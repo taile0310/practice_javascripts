@@ -1,68 +1,73 @@
-class Product {
-  constructor(id, name, describe, quantity, price, image) {
-    this.id = id;
-    this.name = name;
-    this.describe = describe;
-    this.quantity = quantity;
-    this.price = price;
-    this.image = image;
+import Observable from './Observable';
 
-    this.product = [
+import item1 from '../../asset/image/item1.jpg';
+import item2 from '../../asset/image/item2.jpg';
+import item3 from '../../asset/image/item3.jpg';
+import item4 from '../../asset/image/item4.jpg';
+import item5 from '../../asset/image/item5.jpg';
+import item6 from '../../asset/image/item6.jpg';
+import item7 from '../../asset/image/item7.jpg';
+import item8 from '../../asset/image/item8.jpg';
+
+class Product extends Observable {
+  constructor() {
+    super();
+    this.products = [
       {
         name: 'Smashed Avo',
         describe: 'Smashed delicious',
         quantity: 10,
         totalPrice: 25.0,
-        image: '/asset/image/item1.jpg',
+        image: item1,
       },
       {
         name: 'Yin & Yang',
         describe: 'Yin & Yang delicious',
         quantity: 10,
         totalPrice: 15.0,
-        image: '/asset/image/item2.jpg',
+        image: item2,
       },
       {
         name: 'Pancakes',
         describe: 'Pancakes delicious',
         quantity: 10,
         totalPrice: 20.0,
-        image: '/asset/image/item3.jpg',
+        image: item3,
       },
       {
         name: 'Huevos Rancheros',
         describe: 'Huevos Rancheros delicious',
         quantity: 10,
         totalPrice: 10.0,
-        image: '/asset/image/item4.jpg',
+        image: item4,
       },
       {
         name: 'Rancheros (Tofu)',
         describe: 'Smashed delicious',
         quantity: 10,
         totalPrice: 30.0,
-        image: '/asset/image/item5.jpg',
+        image: item5,
       },
       {
         name: 'Breakkie Roll',
         describe: 'Breakkie Roll delicious',
         quantity: 10,
         totalPrice: 18.0,
-        image: '/asset/image/item6.jpg',
+        image: item6,
       },
       {
         name: 'Breakkie Roll',
         describe: 'Breakkie Roll delicious',
         quantity: 10,
         totalPrice: 25.0,
-        image: '/asset/image/item7.jpg',
+        image: item7,
       },
       {
         name: 'Burrito',
         describe: 'Burrito delicious',
         quantity: 10,
         totalPrice: 15.0,
-        image: '/asset/image/item8.jpg',
+        image: item8,
       },
     ];
   }
@@ -70,16 +75,22 @@ class Product {
   getName() {
     return this.name;
   }
+
   getDescribe() {
     return this.describe;
   }
+
   getQuantity() {
     return this.quantity;
   }
+
   getPrice() {
     return this.price;
   }
+
   getImage() {
     return this.image;
   }
 }
+
+export { Product };
