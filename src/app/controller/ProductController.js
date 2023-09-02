@@ -5,7 +5,7 @@ class ProductController {
   getName() {
     return this.model.getName();
   }
-  getImage() {
+  getImageProduct() {
     return this.model.getName();
   }
 }

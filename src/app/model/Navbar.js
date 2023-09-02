@@ -1,11 +1,11 @@
 import Observable from './Observable';
 
-import brand from '../../asset/image/logo.svg';
+import logo from '../../asset/image/logo.svg';
 import home from '../../asset/image/home.svg';
 import menu from '../../asset/image/menu.svg';
 import cart from '../../asset/image/cart.svg';
 import place from '../../asset/image/place.svg';
-import exit from '../../asset/image/exit.svg';
+import back from '../../asset/image/exit.svg';
 
 class Navbar extends Observable {
   constructor() {
@@ -15,49 +15,52 @@ class Navbar extends Observable {
       {
         id: 1,
         name: 'Logo',
-        image: brand,
+        imageNavbar: logo,
         path: '../../index.html',
       },
       {
         id: 2,
         name: 'Home',
-        image: home,
+        imageNavbar: home,
         path: '../../index.html',
       },
       {
         id: 3,
         name: 'Menu',
-        image: menu,
+        imageNavbar: menu,
         path: './menu.html',
       },
       {
         id: 4,
         name: 'Cart',
-        image: cart,
+        imageNavbar: cart,
         path: './cart.html',
       },
       {
         id: 5,
         name: 'Place',
-        image: place,
+        imageNavbar: place,
         path: './checkout.html',
       },
       {
         id: 6,
         name: 'Back',
-        image: exit,
+        imageNavbar: back,
         path: '../../index.html',
       },
     ];
   }
+
   getName() {
     return this.name;
   }
+
   getPath() {
     return this.path;
   }
-  getImage() {
-    return this.image;
+
+  getImageNavbar() {
+    return this.imageNavbar;
   }
 }
 

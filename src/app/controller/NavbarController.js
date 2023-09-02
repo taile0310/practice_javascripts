@@ -1,13 +1,13 @@
 class NavbarController {
-  constructor(model) {
-    this.model = model;
+  constructor(modelNavbar) {
+    this.modelNavbar = modelNavbar;
   }
 
   getPath() {
     return this.model.getPath();
   }
-  getImage() {
-    return this.model.getImage();
+  getImageNavbar() {
+    return this.model.getImageNavbar();
   }
   getName() {
     return this.model.getName();

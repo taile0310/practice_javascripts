@@ -1,6 +1,7 @@
 import { NavbarController } from '../controller/NavbarController';
 import { Navbar } from '../model/Navbar';
 import { NavbarView } from '../view/NavbarView';
+import { renderProductTemplate } from './ProductPage';
 
 function renderNavbarTemplate() {
   const navbarModel = new Navbar();
@@ -9,5 +10,5 @@ function renderNavbarTemplate() {
 
   navbarView.renderNavbar(navbarModel.navbars);
 }
-
 renderNavbarTemplate();
+renderProductTemplate();

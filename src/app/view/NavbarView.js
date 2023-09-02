@@ -17,7 +17,7 @@ class NavbarView extends Observer {
 
       const elememntImage = document.createElement('img');
       elememntImage.className = 'icon';
-      elememntImage.src = link.image;
+      elememntImage.src = link.imageNavbar;
       elememntImage.alt = link.name;
 
       elementA.appendChild(elememntImage);
@@ -25,4 +25,5 @@ class NavbarView extends Observer {
     });
   }
 }
+
 export { NavbarView };
