@@ -1,7 +1,7 @@
-@import 'base/index.css';
+@import './base/index.css';
 
-@import 'util/index.css';
+@import './util/index.css';
 
-@import 'component/index.css';
+@import './component/index.css';
 
-@import 'layout/index.css';
+@import './layout/index.css';

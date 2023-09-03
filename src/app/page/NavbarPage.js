@@ -2,6 +2,7 @@ import { NavbarController } from '../controller/NavbarController';
 import { Navbar } from '../model/Navbar';
 import { NavbarView } from '../view/NavbarView';
 import { renderProductTemplate } from './ProductPage';
+import { renderCartTemplate } from './CartPage';
 
 function renderNavbarTemplate() {
   const navbarModel = new Navbar();
@@ -12,3 +13,4 @@ function renderNavbarTemplate() {
 }
 renderNavbarTemplate();
 renderProductTemplate();
+renderCartTemplate();
