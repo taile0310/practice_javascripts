@@ -2,11 +2,9 @@ class ProductController {
   constructor(model) {
     this.model = model;
   }
-  getName() {
-    return this.model.getName();
-  }
-  getImageProduct() {
-    return this.model.getName();
+
+  getListProductsController() {
+    return this.model.getListProducts();
   }
 }
 

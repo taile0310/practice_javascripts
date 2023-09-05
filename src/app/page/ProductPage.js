@@ -7,5 +7,5 @@ export function renderProductTemplate() {
   const productController = new ProductController(productModel);
   const productView = new ProductView(productController);
 
-  productView.renderProduct(productModel.products);
+  productView.renderProduct(productModel.getListProducts());
 }

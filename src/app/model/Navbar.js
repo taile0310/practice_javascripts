@@ -16,37 +16,37 @@ class Navbar extends Observable {
         id: 1,
         name: 'Logo',
         imageNavbar: logo,
-        path: '../../index.html',
+        path: '/home',
       },
       {
         id: 2,
         name: 'Home',
         imageNavbar: home,
-        path: '../../index.html',
+        path: '/home',
       },
       {
         id: 3,
         name: 'Menu',
         imageNavbar: menu,
-        path: './menu.html',
+        path: '/menu',
       },
       {
         id: 4,
         name: 'Cart',
         imageNavbar: cart,
-        path: './cart.html',
+        path: '/cart',
       },
       {
         id: 5,
         name: 'Place',
         imageNavbar: place,
-        path: './checkout.html',
+        path: '/checkout',
       },
       {
         id: 6,
         name: 'Back',
         imageNavbar: back,
-        path: '../../index.html',
+        path: '/home',
       },
     ];
   }

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/index.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="component-layout font-family">
+      <nav class="nav-menu"></nav>
+
+      <!-- Menu -->
+      <section class="menu">
+        <h3 class="text-h3">Sushi food</h3>
+        <hr class="dash dash-menu" />
+        <ul class="list-menu"></ul>
+        <button class="btn-secondary btn-item secondary-text-btn font-family btn-load-more">
+          Load more
+        </button>
+        <div class="copyright-text">
+          <span class="text-x-small">Copyright &copy 2021 Sushi Restaurant</span>
+        </div>
+      </section>
+      <!-- End Menu -->
+
+      <!-- Cart -->
+      <section class="carts">
+        <h3 class="text-h3">Cart</h3>
+        <hr class="dash dash-cart" />
+        <div class="grid-container">
+          <!-- List cart -->
+          <ul class="list-cart"></ul>
+
+          <!-- Group cart -->
+          <div class="card-group"></div>
+        </div>
+        <div class="copyright">
+          <span class="text-x-small">Copyright &copy 2021 Sushi Restaurant</span>
+        </div>
+      </section>
+      <!-- End Cart -->
+    </div>
+  </body>
+  <script src="./app/page/NavbarPage.js" type="module"></script>
+  <script src="./app/storages/Data.js" type="module"></script>
+</html>

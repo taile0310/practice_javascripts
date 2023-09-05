@@ -68,6 +68,10 @@
   gap: 43px;
 }
 
+.carts {
+  display: none;
+}
+
 /* Tablet & Mobile */
 @media screen and (max-width: 1024px) {
   .detail-dish {
