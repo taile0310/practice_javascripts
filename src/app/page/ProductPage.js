@@ -6,6 +6,4 @@ export function renderProductTemplate() {
   const productModel = new Product();
   const productController = new ProductController(productModel);
   const productView = new ProductView(productController);
-
-  productView.renderProduct(productModel.getListProducts());
 }

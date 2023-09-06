@@ -3,7 +3,7 @@ class ProductController {
     this.model = model;
   }
 
-  getListProductsController() {
+  getListProducts() {
     return this.model.getListProducts();
   }
 }

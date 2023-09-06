@@ -7,7 +7,7 @@ import item6 from '../../asset/image/item6.jpg';
 import item7 from '../../asset/image/item7.jpg';
 import item8 from '../../asset/image/item8.jpg';
 
-class Data {
+export class Data {
   constructor() {
     this.products = [
       {
@@ -80,7 +80,7 @@ class Data {
         describe: 'Breakkie Roll delicious',
         quantity: 10,
         totalPrice: 18.0,
-        image: item6,
+        image: item1,
       },
       {
         id: 10,
@@ -88,7 +88,7 @@ class Data {
         describe: 'Breakkie Roll delicious',
         quantity: 10,
         totalPrice: 25.0,
-        image: item7,
+        image: item2,
       },
       {
         id: 11,
@@ -96,7 +96,87 @@ class Data {
         describe: 'Burrito delicious',
         quantity: 10,
         totalPrice: 15.0,
+        image: item3,
+      },
+      {
+        id: 12,
+        name: 'Yin & Yang',
+        describe: 'Yin & Yang delicious',
+        quantity: 10,
+        totalPrice: 15.0,
+        image: item2,
+      },
+      {
+        id: 13,
+        name: 'Pancakes',
+        describe: 'Pancakes delicious',
+        quantity: 10,
+        totalPrice: 20.0,
+        image: item3,
+      },
+      {
+        id: 14,
+        name: 'Huevos Rancheros',
+        describe: 'Huevos Rancheros delicious',
+        quantity: 10,
+        totalPrice: 10.0,
+        image: item4,
+      },
+      {
+        id: 15,
+        name: 'Rancheros (Tofu)',
+        describe: 'Smashed delicious',
+        quantity: 10,
+        totalPrice: 30.0,
+        image: item5,
+      },
+      {
+        id: 16,
+        name: 'Breakkie Roll',
+        describe: 'Breakkie Roll delicious',
+        quantity: 10,
+        totalPrice: 18.0,
+        image: item6,
+      },
+      {
+        id: 17,
+        name: 'Breakkie Roll',
+        describe: 'Breakkie Roll delicious',
+        quantity: 10,
+        totalPrice: 25.0,
+        image: item7,
+      },
+      {
+        id: 18,
+        name: 'Burrito',
+        describe: 'Burrito delicious',
+        quantity: 10,
+        totalPrice: 15.0,
         image: item8,
+      },
+      {
+        id: 19,
+        name: 'Breakkie Roll',
+        describe: 'Breakkie Roll delicious',
+        quantity: 10,
+        totalPrice: 18.0,
+        image: item1,
+      },
+      {
+        id: 20,
+        name: 'Breakkie Roll',
+        describe: 'Breakkie Roll delicious',
+        quantity: 10,
+        totalPrice: 25.0,
+        image: item2,
+      },
+      {
+        id: 21,
+        name: 'Burrito',
+        describe: 'Burrito delicious',
+        quantity: 10,
+        totalPrice: 15.0,
+        image: item3,
       },
     ];
   }
@@ -112,6 +192,3 @@ class Data {
 const productData = new Data();
 
 productData.saveListProductsToStorage();
-
-const listProducts = productData.getListProducts();
-console.log(listProducts);

@@ -13,6 +13,8 @@
 
 .active-link {
   background-color: var(--primary-color);
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Tablet */
