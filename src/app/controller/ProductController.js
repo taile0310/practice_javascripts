@@ -3,6 +3,10 @@ class ProductController {
     this.model = model;
   }
 
+  loadMore() {
+    return this.model.loadMore();
+  }
+
   getListProducts() {
     return this.model.getListProducts();
   }

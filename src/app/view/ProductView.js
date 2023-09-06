@@ -38,6 +38,17 @@ class ProductView extends Observer {
       menuContainer.appendChild(elementLi);
     });
   }
+  updateStatusButton() {
+    const btnLoadMore = document.querySelector('.btn-load-more');
+    if (this.controller.model.checkProductExists) {
+      btnLoadMore.disabled = true;
+    }
+  }
+
+  update(data) {
+    this.renderProduct(data);
+    this.updateStatusButton();
+  }
 }
 
 export { ProductView };
