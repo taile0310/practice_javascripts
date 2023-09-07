@@ -184,6 +184,10 @@ export class Data {
   saveListProductsToStorage() {
     localStorage.setItem('products', JSON.stringify(this.products));
   }
+
+  getListProducts() {
+    return this.products;
+  }
 }
 const productData = new Data();
 

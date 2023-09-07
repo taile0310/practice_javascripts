@@ -15,28 +15,28 @@ class ProductView extends Observer {
     this.renderProduct(this.controller.getListProducts());
     this.updateStatusButton();
 
-    const addToCartButtons = document.querySelectorAll('.img-rectangle');
-    addToCartButtons.forEach((elementImage) => {
-      elementImage.addEventListener('click', () => {
-        const productId = elementImage.dataset.productId;
-        const productName = elementImage.dataset.productName;
-        const productImage = elementImage.dataset.productImage;
-        const productPrice = elementImage.dataset.productPrice;
+    const menuContainer = document.querySelector('.list-menu');
+
+    menuContainer.addEventListener('click', (event) => {
+      const target = event.target;
+
+      if (target.classList.contains('img-rectangle')) {
+        const productId = target.dataset.productId;
+        const productName = target.dataset.productName;
+        const productImage = target.dataset.productImage;
+        const productPrice = target.dataset.productPrice;
         const quantity = 1;
 
-        if (elementImage.classList.contains('added-to-cart')) {
-          elementImage.classList.remove('added-to-cart');
-
+        if (target.classList.contains('added-to-cart')) {
+          target.classList.remove('added-to-cart');
           this.controller.removeFromCart(productId);
-
           alert('Removed from cart');
         } else {
-          elementImage.classList.add('added-to-cart');
+          target.classList.add('added-to-cart');
           this.controller.addToCart(productId, productName, productImage, productPrice, quantity);
-
           alert('Added to cart');
         }
-      });
+      }
     });
   }
 

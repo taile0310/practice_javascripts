@@ -27,21 +27,15 @@ export class Cart extends Observable {
   }
 
   addToCart(productId, productName, productImage, productPrice, quantity) {
-    const existingCartItemIndex = this.productsInCart.findIndex((item) => item.id === productId);
+    const newItem = {
+      id: productId,
+      quantity: quantity,
+      name: productName,
+      image: productImage,
+      totalPrice: parseInt(productPrice, 10),
+    };
 
-    if (existingCartItemIndex !== -1) {
-      this.productsInCart[existingCartItemIndex].quantity += quantity;
-    } else {
-      const newItem = {
-        id: productId,
-        quantity: quantity,
-        name: productName,
-        image: productImage,
-        totalPrice: parseInt(productPrice, 10),
-      };
-
-      this.productsInCart.push(newItem);
-    }
+    this.productsInCart.push(newItem);
 
     localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
 
