@@ -1,37 +1,60 @@
 import Observable from './Observable';
 
-import item1 from '../../asset/image/item1.jpg';
-import item2 from '../../asset/image/item2.jpg';
-
 export class Cart extends Observable {
   constructor() {
     super();
-    this.carts = [
-      {
-        name: 'Smashed Avo',
-        quantity: 1,
-        totalPrice: 25.0,
-        image: item1,
-      },
-      {
-        name: 'Yin & Yang',
-        quantity: 1,
-        totalPrice: 15.0,
-        image: item2,
-      },
-    ];
+    this.productsInCart = this.loadInitialData();
+    console.log(this.productsInCart);
   }
 
-  getName() {
-    return this.name;
+  loadInitialData() {
+    return JSON.parse(localStorage.getItem('productsInCart')) || [];
   }
-  getQuantity() {
-    return this.quantity;
+
+  getListProduct() {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    return products;
   }
-  getTotalPrice() {
-    return this.totalPrice;
+
+  getProductById(productId) {
+    debugger;
+    const products = this.getListProduct();
+    return products.find((product) => product.id === productId);
   }
-  getImage() {
-    return this.image;
+
+  getProductsInCart() {
+    return this.productsInCart;
+  }
+
+  addToCart(productId, productName, productImage, productPrice, quantity) {
+    debugger;
+    const existingCartItemIndex = this.productsInCart.findIndex((item) => item.id === productId);
+
+    if (existingCartItemIndex !== -1) {
+      this.productsInCart[existingCartItemIndex].quantity += quantity;
+    } else {
+      const newItem = {
+        id: productId,
+        quantity: quantity,
+        name: productName,
+        image: productImage,
+        totalPrice: parseInt(productPrice, 10),
+      };
+
+      this.productsInCart.push(newItem);
+    }
+
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
+
+    this.notify(this.productsInCart);
+  }
+
+  removeFromCart(productId) {
+    const cartItemIndex = this.productsInCart.findIndex((item) => item.id === productId);
+    if (cartItemIndex !== -1) {
+      this.productsInCart.splice(cartItemIndex, 1);
+      localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
+      this.notify(this.productsInCart);
+    }
   }
 }

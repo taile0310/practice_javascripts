@@ -14,6 +14,30 @@ class ProductView extends Observer {
 
     this.renderProduct(this.controller.getListProducts());
     this.updateStatusButton();
+
+    const addToCartButtons = document.querySelectorAll('.img-rectangle');
+    addToCartButtons.forEach((elementImage) => {
+      elementImage.addEventListener('click', () => {
+        const productId = elementImage.dataset.productId;
+        const productName = elementImage.dataset.productName;
+        const productImage = elementImage.dataset.productImage;
+        const productPrice = elementImage.dataset.productPrice;
+        const quantity = 1;
+
+        if (elementImage.classList.contains('added-to-cart')) {
+          elementImage.classList.remove('added-to-cart');
+
+          this.controller.removeFromCart(productId);
+
+          alert('Removed from cart');
+        } else {
+          elementImage.classList.add('added-to-cart');
+          this.controller.addToCart(productId, productName, productImage, productPrice, quantity);
+
+          alert('Added to cart');
+        }
+      });
+    });
   }
 
   renderProduct(products) {
@@ -28,6 +52,10 @@ class ProductView extends Observer {
       elememntImage.className = 'img-rectangle';
       elememntImage.src = product.image;
       elememntImage.alt = product.name;
+      elememntImage.setAttribute('data-product-id', product.id);
+      elememntImage.setAttribute('data-product-name', product.name);
+      elememntImage.setAttribute('data-product-image', product.image);
+      elememntImage.setAttribute('data-product-price', product.totalPrice);
 
       const elementSpan = document.createElement('span');
       elementSpan.className = 'text-small';
