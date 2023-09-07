@@ -6,20 +6,19 @@ class CartView extends Observer {
     super();
     this.controllerCart = controllerCart;
     this.controllerCart.modelCart.addObserver(this);
-
     this.cartContainer = document.querySelector('.list-cart');
 
     this.renderCart(this.controllerCart.getProductsInCart());
+    this.increaseAndDecreaseQuantity();
   }
 
   renderCart(productsInCart) {
-    const cartContainer = document.querySelector('.list-cart');
-    cartContainer.innerHTML = '';
+    this.cartContainer.innerHTML = '';
 
     if (productsInCart.length === 0) {
       cartContainer.innerHTML = '<p class="notify-empty">Your cart is empty.</p>';
     } else {
-      productsInCart.forEach((cartItem) => {
+      productsInCart.forEach((cartItem, index) => {
         const elementLi = document.createElement('li');
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `
@@ -30,9 +29,9 @@ class CartView extends Observer {
                 <span class="text-price">$${cartItem.totalPrice}.00</span>
               </div>
               <div class="quantity-input">
-                <button class="btn-transparent text-price btn-minus">-</button>
+                <button class="btn-transparent text-price btn-minus" data-id="${index}">-</button>
                 <span class="quantity text-price">${cartItem.quantity}</span>
-                <button class="btn-transparent text-price btn-plus">+</button>
+                <button class="btn-transparent text-price btn-plus" data-id="${index}">+</button>
               </div>
               <button class="btn-transparent btn-remove">
                 <img class="icon-remove" src="${removeIcon}" alt="Remove icon" />
@@ -66,14 +65,28 @@ class CartView extends Observer {
       (total, productsInCart) => total + productsInCart.totalPrice,
       0,
     );
-    console.log(totalValue);
-
     const subtotalElement = document.querySelector('.subtotal');
     subtotalElement.textContent = `$${totalValue}.00`;
   }
+
+  increaseAndDecreaseQuantity() {
+    this.btnMinus = document.querySelectorAll('.btn-minus');
+    this.btnPlus = document.querySelectorAll('.btn-plus');
+
+    this.cartContainer.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('btn-minus')) {
+        const index = target.getAttribute('data-id');
+        this.controllerCart.decreaseQuantity(index);
+      } else if (target.classList.contains('btn-plus')) {
+        const index = target.getAttribute('data-id');
+        this.controllerCart.increaseQuantity(index);
+      }
+    });
+  }
+
   update(data) {
     this.renderCart(data);
-    this.updateStatusButton();
   }
 }
 
