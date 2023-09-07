@@ -56,4 +56,20 @@ export class Cart extends Observable {
       this.notify(this.productsInCart);
     }
   }
+
+  increaseQuantity(index) {
+    debugger;
+    this.productsInCart[index].quantity += 1;
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
+
+    this.notify(this.productsInCart);
+  }
+
+  decreaseQuantity(index) {
+    debugger;
+    this.productsInCart[index].quantity -= 1;
+    localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
+
+    this.notify(this.productsInCart);
+  }
 }
