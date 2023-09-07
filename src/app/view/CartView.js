@@ -6,10 +6,12 @@ class CartView extends Observer {
     super();
     this.controllerCart = controllerCart;
     this.controllerCart.modelCart.addObserver(this);
+
     this.cartContainer = document.querySelector('.list-cart');
 
     this.renderCart(this.controllerCart.getProductsInCart());
     this.increaseAndDecreaseQuantity();
+    this.removeProductFromCart();
   }
 
   renderCart(productsInCart) {
@@ -29,12 +31,12 @@ class CartView extends Observer {
                 <span class="text-price">$${cartItem.totalPrice}.00</span>
               </div>
               <div class="quantity-input">
-                <button class="btn-transparent text-price btn-minus" data-id="${index}">-</button>
+                <button class="btn-transparent text-price btn-minus" index="${index}">-</button>
                 <span class="quantity text-price">${cartItem.quantity}</span>
-                <button class="btn-transparent text-price btn-plus" data-id="${index}">+</button>
+                <button class="btn-transparent text-price btn-plus" index="${index}">+</button>
               </div>
-              <button class="btn-transparent btn-remove">
-                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" />
+              <button class="btn-transparent btn-remove"  index="${index}">
+                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" data-id="${cartItem.id}" />
               </button>
             </div>
           `;
@@ -69,6 +71,7 @@ class CartView extends Observer {
     subtotalElement.textContent = `$${totalValue}.00`;
   }
 
+  //  Method increase or decreasr quantity
   increaseAndDecreaseQuantity() {
     this.btnMinus = document.querySelectorAll('.btn-minus');
     this.btnPlus = document.querySelectorAll('.btn-plus');
@@ -76,11 +79,22 @@ class CartView extends Observer {
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('btn-minus')) {
-        const index = target.getAttribute('data-id');
+        const index = target.getAttribute('index');
         this.controllerCart.decreaseQuantity(index);
       } else if (target.classList.contains('btn-plus')) {
-        const index = target.getAttribute('data-id');
+        const index = target.getAttribute('index');
         this.controllerCart.increaseQuantity(index);
+      }
+    });
+  }
+
+  // Method remove product from cart
+  removeProductFromCart() {
+    this.cartContainer.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('icon-remove')) {
+        const productId = target.getAttribute('data-id');
+        this.controllerCart.removeProductFromCart(productId);
       }
     });
   }

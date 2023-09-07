@@ -43,7 +43,7 @@ export class Cart extends Observable {
   }
 
   removeFromCart(productId) {
-    const cartItemIndex = this.productsInCart.findIndex((item) => item.id === productId);
+    const cartItemIndex = this.productsInCart.find((item) => item.id === productId);
     if (cartItemIndex !== -1) {
       this.productsInCart.splice(cartItemIndex, 1);
       localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
