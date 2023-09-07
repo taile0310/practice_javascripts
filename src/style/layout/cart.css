@@ -10,6 +10,10 @@
   gap: 17px;
 }
 
+.detail-dish > :nth-child(1) {
+  width: 201px;
+}
+
 .quantity-input {
   display: flex;
   gap: 12px;

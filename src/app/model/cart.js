@@ -27,7 +27,6 @@ export class Cart extends Observable {
   }
 
   addToCart(productId, productName, productImage, productPrice, quantity) {
-    debugger;
     const existingCartItemIndex = this.productsInCart.findIndex((item) => item.id === productId);
 
     if (existingCartItemIndex !== -1) {

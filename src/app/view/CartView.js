@@ -20,7 +20,6 @@ class CartView extends Observer {
       cartContainer.innerHTML = '<p class="notify-empty">Your cart is empty.</p>';
     } else {
       productsInCart.forEach((cartItem) => {
-        debugger;
         const elementLi = document.createElement('li');
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `

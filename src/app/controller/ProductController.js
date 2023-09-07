@@ -15,7 +15,6 @@ class ProductController {
   }
 
   addToCart(productId, productName, productImage, productPrice, quantity) {
-    debugger;
     this.modelCart.addToCart(productId, productName, productImage, productPrice, quantity);
   }
 

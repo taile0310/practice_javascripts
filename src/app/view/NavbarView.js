@@ -10,12 +10,9 @@ class NavbarView extends Observer {
 
   updateActiveLink() {
     const navLinks = document.querySelectorAll('.nav-item');
-    console.log(navLinks);
     const currentURL = window.location.href;
-    console.log(currentURL);
     navLinks.forEach((navLink) => {
       const href = navLink.getAttribute('href');
-      console.log('href: ' + href);
       if ('http://localhost:1234/menu.html#' + href === currentURL) {
         navLink.classList.add('active-link');
       } else {
