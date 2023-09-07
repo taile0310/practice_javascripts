@@ -72,6 +72,12 @@
   display: none;
 }
 
+.notify-empty {
+  padding: 54px;
+  margin: 0 auto;
+  font-size: 54px;
+}
+
 /* Tablet & Mobile */
 @media screen and (max-width: 1024px) {
   .detail-dish {

@@ -1,6 +1,9 @@
+import { Cart } from '../model/Cart';
+
 class ProductController {
   constructor(model) {
     this.model = model;
+    this.modelCart = new Cart();
   }
 
   loadMore() {
@@ -9,6 +12,15 @@ class ProductController {
 
   getListProducts() {
     return this.model.getListProducts();
+  }
+
+  addToCart(productId, productName, productImage, productPrice, quantity) {
+    debugger;
+    this.modelCart.addToCart(productId, productName, productImage, productPrice, quantity);
+  }
+
+  removeFromCart(productId) {
+    this.modelCart.removeFromCart(productId);
   }
 }
 
