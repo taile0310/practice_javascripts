@@ -1,6 +1,7 @@
 import Observer from './Observer';
 import { renderProductTemplate } from '../page/ProductPage';
 import { renderCartTemplate } from '../page/CartPage';
+import { renderCheckoutTemplate } from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
   constructor(controller) {
@@ -40,10 +41,13 @@ class NavbarView extends Observer {
 
         const menu = document.querySelector('.menu');
         const carts = document.querySelector('.carts');
+        const checkout = document.querySelector('.checkout-cart');
 
         if (link.path === '/menu') {
           renderProductTemplate();
           carts.style.display = 'none';
+          checkout.style.display = 'none';
+
           menu.style.display = 'flex';
           window.location.hash = '/menu';
           this.updateActiveLink();
@@ -52,8 +56,20 @@ class NavbarView extends Observer {
         if (link.path === '/cart') {
           renderCartTemplate();
           menu.style.display = 'none';
+          checkout.style.display = 'none';
+
           carts.style.display = 'block';
           window.location.hash = '/cart';
+          this.updateActiveLink();
+        }
+
+        if (link.path === '/checkout') {
+          renderCheckoutTemplate();
+          menu.style.display = 'none';
+          carts.style.display = 'none';
+
+          checkout.style.display = 'block';
+          window.location.hash = '/checkout';
           this.updateActiveLink();
         }
       });
