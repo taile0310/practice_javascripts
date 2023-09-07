@@ -15,4 +15,8 @@ export class CartController {
     debugger;
     return this.modelCart.increaseQuantity(index);
   }
+
+  removeProductFromCart(productId) {
+    this.modelCart.removeFromCart(productId);
+  }
 }
