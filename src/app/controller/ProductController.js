@@ -1,4 +1,4 @@
-import { Cart } from '../model/Cart';
+import { Cart } from '../model/cart';
 
 class ProductController {
   constructor(model) {
@@ -6,19 +6,29 @@ class ProductController {
     this.modelCart = new Cart();
   }
 
-  loadMore() {
-    return this.model.loadMore();
+  loadMoreData() {
+    debugger;
+    return this.model.loadMoreData();
   }
 
   getListProducts() {
     return this.model.getListProducts();
   }
 
-  addToCart(productId, productName, productImage, productPrice, quantity) {
-    this.modelCart.addToCart(productId, productName, productImage, productPrice, quantity);
+  addToCart(productId, productName, productImage, productPrice, productIsSelected, quantity) {
+    debugger;
+    this.modelCart.addToCart(
+      productId,
+      productName,
+      productImage,
+      productPrice,
+      productIsSelected,
+      quantity,
+    );
   }
 
   removeFromCart(productId) {
+    debugger;
     this.modelCart.removeFromCart(productId);
   }
 }

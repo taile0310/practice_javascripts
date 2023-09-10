@@ -17,6 +17,7 @@ export class Data {
         quantity: 10,
         totalPrice: 25.0,
         image: item1,
+        isSelected: false,
       },
       {
         id: 2,
@@ -25,6 +26,7 @@ export class Data {
         quantity: 10,
         totalPrice: 15.0,
         image: item2,
+        isSelected: false,
       },
       {
         id: 3,
@@ -33,6 +35,7 @@ export class Data {
         quantity: 10,
         totalPrice: 20.0,
         image: item3,
+        isSelected: false,
       },
       {
         id: 4,
@@ -41,6 +44,7 @@ export class Data {
         quantity: 10,
         totalPrice: 10.0,
         image: item4,
+        isSelected: false,
       },
       {
         id: 5,
@@ -49,6 +53,7 @@ export class Data {
         quantity: 10,
         totalPrice: 30.0,
         image: item5,
+        isSelected: false,
       },
       {
         id: 6,
@@ -57,6 +62,7 @@ export class Data {
         quantity: 10,
         totalPrice: 18.0,
         image: item6,
+        isSelected: false,
       },
       {
         id: 7,
@@ -65,6 +71,7 @@ export class Data {
         quantity: 10,
         totalPrice: 25.0,
         image: item7,
+        isSelected: false,
       },
       {
         id: 8,
@@ -73,6 +80,7 @@ export class Data {
         quantity: 10,
         totalPrice: 15.0,
         image: item8,
+        isSelected: false,
       },
       {
         id: 9,
@@ -81,6 +89,7 @@ export class Data {
         quantity: 10,
         totalPrice: 18.0,
         image: item1,
+        isSelected: false,
       },
       {
         id: 10,
@@ -89,6 +98,7 @@ export class Data {
         quantity: 10,
         totalPrice: 25.0,
         image: item2,
+        isSelected: false,
       },
       {
         id: 11,
@@ -105,6 +115,7 @@ export class Data {
         quantity: 10,
         totalPrice: 15.0,
         image: item2,
+        isSelected: false,
       },
       {
         id: 13,
@@ -113,6 +124,7 @@ export class Data {
         quantity: 10,
         totalPrice: 20.0,
         image: item3,
+        isSelected: false,
       },
       {
         id: 14,
@@ -121,6 +133,7 @@ export class Data {
         quantity: 10,
         totalPrice: 10.0,
         image: item4,
+        isSelected: false,
       },
       {
         id: 15,
@@ -129,6 +142,7 @@ export class Data {
         quantity: 10,
         totalPrice: 30.0,
         image: item5,
+        isSelected: false,
       },
       {
         id: 16,
@@ -137,6 +151,7 @@ export class Data {
         quantity: 10,
         totalPrice: 18.0,
         image: item6,
+        isSelected: false,
       },
       {
         id: 17,
@@ -145,6 +160,7 @@ export class Data {
         quantity: 10,
         totalPrice: 25.0,
         image: item7,
+        isSelected: false,
       },
       {
         id: 18,
@@ -153,6 +169,7 @@ export class Data {
         quantity: 10,
         totalPrice: 15.0,
         image: item8,
+        isSelected: false,
       },
       {
         id: 19,
@@ -161,6 +178,7 @@ export class Data {
         quantity: 10,
         totalPrice: 18.0,
         image: item1,
+        isSelected: false,
       },
       {
         id: 20,
@@ -169,6 +187,7 @@ export class Data {
         quantity: 10,
         totalPrice: 25.0,
         image: item2,
+        isSelected: false,
       },
       {
         id: 21,
@@ -177,6 +196,7 @@ export class Data {
         quantity: 10,
         totalPrice: 15.0,
         image: item3,
+        isSelected: false,
       },
     ];
   }
@@ -186,7 +206,7 @@ export class Data {
   }
 
   getListProducts() {
-    return this.products;
+    return JSON.parse(localStorage.getItem('products')) || [];
   }
 }
 const productData = new Data();

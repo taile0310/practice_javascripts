@@ -6,7 +6,5 @@ export function renderNavbarTemplate() {
   const navbarModel = new Navbar();
   const navbarController = new NavbarController(navbarModel);
   const navbarView = new NavbarView(navbarController);
-
-  navbarView.renderNavbar(navbarModel.navbars);
 }
 renderNavbarTemplate();

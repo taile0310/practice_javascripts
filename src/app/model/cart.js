@@ -4,7 +4,6 @@ export class Cart extends Observable {
   constructor() {
     super();
     this.productsInCart = this.loadInitialData();
-    console.log(this.productsInCart);
   }
 
   loadInitialData() {
@@ -16,51 +15,70 @@ export class Cart extends Observable {
     return products;
   }
 
-  getProductById(productId) {
-    debugger;
-    const products = this.getListProduct();
-    return products.find((product) => product.id === productId);
-  }
-
   getProductsInCart() {
     return this.productsInCart;
   }
 
-  addToCart(productId, productName, productImage, productPrice, quantity) {
+  // Generic function to add and remove products from the cart
+  modifyCart(productId, productName, productImage, productPrice, isSelected, quantity) {
     const newItem = {
       id: productId,
       quantity: quantity,
       name: productName,
       image: productImage,
       totalPrice: parseInt(productPrice, 10),
+      isSelected: isSelected,
     };
 
-    this.productsInCart.push(newItem);
+    // If isSelected status is true then add it to cart
+    if (isSelected) {
+      this.productsInCart.push(newItem);
+    } else {
+      // If the isSelected status is false, remove it from the cart
+      const cartItemIndex = this.productsInCart.findIndex((item) => item.id == productId);
+      if (cartItemIndex !== -1) {
+        this.productsInCart.splice(cartItemIndex, 1);
+      }
+    }
 
     localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
-
     this.notify(this.productsInCart);
+
+    // Update the product's status corresponding to each function
+    const menuProducts = this.getListProduct();
+    const updatedMenuProducts = menuProducts.map((menuProduct) => {
+      if (menuProduct.id === +productId) {
+        return {
+          ...menuProduct,
+          isSelected: isSelected,
+        };
+      }
+      return menuProduct;
+    });
+
+    localStorage.setItem('products', JSON.stringify(updatedMenuProducts));
   }
 
+  // Method to add product to cart
+  addToCart(productId, productName, productImage, productPrice, quantity) {
+    this.modifyCart(productId, productName, productImage, productPrice, true, quantity);
+  }
+
+  // Method to remove product from cart
   removeFromCart(productId) {
-    const cartItemIndex = this.productsInCart.find((item) => item.id === productId);
-    if (cartItemIndex !== -1) {
-      this.productsInCart.splice(cartItemIndex, 1);
-      localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
-      this.notify(this.productsInCart);
-    }
+    this.modifyCart(productId, null, null, null, false, null);
   }
 
+  // Method increases the number of products
   increaseQuantity(index) {
-    debugger;
     this.productsInCart[index].quantity += 1;
     localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
 
     this.notify(this.productsInCart);
   }
 
+  // Method to reduce the number of products
   decreaseQuantity(index) {
-    debugger;
     this.productsInCart[index].quantity -= 1;
     localStorage.setItem('productsInCart', JSON.stringify(this.productsInCart));
 

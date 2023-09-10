@@ -1,5 +1,5 @@
 import { CartController } from '../controller/CartController';
-import { Cart } from '../model/Cart';
+import { Cart } from '../model/cart';
 import { CartView } from '../view/CartView';
 
 export function renderCartTemplate() {

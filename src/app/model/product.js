@@ -5,40 +5,40 @@ class Product extends Observable {
   constructor() {
     super();
     this.products = [];
+
     this.displayedListProduct = 8;
     this.productsNext = 4;
     this.checkProductExists = false;
     this.loadInitialData();
+    this.cartItems = this.getProductsInCart();
   }
 
   loadInitialData() {
-    const storedProducts = JSON.parse(localStorage.getItem('products')) || [];
-    this.products = storedProducts.slice(0, this.displayedListProduct);
+    this.productData = new Data();
+    this.allProducts = this.productData.getListProducts();
+    this.products = this.allProducts.slice(0, this.displayedListProduct);
   }
 
   getListProducts() {
     return this.products;
   }
 
-  loadMore() {
-    this.loadMoreData();
-    this.notify(this.products);
+  getProductsInCart() {
+    return JSON.parse(localStorage.getItem('productsInCart')) || [];
   }
 
   loadMoreData() {
-    const productData = new Data();
-    const allProducts = productData.getListProducts();
     const startIndex = this.products.length;
     const endIndex = startIndex + this.productsNext;
 
-    // Check if the product is still there
-    if (startIndex >= allProducts.length) {
+    if (startIndex >= this.allProducts.length) {
       this.checkProductExists = true;
+      return;
     }
 
-    const loadProducts = allProducts.slice(startIndex, endIndex);
+    const loadProducts = this.allProducts.slice(startIndex, endIndex);
 
-    this.products = [...this.products, ...loadProducts];
+    this.products.push(...loadProducts);
 
     this.notify(this.products);
   }
