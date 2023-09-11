@@ -6,6 +6,7 @@ import item5 from '../../asset/image/item5.jpg';
 import item6 from '../../asset/image/item6.jpg';
 import item7 from '../../asset/image/item7.jpg';
 import item8 from '../../asset/image/item8.jpg';
+import { LocalStoreageService } from '../service/LocalStoreageService';
 
 export class Data {
   constructor() {
@@ -199,16 +200,9 @@ export class Data {
         isSelected: false,
       },
     ];
-  }
-
-  saveListProductsToStorage() {
-    localStorage.setItem('products', JSON.stringify(this.products));
-  }
-
-  getListProducts() {
-    return JSON.parse(localStorage.getItem('products')) || [];
+    this.localStorageService = new LocalStoreageService();
   }
 }
-const productData = new Data();
 
-productData.saveListProductsToStorage();
+const productData = new Data();
+productData.localStorageService.saveListProductsToStorage(productData.products);

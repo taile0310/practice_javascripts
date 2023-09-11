@@ -1,44 +1,26 @@
 import Observable from './Observable';
-import { Data } from '../storages/Data';
+import ProductService from '../service/ProductService';
 
 class Product extends Observable {
   constructor() {
     super();
     this.products = [];
-
-    this.displayedListProduct = 8;
-    this.productsNext = 4;
     this.checkProductExists = false;
-    this.loadInitialData();
-    this.cartItems = this.getProductsInCart();
-  }
-
-  loadInitialData() {
-    this.productData = new Data();
-    this.allProducts = this.productData.getListProducts();
-    this.products = this.allProducts.slice(0, this.displayedListProduct);
+    this.productService = new ProductService();
   }
 
   getListProducts() {
+    this.products = this.productService.loadInitialData();
     return this.products;
   }
 
-  getProductsInCart() {
-    return JSON.parse(localStorage.getItem('productsInCart')) || [];
-  }
-
   loadMoreData() {
-    const startIndex = this.products.length;
-    const endIndex = startIndex + this.productsNext;
+    const { products: updatedProducts, checkProductExists } = this.productService.loadMoreProducts(
+      this.products,
+    );
 
-    if (startIndex >= this.allProducts.length) {
-      this.checkProductExists = true;
-      return;
-    }
-
-    const loadProducts = this.allProducts.slice(startIndex, endIndex);
-
-    this.products.push(...loadProducts);
+    this.products = updatedProducts;
+    this.checkProductExists = checkProductExists;
 
     this.notify(this.products);
   }

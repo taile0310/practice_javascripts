@@ -6,9 +6,15 @@ class ProductController {
     this.modelCart = new Cart();
   }
 
+  // loadMoreData() {
+  //   debugger;
+  //   return this.model.loadMoreData();
+  // }
+
   loadMoreData() {
     debugger;
-    return this.model.loadMoreData();
+    // Gọi đến model để thực hiện tải thêm dữ liệu
+    this.model.loadMoreData();
   }
 
   getListProducts() {
