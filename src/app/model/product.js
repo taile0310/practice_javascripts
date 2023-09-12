@@ -1,27 +1,21 @@
 import Observable from './Observable';
-import ProductService from '../service/ProductService';
 
 class Product extends Observable {
   constructor() {
     super();
     this.products = [];
-    this.checkProductExists = false;
-    this.productService = new ProductService();
   }
 
-  getListProducts() {
-    this.products = this.productService.loadInitialData();
-    return this.products;
+  initProducts(products) {
+    this.products = products;
+    console.log(this.products);
+    this.notify(products);
   }
 
-  loadMoreData() {
-    const { products: updatedProducts, checkProductExists } = this.productService.loadMoreProducts(
-      this.products,
-    );
-
-    this.products = updatedProducts;
-    this.checkProductExists = checkProductExists;
-
+  addMoreProducts(newItems) {
+    debugger;
+    this.products = this.products.concat(newItems);
+    console.log(this.products);
     this.notify(this.products);
   }
 }

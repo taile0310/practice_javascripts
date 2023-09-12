@@ -1,41 +1,49 @@
 import { Cart } from '../model/cart';
+import { CartService } from '../service/CartService';
+import ProductService from '../service/ProductService';
 
 class ProductController {
   constructor(model) {
     this.model = model;
     this.modelCart = new Cart();
+    this.productService = new ProductService();
+    this.cartService = new CartService(this.model);
   }
 
-  // loadMoreData() {
-  //   debugger;
-  //   return this.model.loadMoreData();
-  // }
+  loadInitialData() {
+    debugger;
+    const products = this.productService.loadInitialData();
+
+    this.model.initProducts(products);
+  }
 
   loadMoreData() {
     debugger;
-    // Gọi đến model để thực hiện tải thêm dữ liệu
-    this.model.loadMoreData();
+    const newItems = this.productService.loadMoreData();
+    this.model.addMoreProducts(newItems);
   }
 
-  getListProducts() {
-    return this.model.getListProducts();
-  }
-
-  addToCart(productId, productName, productImage, productPrice, productIsSelected, quantity) {
+  addToCart(productId, productName, productImage, productPrice, quantity, productIsSelected) {
     debugger;
-    this.modelCart.addToCart(
+    const updatedProductsInCart = this.cartService.addToCart(
       productId,
       productName,
       productImage,
       productPrice,
-      productIsSelected,
       quantity,
+      productIsSelected,
     );
+
+    // Update model with new data
+    this.modelCart.setProductsInCart(updatedProductsInCart);
+    this.model.initProducts(updatedProductsInCart);
   }
 
   removeFromCart(productId) {
-    debugger;
-    this.modelCart.removeFromCart(productId);
+    const updatedProductsInCart = this.cartService.removeFromCart(productId);
+
+    // Update model with new data
+    this.modelCart.setProductsInCart(updatedProductsInCart);
   }
 }
 

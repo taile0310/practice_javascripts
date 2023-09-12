@@ -1,5 +1,4 @@
 import { Data } from '../storages/Data';
-import { LocalStoreageService } from './LocalStoreageService';
 
 class ProductService {
   constructor() {
@@ -13,24 +12,14 @@ class ProductService {
     return this.allProducts.slice(0, this.displayedListProduct);
   }
 
-  loadMoreProducts(currentListProducts) {
-    const startIndex = currentListProducts.length;
+  loadMoreData() {
+    debugger;
+    const startIndex = this.displayedListProduct;
     const endIndex = startIndex + this.productsNext;
+    const newItems = this.allProducts.slice(startIndex, endIndex);
+    this.displayedListProduct = endIndex;
 
-    if (startIndex >= this.allProducts.length) {
-      return {
-        products: currentListProducts,
-        checkProductExists: true,
-      };
-    }
-
-    const loadProducts = this.allProducts.slice(startIndex, endIndex);
-    const updatedProducts = [...currentListProducts, ...loadProducts];
-
-    return {
-      products: updatedProducts,
-      checkProductExists: false,
-    };
+    return newItems;
   }
 }
 

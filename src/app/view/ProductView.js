@@ -14,16 +14,19 @@ class ProductView extends Observer {
 
     this.menuContainer = document.querySelector('.list-menu');
 
-    this.renderProduct(this.controller.getListProducts());
+    debugger;
+
+    this.controller.loadInitialData();
     this.updateStatusButton();
     this.addToCart();
   }
 
+  // menu
   renderProduct(products) {
-    const menuContainer = document.querySelector('.list-menu');
-    menuContainer.innerHTML = '';
+    debugger;
+    this.menuContainer.innerHTML = '';
 
-    products.forEach((product, index) => {
+    products.forEach((product) => {
       const elementLi = document.createElement('li');
       elementLi.className = 'menu-item';
 
@@ -37,7 +40,6 @@ class ProductView extends Observer {
       elememntImage.setAttribute('data-product-image', product.image);
       elememntImage.setAttribute('data-product-price', product.totalPrice);
       elememntImage.setAttribute('data-product-isSelected', product.isSelected);
-      elememntImage.setAttribute('data-product-index', index);
 
       const elementSpan = document.createElement('span');
       elementSpan.className = 'text-small';
@@ -51,7 +53,7 @@ class ProductView extends Observer {
         elememntImage.classList.add('added-to-cart');
       }
 
-      menuContainer.appendChild(elementLi);
+      this.menuContainer.appendChild(elementLi);
     });
   }
 
@@ -64,9 +66,9 @@ class ProductView extends Observer {
         const productName = target.dataset.productName;
         const productImage = target.dataset.productImage;
         const productPrice = target.dataset.productPrice;
-        const productIsSelected = target.dataset.productIsSelected;
-
         const quantity = 1;
+
+        const productIsSelected = target.dataset.productIsSelected;
 
         if (target.classList.contains('added-to-cart')) {
           debugger;
@@ -80,8 +82,8 @@ class ProductView extends Observer {
             productName,
             productImage,
             productPrice,
-            productIsSelected,
             quantity,
+            productIsSelected,
           );
           alert('Added to cart');
         }
@@ -98,7 +100,6 @@ class ProductView extends Observer {
 
   update(data) {
     this.renderProduct(data);
-    this.updateStatusButton();
   }
 }
 

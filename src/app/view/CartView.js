@@ -9,12 +9,13 @@ class CartView extends Observer {
 
     this.cartContainer = document.querySelector('.list-cart');
 
-    this.renderCart(this.controllerCart.getProductsInCart());
+    this.controllerCart.getProductsInCart();
     this.increaseAndDecreaseQuantity();
     this.removeProductFromCart();
   }
 
   renderCart(productsInCart) {
+    debugger;
     this.cartContainer.innerHTML = '';
 
     if (productsInCart.length === 0) {
@@ -90,6 +91,7 @@ class CartView extends Observer {
 
   // Method remove product from cart
   removeProductFromCart() {
+    debugger;
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('icon-remove')) {
@@ -97,6 +99,14 @@ class CartView extends Observer {
         this.controllerCart.removeProductFromCart(productId);
       }
     });
+
+    // Trong CartView.js
+    // this.cartContainer.addEventListener('click', (event) => {
+    //   if (event.target.classList.contains('icon-remove')) {
+    //     const index = event.target.getAttribute('index');
+    //     this.controllerCart.removeFromCart(index);
+    //   }
+    // });
   }
 
   update(data) {
