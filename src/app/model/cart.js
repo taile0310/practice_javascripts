@@ -16,4 +16,23 @@ export class Cart extends Observable {
     this.productsInCart = productsInCart;
     this.notify(this.productsInCart);
   }
+
+  isAvailable(productId) {
+    return this.productsInCart.includes(productId);
+  }
+
+  removeProduct(productId) {
+    this.productsInCart = this.productsInCart.filter(product => product.id !== productId);
+    this.notify(this.productsInCart);
+    return this.productsInCart;
+  }
+
+  addToCart(productId) {
+    this.productsInCart.push({
+      productId: productId,
+      quantity: 1
+    })
+    this.notify(this.productsInCart);
+    return this.productsInCart;
+  }
 }
