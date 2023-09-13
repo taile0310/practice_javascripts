@@ -33,6 +33,12 @@ class ProductView extends Observer {
       const elememntImage = document.createElement('img');
       elememntImage.className = 'img-rectangle';
 
+      const productId = product.id;
+      const isAvaiableInCart = this.controller.checkProductInCart(productId);
+      if (isAvaiableInCart) {
+        elememntImage.classList.add('added-to-cart');
+      }
+
       elememntImage.src = product.image;
       elememntImage.alt = product.name;
       elememntImage.setAttribute('data-product-id', product.id);
@@ -50,44 +56,9 @@ class ProductView extends Observer {
 
       if (product.isSelected === true) {
         console.log('Selected', product.isSelected);
-        elememntImage.classList.add('added-to-cart');
       }
 
       this.menuContainer.appendChild(elementLi);
-    });
-  }
-
-  addToCart() {
-    this.menuContainer.addEventListener('click', (event) => {
-      debugger;
-      const target = event.target;
-      if (target.classList.contains('img-rectangle')) {
-        const productId = target.dataset.productId;
-        const productName = target.dataset.productName;
-        const productImage = target.dataset.productImage;
-        const productPrice = target.dataset.productPrice;
-        const quantity = 1;
-
-        const productIsSelected = target.dataset.productIsSelected;
-
-        if (target.classList.contains('added-to-cart')) {
-          debugger;
-          target.classList.remove('added-to-cart');
-          this.controller.removeFromCart(productId);
-          alert('Removed from cart');
-        } else {
-          target.classList.add('added-to-cart');
-          this.controller.addToCart(
-            productId,
-            productName,
-            productImage,
-            productPrice,
-            quantity,
-            productIsSelected,
-          );
-          alert('Added to cart');
-        }
-      }
     });
   }
 

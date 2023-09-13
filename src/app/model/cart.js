@@ -10,10 +10,4 @@ export class Cart extends Observable {
     this.productsInCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     this.notify(this.productsInCart);
   }
-
-  setProductsInCart(productsInCart) {
-    debugger;
-    this.productsInCart = productsInCart;
-    this.notify(this.productsInCart);
-  }
 }

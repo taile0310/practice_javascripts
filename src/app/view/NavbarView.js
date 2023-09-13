@@ -45,7 +45,6 @@ class NavbarView extends Observer {
         const checkout = document.querySelector('.checkout-cart');
 
         if (link.path === '/menu') {
-          debugger;
           renderProductTemplate;
           carts.style.display = 'none';
           checkout.style.display = 'none';

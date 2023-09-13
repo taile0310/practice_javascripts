@@ -32,9 +32,9 @@ class CartView extends Observer {
                 <span class="text-price">$${cartItem.totalPrice}.00</span>
               </div>
               <div class="quantity-input">
-                <button class="btn-transparent text-price btn-minus" index="${index}">-</button>
+                <button class="btn-transparent text-price btn-minus" data-id="${cartItem.id}" >-</button>
                 <span class="quantity text-price">${cartItem.quantity}</span>
-                <button class="btn-transparent text-price btn-plus" index="${index}">+</button>
+                <button class="btn-transparent text-price btn-plus" data-id="${cartItem.id}" >+</button>
               </div>
               <button class="btn-transparent btn-remove"  index="${index}">
                 <img class="icon-remove" src="${removeIcon}" alt="Remove icon" data-id="${cartItem.id}" />
@@ -80,11 +80,11 @@ class CartView extends Observer {
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('btn-minus')) {
-        const index = target.getAttribute('index');
-        this.controllerCart.decreaseQuantity(index);
+        const productId = target.getAttribute('data-id');
+        this.controllerCart.decreaseQuantity(productId);
       } else if (target.classList.contains('btn-plus')) {
-        const index = target.getAttribute('index');
-        this.controllerCart.increaseQuantity(index);
+        const productId = target.getAttribute('data-id');
+        this.controllerCart.increaseQuantity(productId);
       }
     });
   }
@@ -94,19 +94,12 @@ class CartView extends Observer {
     debugger;
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
+
       if (target.classList.contains('icon-remove')) {
         const productId = target.getAttribute('data-id');
         this.controllerCart.removeProductFromCart(productId);
       }
     });
-
-    // Trong CartView.js
-    // this.cartContainer.addEventListener('click', (event) => {
-    //   if (event.target.classList.contains('icon-remove')) {
-    //     const index = event.target.getAttribute('index');
-    //     this.controllerCart.removeFromCart(index);
-    //   }
-    // });
   }
 
   update(data) {

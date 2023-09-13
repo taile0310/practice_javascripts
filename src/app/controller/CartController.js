@@ -1,10 +1,11 @@
+import { Product } from '../model/Product';
 import { CartService } from '../service/CartService';
 
 export class CartController {
   constructor(modelCart) {
     this.modelCart = modelCart;
-
     this.cartService = new CartService();
+    this.modelProduct = new Product();
   }
 
   getProductsInCart() {
@@ -13,18 +14,18 @@ export class CartController {
 
   decreaseQuantity(index) {
     debugger;
-    const decreaseQuantity = this.cartService.decreaseQuantity(index);
     return this.modelCart.setProductsInCart(decreaseQuantity);
   }
 
-  increaseQuantity(index) {
+  increaseQuantity(productId) {
     debugger;
-    const increaseQuantity = this.cartService.increaseQuantity(index);
-    return this.modelCart.setProductsInCart(increaseQuantity);
+    const latestCart = this.modelCart.increaseQuantity(productId);
+    this.cartService.save(latestCart);
   }
 
   removeProductFromCart(productId) {
     debugger;
-    this.modelCart.initProductsInCart(this.cartService.removeFromCart(productId));
+    const latestCart = this.modelCart.removeProduct(productId);
+    this.cartService.save(latestCart);
   }
 }

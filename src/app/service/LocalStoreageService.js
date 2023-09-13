@@ -6,7 +6,7 @@ class LocalStoreageService {
   getListProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];
   }
-
+  x;
   getListProductsInCart() {
     return JSON.parse(localStorage.getItem('productsInCart')) || [];
   }

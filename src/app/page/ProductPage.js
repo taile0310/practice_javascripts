@@ -11,3 +11,9 @@ class renderProductTemplate {
 }
 
 export default new renderProductTemplate();
+
+// export function renderProductTemplate() {
+//   const productModel = new Product();
+//   const productController = new ProductController(productModel);
+//   const productView = new ProductView(productController);
+// }
