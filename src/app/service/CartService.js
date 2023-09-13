@@ -13,4 +13,7 @@ export class CartService {
   loadInitialDataInCart() {
     return this.productsInCart;
   }
+  save(productsInCart) {
+    localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
+  }
 }
