@@ -62,6 +62,34 @@ class ProductView extends Observer {
     });
   }
 
+  // Method to add products to cart
+  addToCart() {
+    this.menuContainer.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('img-rectangle')) {
+        // Get input values
+        const productId = target.dataset.productId;
+        const productName = target.dataset.productName;
+        const productImage = target.dataset.productImage;
+        const productPrice = target.dataset.productPrice;
+
+        const isAddedToCart = this.controller.checkProductInCart(productId);
+        // If the product does not exist in the cart, can add it
+        if (!isAddedToCart) {
+          this.controller.addToCart(productId, productName, productImage, productPrice);
+          target.classList.add('added-to-cart');
+          alert('Added to cart');
+        }
+        // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
+        else {
+          this.controller.removeOutCart(productId);
+          target.classList.remove('added-to-cart');
+          alert('Removed from cart');
+        }
+      }
+    });
+  }
+
   updateStatusButton() {
     const btnLoadMore = document.querySelector('.btn-load-more');
     if (this.controller.model.checkProductExists) {
