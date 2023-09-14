@@ -8,6 +8,7 @@ export class CheckoutView extends Observer {
     this.renderCheckout();
   }
 
+  // Display the payment order interface
   renderCheckout() {
     const formCheckout = document.querySelector('.form-checkout');
     formCheckout.innerHTML = `

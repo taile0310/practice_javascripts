@@ -6,6 +6,7 @@ class DiscountService {
     this.allDiscount = this.discountData.localStorageService.getListDiscounts();
   }
 
+  // Method retrieves a list of discount codes
   getListDiscounts() {
     return this.allDiscount;
   }
