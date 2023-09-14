@@ -54,4 +54,32 @@ export class Cart extends Observable {
     this.notify(this.productsInCart);
     return this.productsInCart;
   }
+
+  // Method increases the number of products
+  increaseQuantity(productId) {
+    debugger;
+    this.productsInCart.find((product) => {
+      if (product.id === +productId) {
+        product.quantity += 1;
+      }
+    });
+    this.notify(this.productsInCart);
+    return this.productsInCart;
+  }
+
+  // Method decreases the number of products
+  decreaseQuantity(productId) {
+    debugger;
+    const product = this.productsInCart.find((product) => product.id === +productId);
+
+    if (product) {
+      if (product.quantity > 1) {
+        product.quantity -= 1;
+      } else {
+        alert('The quantity cannot be less than 1');
+      }
+    }
+    this.notify(this.productsInCart);
+    return this.productsInCart;
+  }
 }
