@@ -10,8 +10,10 @@ class CartView extends Observer {
     this.cartContainer = document.querySelector('.list-cart');
 
     this.controllerCart.getProductsInCart();
+    this.controllerCart.getListDiscounts();
     this.increaseAndDecreaseQuantity();
     this.removeProductFromCart();
+    this.getValueInput();
   }
 
   renderCart(productsInCart) {
@@ -59,17 +61,51 @@ class CartView extends Observer {
             </section>
             <section class="card-secondary">
               <h4 class="text-h4">Promo Code</h4>
-              <input class="card-input" type="text" placeholder="enter promo code" />
+              <input class="card-input promo-code" type="text" placeholder="enter promo code" />
+              <div id="message"></div>
               <button class="btn-secondary text-large font-family btn-apply">Apply</button>
             </section>
     `;
+  }
 
-    const totalValue = productsInCart.reduce(
+  /**
+   * Calculates and updates the total value of products in the cart and displays it on the subtotal element.
+   * @param {Array} productsInCart - An array of products in the cart.
+   */
+  calculateTotalValue(productsInCart) {
+    this.totalValue = productsInCart.reduce(
       (total, productsInCart) => total + productsInCart.totalPrice,
       0,
     );
     const subtotalElement = document.querySelector('.subtotal');
-    subtotalElement.textContent = `$${totalValue}.00`;
+    subtotalElement.textContent = `$${this.totalValue}.00`;
+  }
+
+  // Method get value in input
+  getValueInput() {
+    const promoCodeInput = document.querySelector('.promo-code');
+    const btnApply = document.querySelector('.btn-apply');
+    this.messageDiv = document.getElementById('message');
+
+    btnApply.addEventListener('click', () => {
+      const promoCode = promoCodeInput.value;
+      // Check the discount code
+      const isExistCode = this.controllerCart.checkExistPromoCode(promoCode);
+      // If it exists, return the message 'Valid discount code' and perform the calculation and update the subtotal again
+      if (isExistCode) {
+        this.messageDiv.textContent = 'Valid discount code';
+        const discountPercent = isExistCode.percentReduction;
+        // Update this.totalValue by recalculating after applying the discount code
+        this.totalValue = this.totalValue - (this.totalValue * discountPercent) / 100;
+        // Updates displayed on the website
+        const subtotalElement = document.querySelector('.subtotal');
+        subtotalElement.textContent = `$${this.totalValue}.00`;
+      }
+      // Otherwise, if it does not exist, return message 'Invalid discount code'
+      else {
+        this.messageDiv.textContent = 'Invalid discount code';
+      }
+    });
   }
 
   //  Method increase or decreasr quantity
@@ -104,6 +140,7 @@ class CartView extends Observer {
 
   update(data) {
     this.renderCart(data);
+    this.calculateTotalValue(data);
   }
 }
 
