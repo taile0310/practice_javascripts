@@ -119,9 +119,29 @@ export class Data {
         isSelected: false,
       },
     ];
+
+    this.discountCode = [
+      {
+        id: 1,
+        code: 'SSR01',
+        percentReduction: 10,
+      },
+      {
+        id: 2,
+        code: 'SSR02',
+        percentReduction: 15,
+      },
+      {
+        id: 3,
+        code: 'SSR03',
+        percentReduction: 20,
+      },
+    ];
+
     this.localStorageService = new LocalStoreageService();
   }
 }
 
 const productData = new Data();
 productData.localStorageService.saveListProductsToStorage(productData.products);
+productData.localStorageService.saveListDiscountToStorage(productData.discountCode);

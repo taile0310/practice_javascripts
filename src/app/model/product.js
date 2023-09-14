@@ -8,14 +8,13 @@ class Product extends Observable {
 
   initProducts(products) {
     this.products = products;
-    console.log(this.products);
     this.notify(products);
+    return this.products;
   }
 
   addMoreProducts(newItems) {
     debugger;
     this.products = this.products.concat(newItems);
-    console.log(this.products);
     this.notify(this.products);
   }
 }

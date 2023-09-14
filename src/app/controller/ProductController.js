@@ -21,6 +21,7 @@ class ProductController {
   }
 
   removeOutCart(productId) {
+    debugger;
     const latestCart = this.modelCart.removeProduct(productId);
     this.cartService.save(latestCart);
   }

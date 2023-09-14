@@ -35,8 +35,12 @@ class ProductView extends Observer {
 
       const productId = product.id;
       const isAvaiableInCart = this.controller.checkProductInCart(productId);
-      if (isAvaiableInCart) {
+      console.log(isAvaiableInCart, 'true or fale');
+      if (isAvaiableInCart && product.isSelected === true) {
+        console.log(product.isSelected, 'sadasdsadd');
         elememntImage.classList.add('added-to-cart');
+      } else {
+        elememntImage.classList.remove('added-to-cart');
       }
 
       elememntImage.src = product.image;
@@ -54,9 +58,9 @@ class ProductView extends Observer {
       elementLi.appendChild(elememntImage);
       elementLi.appendChild(elementSpan);
 
-      if (product.isSelected === true) {
-        console.log('Selected', product.isSelected);
-      }
+      // if (product.isSelected === true) {
+      //   console.log('Selected', product.isSelected);
+      // }
 
       this.menuContainer.appendChild(elementLi);
     });
@@ -64,6 +68,7 @@ class ProductView extends Observer {
 
   // Method to add products to cart
   addToCart() {
+    debugger;
     this.menuContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('img-rectangle')) {
@@ -82,6 +87,7 @@ class ProductView extends Observer {
         }
         // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
         else {
+          debugger;
           this.controller.removeOutCart(productId);
           target.classList.remove('added-to-cart');
           alert('Removed from cart');
