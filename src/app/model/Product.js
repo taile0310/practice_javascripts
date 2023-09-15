@@ -6,22 +6,16 @@ class Product extends Observable {
     this.products = [];
   }
 
-  /**
-   * Method gets the initial product list
-   * @param {Array} products
-   */
   initProducts(products) {
     this.products = products;
+    console.log(this.products);
     this.notify(products);
   }
 
-  /**
-   * Upload new products to the existing product list.
-   * @param {Array} newItems
-   */
   addMoreProducts(newItems) {
     debugger;
     this.products = this.products.concat(newItems);
+    console.log(this.products);
     this.notify(this.products);
   }
 }

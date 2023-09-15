@@ -16,16 +16,13 @@ class CartView extends Observer {
     this.getValueInput();
   }
 
-  // Display the shopping cart on the user interface based on the product data in the shopping cart.
   renderCart(productsInCart) {
     debugger;
     this.cartContainer.innerHTML = '';
 
     if (productsInCart.length === 0) {
-      // Display a notification if the cart is empty.
       this.cartContainer.innerHTML = '<p class="notify-empty">Your cart is empty.</p>';
     } else {
-      // Display the list of products in the shopping cart.
       productsInCart.forEach((cartItem, index) => {
         const elementLi = document.createElement('li');
         elementLi.className = 'cart-item';
@@ -49,7 +46,7 @@ class CartView extends Observer {
         this.cartContainer.appendChild(elementLi);
       });
     }
-    // Update cart total information.
+
     const cartGroup = document.querySelector('.card-group');
     cartGroup.innerHTML = `
             <section class="card-primary">
@@ -113,18 +110,15 @@ class CartView extends Observer {
 
   //  Method increase or decreasr quantity
   increaseAndDecreaseQuantity() {
-    // Get a list of all "minus" and "plus" buttons.
     this.btnMinus = document.querySelectorAll('.btn-minus');
     this.btnPlus = document.querySelectorAll('.btn-plus');
 
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('btn-minus')) {
-        // If the user clicks the "minus" button, get the product ID and call the quantity reduction method.
         const productId = target.getAttribute('data-id');
         this.controllerCart.decreaseQuantity(productId);
       } else if (target.classList.contains('btn-plus')) {
-        // If the user clicks the "plus" button, get the product ID and call the quantity increment method.
         const productId = target.getAttribute('data-id');
         this.controllerCart.increaseQuantity(productId);
       }
@@ -133,24 +127,19 @@ class CartView extends Observer {
 
   // Method remove product from cart
   removeProductFromCart() {
+    debugger;
     this.cartContainer.addEventListener('click', (event) => {
       const target = event.target;
+
       if (target.classList.contains('icon-remove')) {
-        // If the user clicks the "remove" icon, get the product ID and call the product remove method.
         const productId = target.getAttribute('data-id');
         this.controllerCart.removeProductFromCart(productId);
       }
     });
   }
 
-  /**
-   * Update the user interface and calculate totals based on new data.
-   * @param {*} data Data is provided from the model.
-   */
   update(data) {
-    // Call the renderCart method to update the cart appearance based on the new data
     this.renderCart(data);
-    // Call the CalculateTotalValue method to calculate the total value based on the new data.
     this.calculateTotalValue(data);
   }
 }

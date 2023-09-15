@@ -6,12 +6,8 @@ export class Cart extends Observable {
     this.productsInCart = [];
   }
 
-  /**
-   * Method gets the original data
-   * @param {Array} productsInCart
-   */
-  initProductsInCart(productsInCart) {
-    this.productsInCart = productsInCart;
+  initProductsInCart() {
+    this.productsInCart = JSON.parse(localStorage.getItem('productsInCart')) || [];
     this.notify(this.productsInCart);
   }
 
@@ -59,11 +55,7 @@ export class Cart extends Observable {
     return this.productsInCart;
   }
 
-  /**
-   * Method increases the number of products
-   * @param {number} productId
-   * @returns {Array} Array of products after increasing quantity.
-   */
+  // Method increases the number of products
   increaseQuantity(productId) {
     debugger;
     this.productsInCart.find((product) => {
@@ -75,11 +67,7 @@ export class Cart extends Observable {
     return this.productsInCart;
   }
 
-  /**
-   * Method decreases the number of products
-   * @param {number} productId
-   * @returns {Array} Array of products after quantity reduction.
-   */
+  // Method decreases the number of products
   decreaseQuantity(productId) {
     debugger;
     const product = this.productsInCart.find((product) => product.id === +productId);

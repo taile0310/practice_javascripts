@@ -1,4 +1,5 @@
 import { Discount } from '../model/Discount';
+import { Product } from '../model/Product';
 import { CartService } from '../service/CartService';
 import DiscountService from '../service/DiscountService';
 
@@ -6,40 +7,26 @@ export class CartController {
   constructor(modelCart) {
     this.modelCart = modelCart;
     this.cartService = new CartService();
+    this.modelProduct = new Product();
     this.modelDiscount = new Discount();
     this.discountService = new DiscountService();
   }
 
-  // Method to get the list of products in the cart
   getProductsInCart() {
-    const productsInCart = this.cartService.loadInitialDataInCart();
-    this.modelCart.initProductsInCart(productsInCart);
+    this.modelCart.initProductsInCart();
   }
 
-  /**
-   * Method to decrease quantity in cart
-   * @param {number} productId
-   */
-  decreaseQuantity(productId) {
+  decreaseQuantity(index) {
     debugger;
-    const latestCart = this.modelCart.decreaseQuantity(productId);
-    this.cartService.save(latestCart);
+    return this.modelCart.setProductsInCart(decreaseQuantity);
   }
 
-  /**
-   * Method to increase quantity in cart
-   * @param {number} productId
-   */
   increaseQuantity(productId) {
     debugger;
     const latestCart = this.modelCart.increaseQuantity(productId);
     this.cartService.save(latestCart);
   }
 
-  /**
-   * Method to delete products in cart
-   * @param {number} productId
-   */
   removeProductFromCart(productId) {
     debugger;
     const latestCart = this.modelCart.removeProduct(productId);
@@ -52,12 +39,9 @@ export class CartController {
     this.modelDiscount.getListDiscounts(discounts);
   }
 
-  /**
-   * Method checks the existence of a discount code
-   * @param {string} promoCode
-   * @returns
-   */
+  // Method checks the existence of a discount code
   checkExistPromoCode(promoCode) {
+    debugger;
     return this.modelDiscount.isAvailable(promoCode);
   }
 }
