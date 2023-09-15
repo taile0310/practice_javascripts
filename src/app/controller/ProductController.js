@@ -1,4 +1,4 @@
-import { Cart } from '../model/cart';
+import { Cart } from '../model/Cart';
 import { CartService } from '../service/CartService';
 import ProductService from '../service/ProductService';
 
@@ -10,16 +10,22 @@ class ProductController {
     this.cartService = new CartService();
   }
 
+  // Method gets the initial product list
   loadInitialData() {
     const products = this.productService.loadInitialData();
     this.model.initProducts(products);
   }
 
+  // Method to load additional product data
   loadMoreData() {
     const newItems = this.productService.loadMoreData();
     this.model.addMoreProducts(newItems);
   }
 
+  /**
+   * Method to remove products from cart
+   * @param {number} productId
+   */
   removeOutCart(productId) {
     const latestCart = this.modelCart.removeProduct(productId);
     this.cartService.save(latestCart);

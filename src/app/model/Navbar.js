@@ -50,18 +50,6 @@ class Navbar extends Observable {
       },
     ];
   }
-
-  getName() {
-    return this.name;
-  }
-
-  getPath() {
-    return this.path;
-  }
-
-  getImageNavbar() {
-    return this.imageNavbar;
-  }
 }
 
 export { Navbar };
