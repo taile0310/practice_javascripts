@@ -1,6 +1,7 @@
 import Observer from './Observer';
 
 import removeIcon from '../../asset/image/remove-icon.svg';
+import { CheckoutView } from './CheckoutView';
 class CartView extends Observer {
   constructor(controllerCart) {
     super();
@@ -14,11 +15,11 @@ class CartView extends Observer {
     this.increaseAndDecreaseQuantity();
     this.removeProductFromCart();
     this.getValueInput();
+    this.checkoutView = new CheckoutView(this.controllerCart, this.totalValue);
   }
 
   // Display the shopping cart on the user interface based on the product data in the shopping cart.
   renderCart(productsInCart) {
-    debugger;
     this.cartContainer.innerHTML = '';
 
     if (productsInCart.length === 0) {
@@ -103,6 +104,10 @@ class CartView extends Observer {
         // Updates displayed on the website
         const subtotalElement = document.querySelector('.subtotal');
         subtotalElement.textContent = `$${this.totalValue}.00`;
+
+        this.checkoutView.totalValue = this.totalValue;
+        console.log(this.checkoutView.totalValue, 'cart view', this.totalValue);
+        return this.totalValue;
       }
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {

@@ -1,7 +1,7 @@
 import Observer from './Observer';
 import renderProductTemplate from '../page/ProductPage';
 import { renderCartTemplate } from '../page/CartPage';
-import { renderCheckoutTemplate } from '../page/CheckoutPage';
+import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
   constructor(controller) {
@@ -20,9 +20,9 @@ class NavbarView extends Observer {
       const href = navLink.getAttribute('href');
       // Compare the current URL with the link's path
       if ('http://localhost:1234/menu.html#' + href === currentURL) {
-        navLink.classList.add('active-link');
+        // navLink.classList.add('active-link');
       } else {
-        navLink.classList.remove('active-link');
+        // navLink.classList.remove('active-link');
       }
     });
   }
@@ -56,7 +56,7 @@ class NavbarView extends Observer {
           checkout.style.display = 'none';
 
           menu.style.display = 'flex';
-          window.location.hash = '/menu';
+          window.location.location = '/menu';
           this.updateActiveLink();
         }
         if (link.path === '/cart') {
@@ -66,17 +66,17 @@ class NavbarView extends Observer {
           checkout.style.display = 'none';
 
           carts.style.display = 'block';
-          window.location.hash = '/cart';
+          window.location.location = '/cart';
           this.updateActiveLink();
         }
         if (link.path === '/checkout') {
           // Displays the checkout interface
-          renderCheckoutTemplate();
+          renderCheckoutTemplate;
           menu.style.display = 'none';
           carts.style.display = 'none';
 
           checkout.style.display = 'block';
-          window.location.hash = '/checkout';
+          window.location.location = '/checkout';
           this.updateActiveLink();
         }
       });

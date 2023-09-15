@@ -7,3 +7,12 @@ export function renderCartTemplate() {
   const cartController = new CartController(cartModel);
   const cartView = new CartView(cartController);
 }
+// class renderProductTemplate {
+//   constructor() {
+//     this.cartModel = new Cart();
+//     this.cartController = new CartController(this.cartModel);
+//     this.cartView = new CartView(this.cartController);
+//   }
+// }
+
+// export default new renderProductTemplate();

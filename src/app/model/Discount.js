@@ -20,7 +20,6 @@ class Discount {
    * @returns {Object | undefined} Returns the discount object if found, or undefined if not found.
    */
   isAvailable(promoCode) {
-    debugger;
     this.discountCode = this.discounts.find((discount) => discount.code === promoCode);
     return this.discountCode;
   }
