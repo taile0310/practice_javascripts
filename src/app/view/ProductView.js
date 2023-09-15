@@ -20,8 +20,7 @@ class ProductView extends Observer {
     this.updateStatusButton();
     this.addToCart();
   }
-
-  // menu
+  // Display product list on the user interface.
   renderProduct(products) {
     debugger;
     this.menuContainer.innerHTML = '';
@@ -33,6 +32,7 @@ class ProductView extends Observer {
       const elememntImage = document.createElement('img');
       elememntImage.className = 'img-rectangle';
 
+      // // Check if the product is available in the cart and add the 'added-to-cart' class if so.
       const productId = product.id;
       const isAvaiableInCart = this.controller.checkProductInCart(productId);
       if (isAvaiableInCart) {
@@ -53,10 +53,6 @@ class ProductView extends Observer {
 
       elementLi.appendChild(elememntImage);
       elementLi.appendChild(elementSpan);
-
-      if (product.isSelected === true) {
-        console.log('Selected', product.isSelected);
-      }
 
       this.menuContainer.appendChild(elementLi);
     });
@@ -97,7 +93,12 @@ class ProductView extends Observer {
     }
   }
 
+  /**
+   * Update the user interface and calculate totals based on new data.
+   * @param {*} data Data is provided from the model.
+   */
   update(data) {
+    // Call the renderProduct method to update the menu appearance
     this.renderProduct(data);
   }
 }

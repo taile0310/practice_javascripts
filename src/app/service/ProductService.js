@@ -8,17 +8,20 @@ class ProductService {
     this.productsNext = 4;
   }
 
+  // Method gets the initial product list
   loadInitialData() {
     return this.allProducts.slice(0, this.displayedListProduct);
   }
 
+  /**
+   * Upload additional product data.
+   * @returns {Array} newItems
+   */
   loadMoreData() {
-    debugger;
     const startIndex = this.displayedListProduct;
     const endIndex = startIndex + this.productsNext;
     const newItems = this.allProducts.slice(startIndex, endIndex);
     this.displayedListProduct = endIndex;
-
     return newItems;
   }
 }
