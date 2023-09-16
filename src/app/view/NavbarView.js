@@ -4,10 +4,12 @@ import { renderCartTemplate } from '../page/CartPage';
 import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
-  constructor(controller) {
+  constructor(controllerNavbar) {
     super();
-    this.controller = controller;
-    this.renderNavbar(this.controller.modelNavbar.navbars);
+    this.controllerNavbar = controllerNavbar;
+    this.controllerNavbar.modelNavbar.addObserver(this);
+
+    this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
   }
 
   // Update active links in the site navigation bar.
@@ -20,9 +22,9 @@ class NavbarView extends Observer {
       const href = navLink.getAttribute('href');
       // Compare the current URL with the link's path
       if ('http://localhost:1234/menu.html#' + href === currentURL) {
-        // navLink.classList.add('active-link');
+        navLink.classList.add('active-link');
       } else {
-        // navLink.classList.remove('active-link');
+        navLink.classList.remove('active-link');
       }
     });
   }
@@ -56,7 +58,7 @@ class NavbarView extends Observer {
           checkout.style.display = 'none';
 
           menu.style.display = 'flex';
-          window.location.location = '/menu';
+          window.location.hash = '/menu';
           this.updateActiveLink();
         }
         if (link.path === '/cart') {
@@ -66,7 +68,7 @@ class NavbarView extends Observer {
           checkout.style.display = 'none';
 
           carts.style.display = 'block';
-          window.location.location = '/cart';
+          window.location.hash = '/cart';
           this.updateActiveLink();
         }
         if (link.path === '/checkout') {
@@ -76,7 +78,7 @@ class NavbarView extends Observer {
           carts.style.display = 'none';
 
           checkout.style.display = 'block';
-          window.location.location = '/checkout';
+          window.location.hash = '/checkout';
           this.updateActiveLink();
         }
       });
