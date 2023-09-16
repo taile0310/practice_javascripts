@@ -10,6 +10,8 @@ class NavbarView extends Observer {
     this.controllerNavbar.modelNavbar.addObserver(this);
 
     this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+
+    this.controllerNavbar.getLenghtCart();
   }
 
   // Update active links in the site navigation bar.
@@ -38,6 +40,17 @@ class NavbarView extends Observer {
       const elementA = document.createElement('a');
       elementA.className = 'nav-item';
       elementA.href = link.path;
+
+      if (elementA.getAttribute('href') == '/cart') {
+        const cartNumber = document.createElement('div');
+        cartNumber.className = 'cart-number';
+        cartNumber.style.color = 'white';
+        cartNumber.style.position = 'absolute';
+        cartNumber.style.marginTop = '-10px';
+        cartNumber.style.marginLeft = '40px';
+        cartNumber.textContent = `12`;
+        elementA.appendChild(cartNumber);
+      }
 
       const elememntImage = document.createElement('img');
       elememntImage.className = 'icon';
@@ -86,6 +99,14 @@ class NavbarView extends Observer {
       elementA.appendChild(elememntImage);
       navbarContainer.appendChild(elementA);
     });
+  }
+
+  getLengthInCart(productsInCart) {
+    this.lengths = productsInCart.length;
+  }
+
+  update(data) {
+    this.getLengthInCart(data);
   }
 }
 

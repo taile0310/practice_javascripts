@@ -7,5 +7,10 @@ class NavbarController {
     this.modelCart = new Cart();
     this.cartService = new CartService();
   }
+
+  getLenghtCart() {
+    const productsInCart = this.cartService.loadInitialDataInCart();
+    this.modelCart.initProductsInCart(productsInCart);
+  }
 }
 export { NavbarController };
