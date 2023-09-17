@@ -1,10 +1,13 @@
 import Observer from './Observer';
 
 class ProductView extends Observer {
-  constructor(controller) {
+  constructor(controller, controllerCart) {
     super();
     this.controller = controller;
     this.controller.model.addObserver(this);
+
+    this.controllerCart = controllerCart;
+    this.controllerCart.modelCart.addObserver(this);
 
     this.btnLoadMore = document.querySelector('.btn-load-more');
 
@@ -14,12 +17,11 @@ class ProductView extends Observer {
 
     this.menuContainer = document.querySelector('.list-menu');
 
-    debugger;
-
-    this.controller.loadInitialData();
     this.updateStatusButton();
     this.addToCart();
+    this.controller.loadInitialData();
   }
+
   // Display product list on the user interface.
   renderProduct(products) {
     debugger;
@@ -60,6 +62,7 @@ class ProductView extends Observer {
 
   // Method to add products to cart
   addToCart() {
+    debugger;
     this.menuContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('img-rectangle')) {
@@ -68,11 +71,12 @@ class ProductView extends Observer {
         const productName = target.dataset.productName;
         const productImage = target.dataset.productImage;
         const productPrice = target.dataset.productPrice;
+        const isSelected = target.dataset.productIsSelected;
 
         const isAddedToCart = this.controller.checkProductInCart(productId);
         // If the product does not exist in the cart, can add it
         if (!isAddedToCart) {
-          this.controller.addToCart(productId, productName, productImage, productPrice);
+          this.controller.addToCart(productId, productName, productImage, productPrice, isSelected);
           target.classList.add('added-to-cart');
           alert('Added to cart');
         }

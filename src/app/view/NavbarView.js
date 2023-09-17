@@ -1,5 +1,6 @@
 import Observer from './Observer';
 import renderProductTemplate from '../page/ProductPage';
+// import { renderProductTemplate } from '../page/ProductPage';
 import { renderCartTemplate } from '../page/CartPage';
 import renderCheckoutTemplate from '../page/CheckoutPage';
 
@@ -47,10 +48,6 @@ class NavbarView extends Observer {
       if (elementA.getAttribute('href') == '/cart') {
         const cartNumber = document.createElement('div');
         cartNumber.className = 'cart-number';
-        cartNumber.style.color = 'white';
-        cartNumber.style.position = 'absolute';
-        cartNumber.style.marginTop = '-10px';
-        cartNumber.style.marginLeft = '40px';
         // Kiểm tra độ dài của giỏ hàng trước khi hiển thị
         if (this.lengths > 0) {
           cartNumber.textContent = `${this.lengths}`;
@@ -76,6 +73,7 @@ class NavbarView extends Observer {
         if (link.path === '/menu') {
           // Displays the menu interface
           renderProductTemplate;
+          // renderProductTemplate();
           carts.style.display = 'none';
           checkout.style.display = 'none';
 

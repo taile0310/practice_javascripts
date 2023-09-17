@@ -48,6 +48,7 @@ class ProductController {
    * @param {productPrice}
    */
   addToCart(productId, productName, productImage, productPrice) {
+    debugger;
     const latestCart = this.modelCart.addToCart(productId, productName, productImage, productPrice);
     // Call the service to change the list after adding
     this.cartService.save(latestCart);

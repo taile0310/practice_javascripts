@@ -18,8 +18,7 @@
 /* Mobile */
 @media screen and (max-width: 768px) {
   .list-cart {
-    align-items: center;
     gap: 36px;
-    padding: 40px;
+    padding: 40px 18px;
   }
 }

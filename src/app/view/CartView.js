@@ -31,7 +31,9 @@ class CartView extends Observer {
         const elementLi = document.createElement('li');
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `
-            <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
+            <div>
+              <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
+            </div>
             <div class="order-group">
               <div class="detail-dish">
                 <span class="text-medium">${cartItem.name}</span>

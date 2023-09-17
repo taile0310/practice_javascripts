@@ -16,6 +16,12 @@
   pointer-events: none;
   cursor: default;
 }
+.cart-number {
+  color: white;
+  position: absolute;
+  margin-top: -10px;
+  margin-left: 40px;
+}
 
 /* Tablet */
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -26,6 +32,10 @@
   }
   .nav-item {
     padding: 30px;
+  }
+
+  .cart-number {
+    margin-left: 20px;
   }
 }
 
@@ -39,9 +49,14 @@
     justify-content: space-between;
     flex-wrap: wrap;
     flex-direction: row;
+    overflow: hidden;
   }
 
   .nav-item {
     padding: 30px;
+  }
+
+  .cart-number {
+    margin-left: 20px;
   }
 }

@@ -22,7 +22,7 @@ export class Cart extends Observable {
    */
   isAvailable(productId) {
     debugger;
-    this.productIdExis = this.productsInCart.some((product) => product.id === +productId);
+    this.productIdExis = this.productsInCart.find((product) => product.id === +productId);
     return this.productIdExis;
   }
 
@@ -34,6 +34,7 @@ export class Cart extends Observable {
   removeProduct(productId) {
     debugger;
     this.productsInCart = this.productsInCart.filter((product) => product.id !== +productId);
+    console.log(this.productsInCart + ' xóa');
     this.notify(this.productsInCart);
     return this.productsInCart;
   }
