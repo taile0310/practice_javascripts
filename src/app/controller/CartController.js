@@ -40,11 +40,11 @@ export class CartController {
    * Method to delete products in cart
    * @param {number} productId
    */
-  removeProductFromCart(productId) {
-    // debugger;
-    const latestCart = this.modelCart.removeProduct(productId);
-    this.cartService.save(latestCart);
-  }
+  // removeProductFromCart(productId) {
+  //   // debugger;
+  //   const latestCart = this.modelCart.removeProduct(productId);
+  //   this.cartService.save(latestCart);
+  // }
 
   // Method retrieves a list of discount codes
   getListDiscounts() {
@@ -59,5 +59,20 @@ export class CartController {
    */
   checkExistPromoCode(promoCode) {
     return this.modelDiscount.isAvailable(promoCode);
+  }
+
+  addToCart(productId, productName, productImage, productPrice) {
+    const latestCart = this.modelCart.addToCart(productId, productName, productImage, productPrice);
+    // Call the service to change the list after adding
+    this.cartService.save(latestCart);
+  }
+
+  checkProductInCart(productId) {
+    return this.modelCart.isAvailable(productId);
+  }
+
+  removeOutCart(productId) {
+    const latestCart = this.modelCart.removeProduct(productId);
+    this.cartService.save(latestCart);
   }
 }

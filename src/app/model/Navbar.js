@@ -13,40 +13,34 @@ class Navbar extends Observable {
 
     this.navbars = [
       {
-        id: 1,
+        id: '0',
         name: 'Logo',
         imageNavbar: logo,
-        path: '/home',
       },
       {
-        id: 2,
+        id: '1',
         name: 'Home',
         imageNavbar: home,
-        path: '/home',
       },
       {
-        id: 3,
+        id: '2',
         name: 'Menu',
         imageNavbar: menu,
-        path: '/menu',
       },
       {
-        id: 4,
+        id: '3',
         name: 'Cart',
         imageNavbar: cart,
-        path: '/cart',
       },
       {
-        id: 5,
+        id: '4',
         name: 'Place',
         imageNavbar: place,
-        path: '/checkout',
       },
       {
-        id: 6,
+        id: '5',
         name: 'Back',
         imageNavbar: back,
-        path: '/home',
       },
     ];
   }

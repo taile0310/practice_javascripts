@@ -6,6 +6,7 @@ import { Product } from './model/Product';
 import { NavbarView } from './view/NavbarView';
 import { ProductController } from './controller/ProductController';
 import { ProductView } from './view/ProductView';
+import { CartView } from './view/CartView';
 
 export function main() {
   // model
@@ -17,9 +18,11 @@ export function main() {
   const navbarController = new NavbarController(navbarModel);
   const cartController = new CartController(cartModel);
   const productController = new ProductController(producModel);
+  window.productController = productController;
 
   // view
-  const productView = new ProductView(productController);
+  const productView = new ProductView(productController, cartController);
   const navbarView = new NavbarView(navbarController, cartController, productController);
+  const cartView = new CartView(cartController);
 }
 main();

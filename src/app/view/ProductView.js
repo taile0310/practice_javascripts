@@ -1,10 +1,12 @@
 import Observer from './Observer';
 
 class ProductView extends Observer {
-  constructor(controller) {
+  constructor(controller, cartController) {
     super();
     this.controller = controller;
     this.controller.model.addObserver(this);
+
+    this.cartController = cartController;
 
     this.btnLoadMore = document.querySelector('.btn-load-more');
 
@@ -18,7 +20,7 @@ class ProductView extends Observer {
 
     // this.controller.loadInitialData();
     // this.updateStatusButton();
-    // this.addToCart();
+    this.addToCart();
   }
   // Display product list on the user interface.
   renderProduct(products) {
@@ -34,7 +36,7 @@ class ProductView extends Observer {
 
       // // Check if the product is available in the cart and add the 'added-to-cart' class if so.
       const productId = product.id;
-      const isAvaiableInCart = this.controller.checkProductInCart(productId);
+      const isAvaiableInCart = this.cartController.checkProductInCart(productId);
       if (isAvaiableInCart) {
         elememntImage.classList.add('added-to-cart');
       }
@@ -69,16 +71,16 @@ class ProductView extends Observer {
         const productImage = target.dataset.productImage;
         const productPrice = target.dataset.productPrice;
 
-        const isAddedToCart = this.controller.checkProductInCart(productId);
+        const isAddedToCart = this.cartController.checkProductInCart(productId);
         // If the product does not exist in the cart, can add it
         if (!isAddedToCart) {
-          this.controller.addToCart(productId, productName, productImage, productPrice);
+          this.cartController.addToCart(productId, productName, productImage, productPrice);
           target.classList.add('added-to-cart');
           alert('Added to cart');
         }
         // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
         else {
-          this.controller.removeOutCart(productId);
+          this.cartController.removeOutCart(productId);
           target.classList.remove('added-to-cart');
           alert('Removed from cart');
         }

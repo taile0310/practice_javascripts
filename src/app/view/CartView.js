@@ -10,12 +10,14 @@ class CartView extends Observer {
 
     this.cartContainer = document.querySelector('.list-cart');
 
-    this.controllerCart.getProductsInCart();
-    this.controllerCart.getListDiscounts();
-    this.increaseAndDecreaseQuantity();
-    this.removeProductFromCart();
-    this.getValueInput();
-    this.checkoutView = new CheckoutView(this.controllerCart, this.totalValue);
+    this.renderCart(this.controllerCart.modelCart.productsInCart);
+
+    // this.controllerCart.getProductsInCart();
+
+    // this.controllerCart.getListDiscounts();
+    // this.increaseAndDecreaseQuantity();
+    // this.removeProductFromCart();
+    // this.getValueInput();
   }
 
   // Display the shopping cart on the user interface based on the product data in the shopping cart.
@@ -29,6 +31,7 @@ class CartView extends Observer {
       // Display the list of products in the shopping cart.
       productsInCart.forEach((cartItem, index) => {
         const elementLi = document.createElement('li');
+        elementLi.setAttribute('data-id', `${cartItem.id}`);
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `
             <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
@@ -139,13 +142,49 @@ class CartView extends Observer {
   // Method remove product from cart
   removeProductFromCart() {
     this.cartContainer.addEventListener('click', (event) => {
+      con;
       const target = event.target;
       if (target.classList.contains('icon-remove')) {
         // If the user clicks the "remove" icon, get the product ID and call the product remove method.
         const productId = target.getAttribute('data-id');
-        this.controllerCart.removeProductFromCart(productId);
+        this.controllerCart.removeOutCart(productId);
       }
     });
+  }
+
+  setupItemevent() {
+    // duyet qua toan bo this.CartContainer
+    console.log(this.cartContainer);
+    const cartItems = this.cartContainer.querySelectorAll('.cart-item');
+    console.log(cartItems);
+    cartItems.forEach((item) => {
+      const itemId = item.getAttribute('data-id');
+      const btnMinus = item.querySelector('.btn-minus');
+      const btnPlus = item.querySelector('.btn-plus');
+      const btnRemove = item.querySelector('.btn-remove');
+
+      btnMinus.addEventListener('click', () => {
+        // this.controllerCart.decreaseQuantity(itemId);
+        console.log('tru itme', itemId);
+      });
+
+      btnPlus.addEventListener('click', () => {
+        // this.controllerCart.decreaseQuantity(itemId);
+        console.log('cong itme', itemId);
+      });
+
+      btnRemove.addEventListener('click', () => {
+        // this.controllerCart.decreaseQuantity(itemId);
+        console.log('remove itme', itemId);
+      });
+    });
+    // vao moi item
+    // lay dom cau nut -
+    // add listener
+    //lay nut
+    // add listener
+    //lay nut xoa
+    // add listner
   }
 
   /**
@@ -155,6 +194,8 @@ class CartView extends Observer {
   update(data) {
     // Call the renderCart method to update the cart appearance based on the new data
     this.renderCart(data);
+    // setup item event
+    this.setupItemevent();
     // Call the CalculateTotalValue method to calculate the total value based on the new data.
     this.calculateTotalValue(data);
   }

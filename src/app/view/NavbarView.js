@@ -1,7 +1,8 @@
+import MenuConstant from '../constants/MenuConstant';
 import Observer from './Observer';
-import renderProductTemplate from '../page/ProductPage';
-import { renderCartTemplate } from '../page/CartPage';
-import renderCheckoutTemplate from '../page/CheckoutPage';
+// import renderProductTemplate from '../page/ProductPage';
+// import { renderCartTemplate } from '../page/CartPage';
+// import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
   constructor(navbarController, cartController, productController) {
@@ -11,24 +12,51 @@ class NavbarView extends Observer {
 
     this.cartController = cartController;
     this.cartController.modelCart.addObserver(this);
+    window.modelCart = this.cartController.modelCart;
 
     this.productController = productController;
 
     this.productController.loadInitialData();
+    this.cartNumberElement = null;
+    this.lengths = 0;
+    this.currentMenu = MenuConstant.HOME;
 
-    this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+    // this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+    this.initHomeMenu();
+  }
+
+  initHomeMenu() {
+    const btnMenu = document.querySelector('.btnMenu');
+    console.log('btnMenu', btnMenu);
+    btnMenu.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.currentMenu = MenuConstant.MENU;
+      console.log('lisst menu');
+      const menu = document.querySelector('.menu');
+      const homeLayout = document.querySelector('.home-layout');
+      const navbar = document.querySelector('.nav-menu');
+      const cart = document.querySelector('.carts');
+      console.log(menu);
+      menu.style.display = 'flex';
+      homeLayout.style.display = 'none';
+      navbar.style.display = 'flex';
+      // window.location.hash = '/menu';
+      this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+      this.updateActiveLink();
+    });
   }
 
   // Update active links in the site navigation bar.
   updateActiveLink() {
     // Get a list of all links in the navigation bar.
     const navLinks = document.querySelectorAll('.nav-item');
-    // Get the current URL of the website.
-    const currentURL = window.location.href;
     navLinks.forEach((navLink) => {
-      const href = navLink.getAttribute('href');
+      const navBarId = navLink.getAttribute('navBarId');
+      console.log('navBarId', navBarId);
+      console.log(this.currentMenu);
+
       // Compare the current URL with the link's path
-      if ('http://localhost:1234/menu.html#' + href === currentURL) {
+      if (this.currentMenu == navBarId) {
         navLink.classList.add('active-link');
       } else {
         navLink.classList.remove('active-link');
@@ -44,11 +72,13 @@ class NavbarView extends Observer {
 
     navbars.forEach((link) => {
       const elementA = document.createElement('a');
+      elementA.setAttribute('navBarId', link.id);
       elementA.className = 'nav-item';
       elementA.href = link.path;
 
-      if (elementA.getAttribute('href') == '/cart') {
+      if (link.id == MenuConstant.CART) {
         const cartNumber = document.createElement('div');
+        this.cartNumberElement = cartNumber;
         cartNumber.className = 'cart-number';
         cartNumber.style.color = 'white';
         cartNumber.style.position = 'absolute';
@@ -72,41 +102,67 @@ class NavbarView extends Observer {
       elementA.addEventListener('click', (event) => {
         event.preventDefault();
 
+        const navBarId = event.currentTarget.getAttribute('navBarId');
+        console.log('navBarId => ', navBarId);
+        this.currentMenu = navBarId;
         const menu = document.querySelector('.menu');
         const carts = document.querySelector('.carts');
         const checkout = document.querySelector('.checkout-cart');
-        // Handle the display of the interface corresponding to the clicked link.
-        // if (link.path === '/menu') {
-        // Displays the menu interface
-        // renderProductTemplate;
-        carts.style.display = 'none';
-        checkout.style.display = 'none';
+        const homeLayout = document.querySelector('.home-layout');
+        const navbar = document.querySelector('.nav-menu');
+        switch (navBarId) {
+          case MenuConstant.HOME:
+          case MenuConstant.LOGO:
+          case MenuConstant.LOGOUT:
+            homeLayout.style.display = 'block';
+            menu.style.display = 'none';
+            carts.style.display = 'none';
+            checkout.style.display = 'none';
+            break;
+          case MenuConstant.MENU:
+            menu.style.display = 'flex';
+            carts.style.display = 'none';
+            checkout.style.display = 'none';
+            break;
+          case MenuConstant.CART:
+            menu.style.display = 'none';
+            carts.style.display = 'block';
+            checkout.style.display = 'none';
+            break;
+          case MenuConstant.CHECKOUT:
+            menu.style.display = 'none';
+            carts.style.display = 'none';
+            checkout.style.display = 'block';
+            break;
+        }
 
-        menu.style.display = 'flex';
-        window.location.hash = '/menu';
         this.updateActiveLink();
 
+        // // get attrinute navBarId
+
+        // const carts = document.querySelector('.carts');
+        // const checkout = document.querySelector('.checkout-cart');
+
+        // carts;
+        // // Displays the cart interface
+        // // renderCartTemplate();
+        // // menu.style.display = 'none';
+        // // checkout.style.display = 'none';
+
+        // // carts.style.display = 'block';
+        // // window.location.hash = '/cart';
+        // // this.updateActiveLink();
+
+        // if (link.path === '/checkout') {
+        //   // Displays the checkout interface
+        //   renderCheckoutTemplate;
+        //   menu.style.display = 'none';
+        //   carts.style.display = 'none';
+
+        //   checkout.style.display = 'block';
+        //   window.location.hash = '/checkout';
+        //   this.updateActiveLink();
         // }
-        if (link.path === '/cart') {
-          // Displays the cart interface
-          renderCartTemplate();
-          menu.style.display = 'none';
-          checkout.style.display = 'none';
-
-          carts.style.display = 'block';
-          window.location.hash = '/cart';
-          this.updateActiveLink();
-        }
-        if (link.path === '/checkout') {
-          // Displays the checkout interface
-          renderCheckoutTemplate;
-          menu.style.display = 'none';
-          carts.style.display = 'none';
-
-          checkout.style.display = 'block';
-          window.location.hash = '/checkout';
-          this.updateActiveLink();
-        }
       });
 
       elementA.appendChild(elememntImage);
@@ -114,15 +170,14 @@ class NavbarView extends Observer {
     });
   }
 
-  getLengthInCart(productsInCart) {
+  updateCartNumber(productsInCart) {
     this.lengths = productsInCart.length;
-    console.log('dộ dài', this.lengths);
-    return this.lengths;
+    this.cartNumberElement.textContent = `${this.lengths}`;
   }
 
   update(data) {
     console.log('NavbarView - #update', data);
-    this.getLengthInCart(data);
+    this.updateCartNumber(data);
   }
 }
 

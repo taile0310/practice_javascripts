@@ -18,7 +18,6 @@ class Observable {
   }
 
   notify(data) {
-    console.log('this.observers', this.observers.length);
     if (this.observers.length > 0) {
       this.observers.forEach((observer) => observer.update(data));
     }
