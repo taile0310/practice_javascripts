@@ -35,15 +35,21 @@ class CartView extends Observer {
             <div class="order-group">
               <div class="detail-dish">
                 <span class="text-medium">${cartItem.name}</span>
-                <span class="text-price">$${cartItem.totalPrice}.00</span>
+                <span class="text-price">$${cartItem.totalPrice * cartItem.quantity}.00</span>
               </div>
               <div class="quantity-input">
-                <button class="btn-transparent text-price btn-minus" data-id="${cartItem.id}" >-</button>
+                <button class="btn-transparent text-price btn-minus" data-id="${
+                  cartItem.id
+                }" >-</button>
                 <span class="quantity text-price">${cartItem.quantity}</span>
-                <button class="btn-transparent text-price btn-plus" data-id="${cartItem.id}" >+</button>
+                <button class="btn-transparent text-price btn-plus" data-id="${
+                  cartItem.id
+                }" >+</button>
               </div>
               <button class="btn-transparent btn-remove"  index="${index}">
-                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" data-id="${cartItem.id}" />
+                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" data-id="${
+                  cartItem.id
+                }" />
               </button>
             </div>
           `;
@@ -78,11 +84,11 @@ class CartView extends Observer {
    */
   calculateTotalValue(productsInCart) {
     this.totalValue = productsInCart.reduce(
-      (total, productsInCart) => total + productsInCart.totalPrice,
+      (total, productsInCart) => total + productsInCart.totalPrice * productsInCart.quantity,
       0,
     );
-    const subtotalElement = document.querySelector('.subtotal');
-    subtotalElement.textContent = `$${this.totalValue}.00`;
+    this.subtotalElement = document.querySelector('.subtotal');
+    this.subtotalElement.textContent = `$${this.totalValue}.00`;
   }
 
   // Method get value in input
@@ -102,8 +108,8 @@ class CartView extends Observer {
         // Update this.totalValue by recalculating after applying the discount code
         this.totalValue = this.totalValue - (this.totalValue * discountPercent) / 100;
         // Updates displayed on the website
-        const subtotalElement = document.querySelector('.subtotal');
-        subtotalElement.textContent = `$${this.totalValue}.00`;
+        // const subtotalElement = document.querySelector('.subtotal');
+        this.subtotalElement.textContent = `$${this.totalValue}.00`;
 
         this.checkoutView.totalValue = this.totalValue;
         console.log(this.checkoutView.totalValue, 'cart view', this.totalValue);
