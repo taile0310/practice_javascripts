@@ -4,14 +4,17 @@ import { renderCartTemplate } from '../page/CartPage';
 import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
-  constructor(controllerNavbar) {
+  constructor(controllerNavbar, controllerCart) {
     super();
     this.controllerNavbar = controllerNavbar;
     this.controllerNavbar.modelNavbar.addObserver(this);
 
-    this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+    this.controllerCart = controllerCart;
+    this.controllerCart.modelCart.addObserver(this);
 
-    this.controllerNavbar.getLenghtCart();
+    this.controllerCart.getProductsInCart();
+
+    this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
   }
 
   // Update active links in the site navigation bar.
@@ -48,7 +51,13 @@ class NavbarView extends Observer {
         cartNumber.style.position = 'absolute';
         cartNumber.style.marginTop = '-10px';
         cartNumber.style.marginLeft = '40px';
-        cartNumber.textContent = `12`;
+        // Kiểm tra độ dài của giỏ hàng trước khi hiển thị
+        if (this.lengths > 0) {
+          cartNumber.textContent = `${this.lengths}`;
+        } else {
+          cartNumber.textContent = '0'; // Không hiển thị gì cả nếu không có sản phẩm trong giỏ hàng
+        }
+
         elementA.appendChild(cartNumber);
       }
 
@@ -103,6 +112,8 @@ class NavbarView extends Observer {
 
   getLengthInCart(productsInCart) {
     this.lengths = productsInCart.length;
+    console.log('dộ dài', this.lengths);
+    return this.lengths;
   }
 
   update(data) {
