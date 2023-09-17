@@ -1,13 +1,19 @@
 import Observer from './Observer';
 import renderProductTemplate from '../page/ProductPage';
+// import { renderProductTemplate } from '../page/ProductPage';
 import { renderCartTemplate } from '../page/CartPage';
 import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
-  constructor(controllerNavbar) {
+  constructor(controllerNavbar, controllerCart) {
     super();
     this.controllerNavbar = controllerNavbar;
     this.controllerNavbar.modelNavbar.addObserver(this);
+
+    this.controllerCart = controllerCart;
+    this.controllerCart.modelCart.addObserver(this);
+
+    this.controllerCart.getProductsInCart();
 
     this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
   }
@@ -39,6 +45,19 @@ class NavbarView extends Observer {
       elementA.className = 'nav-item';
       elementA.href = link.path;
 
+      if (elementA.getAttribute('href') == '/cart') {
+        const cartNumber = document.createElement('div');
+        cartNumber.className = 'cart-number';
+        // Kiểm tra độ dài của giỏ hàng trước khi hiển thị
+        if (this.lengths > 0) {
+          cartNumber.textContent = `${this.lengths}`;
+        } else {
+          cartNumber.textContent = '0'; // Không hiển thị gì cả nếu không có sản phẩm trong giỏ hàng
+        }
+
+        elementA.appendChild(cartNumber);
+      }
+
       const elememntImage = document.createElement('img');
       elememntImage.className = 'icon';
       elememntImage.src = link.imageNavbar;
@@ -54,6 +73,7 @@ class NavbarView extends Observer {
         if (link.path === '/menu') {
           // Displays the menu interface
           renderProductTemplate;
+          // renderProductTemplate();
           carts.style.display = 'none';
           checkout.style.display = 'none';
 
@@ -86,6 +106,16 @@ class NavbarView extends Observer {
       elementA.appendChild(elememntImage);
       navbarContainer.appendChild(elementA);
     });
+  }
+
+  getLengthInCart(productsInCart) {
+    this.lengths = productsInCart.length;
+    console.log('dộ dài', this.lengths);
+    return this.lengths;
+  }
+
+  update(data) {
+    this.getLengthInCart(data);
   }
 }
 

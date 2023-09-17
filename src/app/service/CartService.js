@@ -1,6 +1,4 @@
-import { Product } from '../model/Product';
 import { Data } from '../storages/Data';
-import ProductService from './ProductService';
 
 // Service
 export class CartService {

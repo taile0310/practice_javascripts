@@ -87,7 +87,7 @@ export class CheckoutView extends Observer {
     this.emailInput.addEventListener('input', (event) => {
       const email = event.target.value;
 
-      if (this.isValidName(email)) {
+      if (this.isValidEmail(email)) {
         this.messageEmail.textContent = '';
       } else {
         this.messageEmail.textContent = 'Invalid email format';
@@ -97,7 +97,7 @@ export class CheckoutView extends Observer {
     this.phoneInput.addEventListener('input', (event) => {
       const phone = event.target.value;
 
-      if (this.isValidName(phone)) {
+      if (this.isValidPhone(phone)) {
         this.messagePhone.textContent = '';
       } else {
         this.messagePhone.textContent = 'Invalid phone format';
@@ -111,6 +111,11 @@ export class CheckoutView extends Observer {
       } else {
         this.messageAddress.textContent = 'Invalid name format';
       }
+    });
+
+    const checkoutButton = document.querySelector('.btn-checkout');
+    checkoutButton.addEventListener('click', () => {
+      this.isCheckoutSuccessful();
     });
   }
 
@@ -131,5 +136,31 @@ export class CheckoutView extends Observer {
   isValidAddress(address) {
     const regexAddress = /^[0-9]+[a-z0-ZÀ-ỹ\s]+[a-zA-ZÀ-ỹ\s-]*$/;
     return regexAddress.test(address);
+  }
+
+  // Add this method to check if all required fields are valid
+  isCheckoutSuccessful() {
+    const name = this.nameInput.value;
+    const email = this.emailInput.value;
+    const phone = this.phoneInput.value;
+    const address = this.addressInput.value;
+    // Check if any of the fields are empty
+    if (!name || !email || !phone || !address) {
+      alert('Please fill in all required fields.');
+      return; // Exit the function early if any field is empty
+    }
+    // Check if all fields are valid
+    if (
+      this.isValidName(name) &&
+      this.isValidEmail(email) &&
+      this.isValidPhone(phone) &&
+      this.isValidAddress(address)
+    ) {
+      // If all fields are valid, show a success alert
+      alert('Checkout successful!');
+    } else {
+      // If any field is invalid, show an error message
+      alert('Checkout failed. Please check your information.');
+    }
   }
 }
