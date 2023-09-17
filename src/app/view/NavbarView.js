@@ -4,15 +4,17 @@ import { renderCartTemplate } from '../page/CartPage';
 import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
-  constructor(controllerNavbar, controllerCart) {
+  constructor(navbarController, cartController, productController) {
     super();
-    this.controllerNavbar = controllerNavbar;
-    this.controllerNavbar.modelNavbar.addObserver(this);
+    this.controllerNavbar = navbarController;
+    // this.controllerNavbar.modelNavbar.addObserver(this);
 
-    this.controllerCart = controllerCart;
-    this.controllerCart.modelCart.addObserver(this);
+    this.cartController = cartController;
+    this.cartController.modelCart.addObserver(this);
 
-    this.controllerCart.getProductsInCart();
+    this.productController = productController;
+
+    this.productController.loadInitialData();
 
     this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
   }
@@ -36,6 +38,7 @@ class NavbarView extends Observer {
 
   // Displays the website's navigation bar
   renderNavbar(navbars) {
+    console.log('navbars', navbars);
     const navbarContainer = document.querySelector('.nav-menu');
     navbarContainer.innerHTML = '';
 
@@ -73,16 +76,17 @@ class NavbarView extends Observer {
         const carts = document.querySelector('.carts');
         const checkout = document.querySelector('.checkout-cart');
         // Handle the display of the interface corresponding to the clicked link.
-        if (link.path === '/menu') {
-          // Displays the menu interface
-          renderProductTemplate;
-          carts.style.display = 'none';
-          checkout.style.display = 'none';
+        // if (link.path === '/menu') {
+        // Displays the menu interface
+        // renderProductTemplate;
+        carts.style.display = 'none';
+        checkout.style.display = 'none';
 
-          menu.style.display = 'flex';
-          window.location.hash = '/menu';
-          this.updateActiveLink();
-        }
+        menu.style.display = 'flex';
+        window.location.hash = '/menu';
+        this.updateActiveLink();
+
+        // }
         if (link.path === '/cart') {
           // Displays the cart interface
           renderCartTemplate();
@@ -117,6 +121,7 @@ class NavbarView extends Observer {
   }
 
   update(data) {
+    console.log('NavbarView - #update', data);
     this.getLengthInCart(data);
   }
 }

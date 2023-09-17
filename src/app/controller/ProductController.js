@@ -12,6 +12,7 @@ class ProductController {
 
   // Method gets the initial product list
   loadInitialData() {
+    console.log('loadInitialData');
     const products = this.productService.loadInitialData();
     this.model.initProducts(products);
   }

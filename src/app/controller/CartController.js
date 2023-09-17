@@ -21,7 +21,7 @@ export class CartController {
    * @param {number} productId
    */
   decreaseQuantity(productId) {
-    debugger;
+    // debugger;
     const latestCart = this.modelCart.decreaseQuantity(productId);
     this.cartService.save(latestCart);
   }
@@ -31,7 +31,7 @@ export class CartController {
    * @param {number} productId
    */
   increaseQuantity(productId) {
-    debugger;
+    // debugger;
     const latestCart = this.modelCart.increaseQuantity(productId);
     this.cartService.save(latestCart);
   }
@@ -41,7 +41,7 @@ export class CartController {
    * @param {number} productId
    */
   removeProductFromCart(productId) {
-    debugger;
+    // debugger;
     const latestCart = this.modelCart.removeProduct(productId);
     this.cartService.save(latestCart);
   }

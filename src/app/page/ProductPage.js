@@ -10,4 +10,4 @@ class renderProductTemplate {
   }
 }
 
-export default new renderProductTemplate();
+export default renderProductTemplate;

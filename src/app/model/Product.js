@@ -11,6 +11,7 @@ class Product extends Observable {
    * @param {Array} products
    */
   initProducts(products) {
+    console.log('initProducts');
     this.products = products;
     this.notify(products);
   }
@@ -20,7 +21,7 @@ class Product extends Observable {
    * @param {Array} newItems
    */
   addMoreProducts(newItems) {
-    debugger;
+    // debugger;
     this.products = this.products.concat(newItems);
     this.notify(this.products);
   }

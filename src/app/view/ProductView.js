@@ -14,15 +14,15 @@ class ProductView extends Observer {
 
     this.menuContainer = document.querySelector('.list-menu');
 
-    debugger;
+    // debugger;
 
-    this.controller.loadInitialData();
-    this.updateStatusButton();
-    this.addToCart();
+    // this.controller.loadInitialData();
+    // this.updateStatusButton();
+    // this.addToCart();
   }
   // Display product list on the user interface.
   renderProduct(products) {
-    debugger;
+    // debugger;
     this.menuContainer.innerHTML = '';
 
     products.forEach((product) => {
@@ -98,6 +98,7 @@ class ProductView extends Observer {
    * @param {*} data Data is provided from the model.
    */
   update(data) {
+    console.log('ProductView - update', data);
     // Call the renderProduct method to update the menu appearance
     this.renderProduct(data);
   }

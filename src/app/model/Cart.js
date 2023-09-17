@@ -21,7 +21,7 @@ export class Cart extends Observable {
    * @returns Returns true if the product exists in the cart, otherwise returns false.
    */
   isAvailable(productId) {
-    debugger;
+    // debugger;
     this.productIdExis = this.productsInCart.some((product) => product.id === +productId);
     return this.productIdExis;
   }
@@ -32,7 +32,7 @@ export class Cart extends Observable {
    * @returns {Array} Returns an array of products after removing products with corresponding codes.
    */
   removeProduct(productId) {
-    debugger;
+    // debugger;
     this.productsInCart = this.productsInCart.filter((product) => product.id !== +productId);
     this.notify(this.productsInCart);
     return this.productsInCart;
@@ -47,7 +47,7 @@ export class Cart extends Observable {
    * @returns {Array} Returns an array of products
    */
   addToCart(productId, productName, productImage, productPrice) {
-    debugger;
+    // debugger;
     this.productsInCart.push({
       id: +productId,
       quantity: 1,
@@ -55,6 +55,8 @@ export class Cart extends Observable {
       image: productImage,
       totalPrice: +productPrice,
     });
+    console.log(this.productsInCart);
+
     this.notify(this.productsInCart);
     return this.productsInCart;
   }
@@ -65,7 +67,7 @@ export class Cart extends Observable {
    * @returns {Array} Array of products after increasing quantity.
    */
   increaseQuantity(productId) {
-    debugger;
+    // debugger;
     this.productsInCart.find((product) => {
       if (product.id === +productId) {
         product.quantity += 1;
@@ -81,7 +83,7 @@ export class Cart extends Observable {
    * @returns {Array} Array of products after quantity reduction.
    */
   decreaseQuantity(productId) {
-    debugger;
+    // debugger;
     const product = this.productsInCart.find((product) => product.id === +productId);
 
     if (product) {
