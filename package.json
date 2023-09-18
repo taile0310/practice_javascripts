@@ -23,6 +23,8 @@
     "prettier": "^3.0.2"
   },
   "transformers": {
-    "*.{svg}": ["@parcel/transformer-svg"]
+    "*.{svg}": [
+      "@parcel/transformer-svg"
+    ]
   }
 }
