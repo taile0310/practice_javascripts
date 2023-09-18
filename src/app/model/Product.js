@@ -20,7 +20,6 @@ class Product extends Observable {
    * @param {Array} newItems
    */
   addMoreProducts(newItems) {
-    debugger;
     this.products = this.products.concat(newItems);
     this.notify(this.products);
   }

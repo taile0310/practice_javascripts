@@ -1,15 +1,17 @@
 import Observer from './Observer';
 
-export class CheckoutView extends Observer {
-  constructor(controllerCheckout, totalValue) {
+class CheckoutView extends Observer {
+  constructor(checkoutController, cartController) {
     super();
-    this.controllerCheckout = controllerCheckout;
+    this.checkoutController = checkoutController;
 
+    this.cartController = cartController;
+    this.cartController.cartModel.addObserver(this);
+
+    this.totalPrice = 0;
     this.renderCheckout();
     this.setupDOMElements();
     this.setupEventListeners();
-
-    this.totalValue = totalValue; // Lưu giá trị totalValue
   }
 
   // Display the payment order interface
@@ -52,7 +54,7 @@ export class CheckoutView extends Observer {
             <h4 class="text-h4">Your total</h4>
             <div class="total-checkout">
               <span class="text-large">Total</span>
-              <span class="text-large subtotal">${this.subtotalElement}</span>
+              <span class="text-large checkout">${this.totalPrice}</span>
             </div>
             <button class="btn-secondary text-large font-family btn-checkout">Checkout</button>
         </section>
@@ -65,6 +67,7 @@ export class CheckoutView extends Observer {
     this.emailInput = document.getElementById('email');
     this.phoneInput = document.getElementById('phone');
     this.addressInput = document.getElementById('address');
+    this.description = document.getElementById('description');
     this.messageName = document.querySelector('.message-name');
     this.messageEmail = document.querySelector('.message-email');
     this.messagePhone = document.querySelector('.message-phone');
@@ -80,36 +83,37 @@ export class CheckoutView extends Observer {
       if (this.isValidName(name)) {
         this.messageName.textContent = '';
       } else {
-        this.messageName.textContent = 'Invalid name format';
+        this.messageName.textContent = 'Invalid name format, Ex: Le Van A';
       }
     });
 
+    //Email input check event
     this.emailInput.addEventListener('input', (event) => {
       const email = event.target.value;
-
       if (this.isValidEmail(email)) {
         this.messageEmail.textContent = '';
       } else {
-        this.messageEmail.textContent = 'Invalid email format';
+        this.messageEmail.textContent = 'Invalid email format, Ex: lht@gmail.com';
       }
     });
 
+    //Phone input check event
     this.phoneInput.addEventListener('input', (event) => {
       const phone = event.target.value;
-
       if (this.isValidPhone(phone)) {
         this.messagePhone.textContent = '';
       } else {
-        this.messagePhone.textContent = 'Invalid phone format';
+        this.messagePhone.textContent = 'Invalid phone format, Ex: 0365 xxx xxx';
       }
     });
 
+    //Address input check event
     this.messageAddress.addEventListener('input', (event) => {
       const address = event.target.value;
       if (this.isValidName(address)) {
         this.messageAddress.textContent = '';
       } else {
-        this.messageAddress.textContent = 'Invalid name format';
+        this.messageAddress.textContent = 'Invalid name format, Ex: 10 Nguyen Van Linh';
       }
     });
 
@@ -119,22 +123,43 @@ export class CheckoutView extends Observer {
     });
   }
 
+  /**
+   * Method checks input for name
+   * @param {string} name
+   * @returns
+   */
   isValidName(name) {
     const regexName = /^[a-zA-ZÀ-ỹ\s]*$/;
     return regexName.test(name);
   }
+
+  /**
+   * Method checks input for email
+   * @param {string} email
+   * @returns
+   */
   isValidEmail(email) {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regexEmail.test(email);
   }
 
+  /**
+   * Method checks input for phone
+   * @param {string} phone
+   * @returns
+   */
   isValidPhone(phone) {
     const regexPhone = /^(0)+[3|5|7|8|9]+([0-9]{8})$/;
     return regexPhone.test(phone);
   }
 
+  /**
+   * Method checks input for address
+   * @param {*} address
+   * @returns
+   */
   isValidAddress(address) {
-    const regexAddress = /^[0-9]+[a-z0-ZÀ-ỹ\s]+[a-zA-ZÀ-ỹ\s-]*$/;
+    const regexAddress = /^[a-z0-ZÀ-ỹ\s-]*$/;
     return regexAddress.test(address);
   }
 
@@ -157,10 +182,33 @@ export class CheckoutView extends Observer {
       this.isValidAddress(address)
     ) {
       // If all fields are valid, show a success alert
+      this.nameInput.value = '';
+      this.emailInput.value = '';
+      this.phoneInput.value = '';
+      this.addressInput.value = '';
+      this.description.value = '';
       alert('Checkout successful!');
+      localStorage.clear();
+      location.reload();
     } else {
       // If any field is invalid, show an error message
       alert('Checkout failed. Please check your information.');
     }
   }
+
+  // Method updates the total amount for the checkout
+  updateTotalForCheckout() {
+    this.totalPrice = this.cartController.cartModel.totalValue;
+    const updateTotal = document.querySelector('.checkout');
+    updateTotal.textContent = `$${this.totalPrice}`;
+  }
+
+  /**
+   * Update the user interface and calculate totals based on new data.
+   */
+  update() {
+    // Call the updateTotalForCheckout method to update the total value
+    this.updateTotalForCheckout();
+  }
 }
+export { CheckoutView };
