@@ -19,7 +19,7 @@
 
 ## Design on figma
 
-- Figma: https://www.figma.com/file/f4UERtJo8ZKzQTsSQ6BX3Z/Restaurant-Website-(Shop)-(Community)?node-id=0%3A1&mode=dev
+- [Figma](<https://www.figma.com/file/f4UERtJo8ZKzQTsSQ6BX3Z/Restaurant-Website-(Shop)-(Community)?node-id=0%3A1&mode=dev>)
 
 ## Getting started:
 
@@ -51,4 +51,10 @@ npm install
 
 ```
 npx parcel index.html
+```
+
+- Step 06: Finally run with:
+
+```
+Open http://localhost:1234/ in browser.
 ```
