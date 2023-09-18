@@ -1,63 +1,56 @@
 import Observer from './Observer';
-
 import removeIcon from '../../asset/image/remove-icon.svg';
-import { CheckoutView } from './CheckoutView';
+
 class CartView extends Observer {
-  constructor(controllerCart) {
+  constructor(cartController) {
     super();
-    this.controllerCart = controllerCart;
-    this.controllerCart.modelCart.addObserver(this);
+    this.cartController = cartController;
+    this.cartController.cartModel.addObserver(this);
 
     this.cartContainer = document.querySelector('.list-cart');
 
-    this.controllerCart.getProductsInCart();
-    this.controllerCart.getListDiscounts();
-    this.increaseAndDecreaseQuantity();
-    this.removeProductFromCart();
-    this.getValueInput();
-    this.checkoutView = new CheckoutView(this.controllerCart, this.totalValue);
+    this.totalPrice = 0;
+    this.renderCart(this.cartController.cartModel.productsInCart);
+
+    this.cartController.getListDiscounts();
   }
 
   // Display the shopping cart on the user interface based on the product data in the shopping cart.
   renderCart(productsInCart) {
     this.cartContainer.innerHTML = '';
+    // Get the length of the cart list
+    this.lengths = productsInCart.length;
 
-    if (productsInCart.length === 0) {
+    if (this.lengths === 0) {
       // Display a notification if the cart is empty.
       this.cartContainer.innerHTML = '<p class="notify-empty">Your cart is empty.</p>';
     } else {
       // Display the list of products in the shopping cart.
-      productsInCart.forEach((cartItem, index) => {
+      productsInCart.forEach((cartItem) => {
         const elementLi = document.createElement('li');
+        elementLi.setAttribute('data-id', `${cartItem.id}`);
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `
-            <div>
-              <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
-            </div>
+            <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
             <div class="order-group">
               <div class="detail-dish">
                 <span class="text-medium">${cartItem.name}</span>
-                <span class="text-price">$${cartItem.totalPrice * cartItem.quantity}.00</span>
+                <span class="text-price">$${cartItem.total}.00</span>
               </div>
               <div class="quantity-input">
-                <button class="btn-transparent text-price btn-minus" data-id="${
-                  cartItem.id
-                }" >-</button>
+                <button class="btn-transparent text-price btn-minus" >-</button>
                 <span class="quantity text-price">${cartItem.quantity}</span>
-                <button class="btn-transparent text-price btn-plus" data-id="${
-                  cartItem.id
-                }" >+</button>
+                <button class="btn-transparent text-price btn-plus" >+</button>
               </div>
-              <button class="btn-transparent btn-remove"  index="${index}">
-                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" data-id="${
-                  cartItem.id
-                }" />
+              <button class="btn-transparent btn-remove">
+                <img class="icon-remove" src="${removeIcon}" alt="Remove icon" />
               </button>
             </div>
           `;
         this.cartContainer.appendChild(elementLi);
       });
     }
+
     // Update cart total information.
     const cartGroup = document.querySelector('.card-group');
     cartGroup.innerHTML = `
@@ -65,7 +58,7 @@ class CartView extends Observer {
               <h4 class="text-h4">Your Subtotal</h4>
               <div class="detail-total">
                 <span class="text-large">Subtotal</span>
-                <span class="text-large subtotal">${this.subtotalElement}</span>
+                <span class="text-large subtotal">${this.totalPrice}</span>
               </div>
               <button class="btn-secondary text-large font-family btn-confirm">
                 Confirm Order
@@ -74,48 +67,59 @@ class CartView extends Observer {
             <section class="card-secondary">
               <h4 class="text-h4">Promo Code</h4>
               <input class="card-input promo-code" type="text" placeholder="enter promo code" />
-              <div id="message"></div>
+              <div class="message"></div>
               <button class="btn-secondary text-large font-family btn-apply">Apply</button>
             </section>
     `;
+    this.confirmOrder();
   }
 
-  /**
-   * Calculates and updates the total value of products in the cart and displays it on the subtotal element.
-   * @param {Array} productsInCart - An array of products in the cart.
-   */
-  calculateTotalValue(productsInCart) {
-    this.totalValue = productsInCart.reduce(
-      (total, productsInCart) => total + productsInCart.totalPrice * productsInCart.quantity,
-      0,
-    );
-    this.subtotalElement = document.querySelector('.subtotal');
-    this.subtotalElement.textContent = `$${this.totalValue}.00`;
+  setupItemevent() {
+    // Loop through the entire this.CartContainer
+    const cartItems = this.cartContainer.querySelectorAll('.cart-item');
+    cartItems.forEach((item) => {
+      const itemId = item.getAttribute('data-id');
+      const btnMinus = item.querySelector('.btn-minus');
+      const btnPlus = item.querySelector('.btn-plus');
+      const btnRemove = item.querySelector('.btn-remove');
+      // Add btnMinus event
+      btnMinus.addEventListener('click', () => {
+        this.cartController.decreaseQuantity(itemId);
+      });
+
+      // Add btnPlus event
+      btnPlus.addEventListener('click', () => {
+        this.cartController.increaseQuantity(itemId);
+      });
+
+      // Add btnRemove event
+      btnRemove.addEventListener('click', () => {
+        this.cartController.removeOutCart(itemId);
+      });
+    });
   }
 
-  // Method get value in input
-  getValueInput() {
+  // Method updates the total amount for the cart
+  updateTotalPriceDisplay() {
+    this.totalPrice = this.cartController.cartModel.totalValue;
+    const subtotalElement = document.querySelector('.subtotal');
+    subtotalElement.textContent = `$${this.totalPrice}.00`;
+    this.checkPromoCodeInput();
+  }
+
+  // Check the input promo code
+  checkPromoCodeInput() {
     const promoCodeInput = document.querySelector('.promo-code');
     const btnApply = document.querySelector('.btn-apply');
-    this.messageDiv = document.getElementById('message');
+    this.messageDiv = document.querySelector('.message');
 
     btnApply.addEventListener('click', () => {
       const promoCode = promoCodeInput.value;
       // Check the discount code
-      const isExistCode = this.controllerCart.checkExistPromoCode(promoCode);
+      const isExistCode = this.cartController.checkExistPromoCode(promoCode);
       // If it exists, return the message 'Valid discount code' and perform the calculation and update the subtotal again
       if (isExistCode) {
         this.messageDiv.textContent = 'Valid discount code';
-        const discountPercent = isExistCode.percentReduction;
-        // Update this.totalValue by recalculating after applying the discount code
-        this.totalValue = this.totalValue - (this.totalValue * discountPercent) / 100;
-        // Updates displayed on the website
-        // const subtotalElement = document.querySelector('.subtotal');
-        this.subtotalElement.textContent = `$${this.totalValue}.00`;
-
-        this.checkoutView.totalValue = this.totalValue;
-        console.log(this.checkoutView.totalValue, 'cart view', this.totalValue);
-        return this.totalValue;
       }
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {
@@ -124,34 +128,27 @@ class CartView extends Observer {
     });
   }
 
-  //  Method increase or decreasr quantity
-  increaseAndDecreaseQuantity() {
-    // Get a list of all "minus" and "plus" buttons.
-    this.btnMinus = document.querySelectorAll('.btn-minus');
-    this.btnPlus = document.querySelectorAll('.btn-plus');
+  // Method that listens for order confirmation button events
+  confirmOrder() {
+    const btnConfirmOrder = document.querySelector('.btn-confirm');
+    btnConfirmOrder.addEventListener('click', () => {
+      // If the length is greater than 0, then render template checkout
+      if (this.lengths > 0) {
+        const menu = document.querySelector('.menu');
+        const carts = document.querySelector('.carts');
+        const homeLayout = document.querySelector('.home-layout');
+        const navbar = document.querySelector('.nav-menu');
+        const checkout = document.querySelector('.checkout-cart');
 
-    this.cartContainer.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.classList.contains('btn-minus')) {
-        // If the user clicks the "minus" button, get the product ID and call the quantity reduction method.
-        const productId = target.getAttribute('data-id');
-        this.controllerCart.decreaseQuantity(productId);
-      } else if (target.classList.contains('btn-plus')) {
-        // If the user clicks the "plus" button, get the product ID and call the quantity increment method.
-        const productId = target.getAttribute('data-id');
-        this.controllerCart.increaseQuantity(productId);
+        menu.style.display = 'none';
+        carts.style.display = 'none';
+        homeLayout.style.display = 'none';
+        navbar.style.display = 'flex';
+        checkout.style.display = 'block';
       }
-    });
-  }
-
-  // Method remove product from cart
-  removeProductFromCart() {
-    this.cartContainer.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.classList.contains('icon-remove')) {
-        // If the user clicks the "remove" icon, get the product ID and call the product remove method.
-        const productId = target.getAttribute('data-id');
-        this.controllerCart.removeProductFromCart(productId);
+      // Otherwise, less than zero is a warning
+      else {
+        alert('Your shopping cart is empty, cannot checkout');
       }
     });
   }
@@ -163,8 +160,10 @@ class CartView extends Observer {
   update(data) {
     // Call the renderCart method to update the cart appearance based on the new data
     this.renderCart(data);
-    // Call the CalculateTotalValue method to calculate the total value based on the new data.
-    this.calculateTotalValue(data);
+    // setup item event
+    this.setupItemevent();
+    // Call the updateTotalPriceDisplay method to update the total value
+    this.updateTotalPriceDisplay();
   }
 }
 

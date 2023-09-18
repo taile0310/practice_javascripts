@@ -1,33 +1,51 @@
+import MenuConstant from '../constant/MenuConstant';
 import Observer from './Observer';
-import renderProductTemplate from '../page/ProductPage';
-// import { renderProductTemplate } from '../page/ProductPage';
-import { renderCartTemplate } from '../page/CartPage';
-import renderCheckoutTemplate from '../page/CheckoutPage';
 
 class NavbarView extends Observer {
-  constructor(controllerNavbar, controllerCart) {
+  constructor(navbarController, cartController, productController) {
     super();
-    this.controllerNavbar = controllerNavbar;
-    this.controllerNavbar.modelNavbar.addObserver(this);
+    this.controllerNavbar = navbarController;
 
-    this.controllerCart = controllerCart;
-    this.controllerCart.modelCart.addObserver(this);
+    this.cartController = cartController;
+    this.cartController.cartModel.addObserver(this);
 
-    this.controllerCart.getProductsInCart();
+    this.productController = productController;
+    this.productController.loadInitialData();
 
-    this.renderNavbar(this.controllerNavbar.modelNavbar.navbars);
+    this.cartNumberElement = null;
+    this.lengths = 0;
+    this.currentMenu = MenuConstant.HOME;
+
+    this.initHomeMenu();
+  }
+
+  initHomeMenu() {
+    const btnMenu = document.querySelector('.btnMenu');
+    btnMenu.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.currentMenu = MenuConstant.MENU;
+      const content = document.querySelector('.component-layout');
+      const menu = document.querySelector('.menu');
+      const homeLayout = document.querySelector('.home-layout');
+      const navbar = document.querySelector('.nav-menu');
+      content.style.display = 'flex';
+      menu.style.display = 'flex';
+      homeLayout.style.display = 'none';
+      navbar.style.display = 'flex';
+      this.renderNavbar(this.controllerNavbar.navbarModel.navbars);
+      this.updateActiveLink();
+    });
   }
 
   // Update active links in the site navigation bar.
   updateActiveLink() {
     // Get a list of all links in the navigation bar.
     const navLinks = document.querySelectorAll('.nav-item');
-    // Get the current URL of the website.
-    const currentURL = window.location.href;
     navLinks.forEach((navLink) => {
-      const href = navLink.getAttribute('href');
+      const navBarId = navLink.getAttribute('navBarId');
+
       // Compare the current URL with the link's path
-      if ('http://localhost:1234/menu.html#' + href === currentURL) {
+      if (this.currentMenu == navBarId) {
         navLink.classList.add('active-link');
       } else {
         navLink.classList.remove('active-link');
@@ -37,24 +55,27 @@ class NavbarView extends Observer {
 
   // Displays the website's navigation bar
   renderNavbar(navbars) {
+    // // Get the containing element for the navigation bar
     const navbarContainer = document.querySelector('.nav-menu');
     navbarContainer.innerHTML = '';
 
     navbars.forEach((link) => {
       const elementA = document.createElement('a');
+      elementA.setAttribute('navBarId', link.id);
       elementA.className = 'nav-item';
       elementA.href = link.path;
 
-      if (elementA.getAttribute('href') == '/cart') {
+      // Check if the navigation item is for the cart
+      if (link.id == MenuConstant.CART) {
         const cartNumber = document.createElement('div');
+        this.cartNumberElement = cartNumber;
         cartNumber.className = 'cart-number';
-        // Kiểm tra độ dài của giỏ hàng trước khi hiển thị
+        // Set the cart number text based on the number of items in the cart
         if (this.lengths > 0) {
-          cartNumber.textContent = `${this.lengths}`;
+          this.cartNumberElement.textContent = `${this.lengths}`;
         } else {
-          cartNumber.textContent = '0'; // Không hiển thị gì cả nếu không có sản phẩm trong giỏ hàng
+          this.cartNumberElement.textContent = '0';
         }
-
         elementA.appendChild(cartNumber);
       }
 
@@ -66,41 +87,47 @@ class NavbarView extends Observer {
       elementA.addEventListener('click', (event) => {
         event.preventDefault();
 
+        const navBarId = event.currentTarget.getAttribute('navBarId');
+        this.currentMenu = navBarId;
         const menu = document.querySelector('.menu');
         const carts = document.querySelector('.carts');
         const checkout = document.querySelector('.checkout-cart');
-        // Handle the display of the interface corresponding to the clicked link.
-        if (link.path === '/menu') {
-          // Displays the menu interface
-          renderProductTemplate;
-          // renderProductTemplate();
-          carts.style.display = 'none';
-          checkout.style.display = 'none';
-
-          menu.style.display = 'flex';
-          window.location.hash = '/menu';
-          this.updateActiveLink();
+        const homeLayout = document.querySelector('.home-layout');
+        const navbar = document.querySelector('.nav-menu');
+        // Handle navigation based on the ID of the item clicked
+        switch (navBarId) {
+          case MenuConstant.HOME:
+          case MenuConstant.LOGO:
+          case MenuConstant.LOGOUT:
+            homeLayout.style.display = 'block';
+            menu.style.display = 'none';
+            carts.style.display = 'none';
+            checkout.style.display = 'none';
+            navbar.style.display = 'none';
+            break;
+          case MenuConstant.MENU:
+            menu.style.display = 'flex';
+            carts.style.display = 'none';
+            checkout.style.display = 'none';
+            break;
+          case MenuConstant.CART:
+            menu.style.display = 'none';
+            carts.style.display = 'block';
+            checkout.style.display = 'none';
+            break;
+          case MenuConstant.CHECKOUT:
+            if (this.lengths > 0) {
+              menu.style.display = 'none';
+              carts.style.display = 'none';
+              checkout.style.display = 'block';
+            } else {
+              alert('Your shopping cart is empty, cannot checkout');
+              this.currentMenu = MenuConstant.MENU;
+            }
+            break;
         }
-        if (link.path === '/cart') {
-          // Displays the cart interface
-          renderCartTemplate();
-          menu.style.display = 'none';
-          checkout.style.display = 'none';
 
-          carts.style.display = 'block';
-          window.location.hash = '/cart';
-          this.updateActiveLink();
-        }
-        if (link.path === '/checkout') {
-          // Displays the checkout interface
-          renderCheckoutTemplate;
-          menu.style.display = 'none';
-          carts.style.display = 'none';
-
-          checkout.style.display = 'block';
-          window.location.hash = '/checkout';
-          this.updateActiveLink();
-        }
+        this.updateActiveLink();
       });
 
       elementA.appendChild(elememntImage);
@@ -108,14 +135,24 @@ class NavbarView extends Observer {
     });
   }
 
-  getLengthInCart(productsInCart) {
+  /**
+   * Updates the cart number displayed in the navigation bar based on the number of products in the cart.
+   * @param {Array} productsInCart - An array of products in the cart.
+   */
+  updateCartNumber(productsInCart) {
+    // Update the 'lengths' property with the number of products in the cart
     this.lengths = productsInCart.length;
-    console.log('dộ dài', this.lengths);
-    return this.lengths;
+
+    // Update the text content of the cart number element with the updated length
+    this.cartNumberElement.textContent = `${this.lengths}`;
   }
 
+  /**
+   *
+   * @param {*} data
+   */
   update(data) {
-    this.getLengthInCart(data);
+    this.updateCartNumber(data);
   }
 }
 

@@ -1,30 +1,25 @@
 import Observer from './Observer';
 
 class ProductView extends Observer {
-  constructor(controller, controllerCart) {
+  constructor(productController, cartproductController) {
     super();
-    this.controller = controller;
-    this.controller.model.addObserver(this);
+    this.productController = productController;
+    this.productController.productModel.addObserver(this);
 
-    this.controllerCart = controllerCart;
-    this.controllerCart.modelCart.addObserver(this);
+    this.cartproductController = cartproductController;
 
     this.btnLoadMore = document.querySelector('.btn-load-more');
 
     this.btnLoadMore.addEventListener('click', () => {
-      this.controller.loadMoreData();
+      this.productController.loadMoreData();
     });
 
     this.menuContainer = document.querySelector('.list-menu');
 
-    this.updateStatusButton();
     this.addToCart();
-    this.controller.loadInitialData();
   }
-
   // Display product list on the user interface.
   renderProduct(products) {
-    debugger;
     this.menuContainer.innerHTML = '';
 
     products.forEach((product) => {
@@ -36,7 +31,7 @@ class ProductView extends Observer {
 
       // // Check if the product is available in the cart and add the 'added-to-cart' class if so.
       const productId = product.id;
-      const isAvaiableInCart = this.controller.checkProductInCart(productId);
+      const isAvaiableInCart = this.cartproductController.checkProductInCart(productId);
       if (isAvaiableInCart) {
         elememntImage.classList.add('added-to-cart');
       }
@@ -62,7 +57,6 @@ class ProductView extends Observer {
 
   // Method to add products to cart
   addToCart() {
-    debugger;
     this.menuContainer.addEventListener('click', (event) => {
       const target = event.target;
       if (target.classList.contains('img-rectangle')) {
@@ -71,30 +65,22 @@ class ProductView extends Observer {
         const productName = target.dataset.productName;
         const productImage = target.dataset.productImage;
         const productPrice = target.dataset.productPrice;
-        const isSelected = target.dataset.productIsSelected;
 
-        const isAddedToCart = this.controller.checkProductInCart(productId);
+        const isAddedToCart = this.cartproductController.checkProductInCart(productId);
         // If the product does not exist in the cart, can add it
         if (!isAddedToCart) {
-          this.controller.addToCart(productId, productName, productImage, productPrice, isSelected);
+          this.cartproductController.addToCart(productId, productName, productImage, productPrice);
           target.classList.add('added-to-cart');
           alert('Added to cart');
         }
         // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
         else {
-          this.controller.removeOutCart(productId);
+          this.cartproductController.removeOutCart(productId);
           target.classList.remove('added-to-cart');
           alert('Removed from cart');
         }
       }
     });
-  }
-
-  updateStatusButton() {
-    const btnLoadMore = document.querySelector('.btn-load-more');
-    if (this.controller.model.checkProductExists) {
-      btnLoadMore.disabled = true;
-    }
   }
 
   /**

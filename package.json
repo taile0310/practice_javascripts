@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel",
+    "start": "parcel src/index.html",
     "build": "parcel build index.html assets/** static/**"
   },
   "keywords": [],
@@ -23,6 +23,8 @@
     "prettier": "^3.0.2"
   },
   "transformers": {
-    "*.{svg}": ["@parcel/transformer-svg"]
+    "*.{svg}": [
+      "@parcel/transformer-svg"
+    ]
   }
 }

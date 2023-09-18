@@ -1,5 +1,5 @@
 export class CheckoutController {
-  constructor(modelCheckout) {
-    this.modelCheckout = modelCheckout;
+  constructor(cartModel) {
+    this.cartModel = cartModel;
   }
 }

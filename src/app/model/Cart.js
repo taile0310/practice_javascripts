@@ -4,6 +4,7 @@ export class Cart extends Observable {
   constructor() {
     super();
     this.productsInCart = [];
+    this.discounts = [];
   }
 
   /**
@@ -21,7 +22,6 @@ export class Cart extends Observable {
    * @returns Returns true if the product exists in the cart, otherwise returns false.
    */
   isAvailable(productId) {
-    debugger;
     this.productIdExis = this.productsInCart.find((product) => product.id === +productId);
     return this.productIdExis;
   }
@@ -32,10 +32,9 @@ export class Cart extends Observable {
    * @returns {Array} Returns an array of products after removing products with corresponding codes.
    */
   removeProduct(productId) {
-    debugger;
     this.productsInCart = this.productsInCart.filter((product) => product.id !== +productId);
-    console.log(this.productsInCart + ' xóa');
     this.notify(this.productsInCart);
+    console.log('Removing product', this.productsInCart);
     return this.productsInCart;
   }
 
@@ -48,13 +47,13 @@ export class Cart extends Observable {
    * @returns {Array} Returns an array of products
    */
   addToCart(productId, productName, productImage, productPrice) {
-    debugger;
     this.productsInCart.push({
       id: +productId,
       quantity: 1,
       name: productName,
       image: productImage,
       totalPrice: +productPrice,
+      total: +productPrice,
     });
     this.notify(this.productsInCart);
     return this.productsInCart;
@@ -66,10 +65,10 @@ export class Cart extends Observable {
    * @returns {Array} Array of products after increasing quantity.
    */
   increaseQuantity(productId) {
-    debugger;
     this.productsInCart.find((product) => {
       if (product.id === +productId) {
         product.quantity += 1;
+        product.total += product.totalPrice;
       }
     });
     this.notify(this.productsInCart);
@@ -82,17 +81,50 @@ export class Cart extends Observable {
    * @returns {Array} Array of products after quantity reduction.
    */
   decreaseQuantity(productId) {
-    debugger;
     const product = this.productsInCart.find((product) => product.id === +productId);
-
     if (product) {
       if (product.quantity > 1) {
         product.quantity -= 1;
+        product.total -= product.totalPrice;
       } else {
         alert('The quantity cannot be less than 1');
       }
     }
     this.notify(this.productsInCart);
     return this.productsInCart;
+  }
+
+  /**
+   * Checks the existence of a discount code in the shopping cart.
+   * @param {*} productsInCart
+   * @returns {Object | undefined} - Returns the discount object if found, or undefined if not found.
+   */
+  calculateTotalValue(productsInCart) {
+    this.totalValue = productsInCart.reduce((total, product) => total + product.total, 0);
+    this.notify(this.productsInCart);
+    return this.totalValue;
+  }
+
+  /**
+   * Get a list of discount codes
+   * @param {Array} discounts - An array of discount objects.
+   * @returns {Array} - Returns the list of discounts.
+   */
+  getListDiscounts(discounts) {
+    this.discounts = discounts;
+    return this.discounts;
+  }
+
+  /**
+   * Check if the discount code exists
+   * @param {string} promoCode - The promo code to check.
+   * @returns {Object | undefined} Returns the discount object if found, or undefined if not found.
+   */
+  isAvailablePromo(promoCode) {
+    this.discountCode = this.discounts.find((discount) => discount.code === promoCode);
+    this.totalValue =
+      this.totalValue - (this.totalValue * this.discountCode.percentReduction) / 100;
+    this.notify(this.productsInCart);
+    return this.discountCode;
   }
 }

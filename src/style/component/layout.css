@@ -4,7 +4,7 @@
 }
 
 .component-layout {
-  display: flex;
+  display: none;
   gap: 55px;
   padding: 43px 103px 30px 57px;
 }
