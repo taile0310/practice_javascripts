@@ -11,7 +11,6 @@ export class CartController {
 
   // Method to get the list of products in the cart
   getProductsInCart() {
-    debugger;
     const productsInCart = this.cartService.loadInitialDataInCart();
     this.cartModel.initProductsInCart(productsInCart);
   }

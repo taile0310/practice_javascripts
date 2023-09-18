@@ -34,7 +34,6 @@ export class Cart extends Observable {
   removeProduct(productId) {
     this.productsInCart = this.productsInCart.filter((product) => product.id !== +productId);
     this.notify(this.productsInCart);
-    console.log('Removing product', this.productsInCart);
     return this.productsInCart;
   }
 
