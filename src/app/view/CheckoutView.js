@@ -1,4 +1,5 @@
 import Observer from './Observer';
+import MenuConstant from '../constant/MenuConstant';
 
 class CheckoutView extends Observer {
   constructor(checkoutController, cartController) {
@@ -20,19 +21,19 @@ class CheckoutView extends Observer {
     formCheckout.innerHTML = `
       <label class="text-medium" for="name">Full Name:</label>
       <input class="form-input" type="text" id="name" name="name" required />
-      <div class="message-name error"></div>
+      <span class="message-name error"></span>
 
       <label class="text-medium" for="email">Email:</label>
       <input class="form-input" type="email" id="email" name="email" required />
-      <div class="message-email error"></div>
+      <span class="message-email error"></span>
 
       <label class="text-medium" for="phone">Phone Number:</label>
       <input class="form-input" type="text" id="phone" name="phone" required />
-      <div class="message-phone error"></div>
+      <span class="message-phone error"></span>
 
       <label class="text-medium" for="address">Address:</label>
       <input class="form-input" type="text" id="address" name="address" required />
-      <div class="message-address error"></div>
+      <span class="message-address error"></span>
 
       <label class="text-medium" for="description">Description:</label>
       <textarea
@@ -59,6 +60,9 @@ class CheckoutView extends Observer {
             <button class="btn-secondary text-large font-family btn-checkout">Checkout</button>
         </section>
       `;
+
+    const copyright = document.querySelector('.copyright-checkout');
+    copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
   }
 
   //Set the required elements
@@ -182,11 +186,7 @@ class CheckoutView extends Observer {
       this.isValidAddress(address)
     ) {
       // If all fields are valid, show a success alert
-      this.nameInput.value = '';
-      this.emailInput.value = '';
-      this.phoneInput.value = '';
-      this.addressInput.value = '';
-      this.description.value = '';
+      this.clearFormInputs();
       alert('Checkout successful!');
       localStorage.clear();
       location.reload();
@@ -196,11 +196,20 @@ class CheckoutView extends Observer {
     }
   }
 
+  // Method to clear form inputs
+  clearFormInputs() {
+    this.nameInput.value = '';
+    this.emailInput.value = '';
+    this.phoneInput.value = '';
+    this.addressInput.value = '';
+    this.description.value = '';
+  }
+
   // Method updates the total amount for the checkout
   updateTotalForCheckout() {
     this.totalPrice = this.cartController.cartModel.totalValue;
     const updateTotal = document.querySelector('.checkout');
-    updateTotal.textContent = `$${this.totalPrice}`;
+    updateTotal.textContent = `$${this.totalPrice}.00`;
   }
 
   /**

@@ -33,6 +33,7 @@
   display: none;
 }
 .error {
+  display: flex;
   color: red;
 }
 /* Tablet */
@@ -43,6 +44,12 @@
 
   .btn-checkout {
     padding: 20px 106px;
+  }
+}
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 885px) {
+  .checkout-container {
+    flex-direction: column;
   }
 }
 

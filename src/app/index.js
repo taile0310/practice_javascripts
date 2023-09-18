@@ -30,7 +30,7 @@ export function main() {
     productController,
     checkoutController,
   );
-  const cartView = new CartView(cartController);
+  const cartView = new CartView(cartController, navbarView);
   const checkoutView = new CheckoutView(checkoutController, cartController);
 }
 main();

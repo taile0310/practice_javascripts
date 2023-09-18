@@ -6,4 +6,5 @@ export default {
   CART: '3',
   CHECKOUT: '4',
   LOGOUT: '5',
+  COPYRIGHT_TEXT: 'Copyright &copy 2021 Sushi Restaurant',
 };

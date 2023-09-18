@@ -117,13 +117,17 @@
     padding: 15px 42px;
     margin-top: 0px;
   }
+
+  .notify-empty {
+    padding: 7px;
+    font-size: 35px;
+  }
 }
 
 /* Mobile */
 @media screen and (max-width: 768px) {
   .grid-container {
     display: flex;
-    flex-direction: column;
     gap: 30px;
     margin-top: 24px;
   }
@@ -153,5 +157,19 @@
   }
   .btn-apply {
     max-width: 171px;
+  }
+
+  .notify-empty {
+    padding: 7px;
+    font-size: 23px;
+  }
+}
+
+@media screen and (max-width: 626px) {
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 24px;
   }
 }

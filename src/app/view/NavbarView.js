@@ -123,10 +123,12 @@ class NavbarView extends Observer {
             } else {
               alert('Your shopping cart is empty, cannot checkout');
               this.currentMenu = MenuConstant.MENU;
+              menu.style.display = 'flex';
+              carts.style.display = 'none';
+              checkout.style.display = 'none';
             }
             break;
         }
-
         this.updateActiveLink();
       });
 
@@ -147,9 +149,36 @@ class NavbarView extends Observer {
     this.cartNumberElement.textContent = `${this.lengths}`;
   }
 
+  // Method that listens for order confirmation button events
+  confirmOrder() {
+    const btnConfirmOrder = document.querySelector('.btn-confirm');
+    btnConfirmOrder.addEventListener('click', () => {
+      // If the length is greater than 0, then render template checkout
+      if (this.lengths > 0) {
+        const menu = document.querySelector('.menu');
+        const carts = document.querySelector('.carts');
+        const homeLayout = document.querySelector('.home-layout');
+        const navbar = document.querySelector('.nav-menu');
+        const checkout = document.querySelector('.checkout-cart');
+
+        menu.style.display = 'none';
+        carts.style.display = 'none';
+        homeLayout.style.display = 'none';
+        navbar.style.display = 'flex';
+        checkout.style.display = 'block';
+        this.currentMenu = MenuConstant.CHECKOUT;
+        this.updateActiveLink();
+      }
+      // Otherwise, less than zero is a warning
+      else {
+        alert('Your shopping cart is empty, cannot checkout');
+      }
+    });
+  }
+
   /**
-   *
-   * @param {*} data
+   * Update the user interface and calculate totals based on new data.
+   * @param {*} data Data is provided from the model.
    */
   update(data) {
     this.updateCartNumber(data);

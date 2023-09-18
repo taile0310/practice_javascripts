@@ -1,17 +1,18 @@
 import Observer from './Observer';
 import removeIcon from '../../asset/image/remove-icon.svg';
+import MenuConstant from '../constant/MenuConstant';
 
 class CartView extends Observer {
-  constructor(cartController) {
+  constructor(cartController, navbarView) {
     super();
     this.cartController = cartController;
     this.cartController.cartModel.addObserver(this);
+    this.navbarView = navbarView;
 
     this.cartContainer = document.querySelector('.list-cart');
 
     this.totalPrice = 0;
     this.renderCart(this.cartController.cartModel.productsInCart);
-
     this.cartController.getListDiscounts();
   }
 
@@ -71,7 +72,11 @@ class CartView extends Observer {
               <button class="btn-secondary text-large font-family btn-apply">Apply</button>
             </section>
     `;
-    this.confirmOrder();
+
+    const copyright = document.querySelector('.copyright-cart');
+    copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
+
+    this.navbarView.confirmOrder();
   }
 
   setupItemevent() {
@@ -124,31 +129,6 @@ class CartView extends Observer {
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {
         this.messageDiv.textContent = 'Invalid discount code';
-      }
-    });
-  }
-
-  // Method that listens for order confirmation button events
-  confirmOrder() {
-    const btnConfirmOrder = document.querySelector('.btn-confirm');
-    btnConfirmOrder.addEventListener('click', () => {
-      // If the length is greater than 0, then render template checkout
-      if (this.lengths > 0) {
-        const menu = document.querySelector('.menu');
-        const carts = document.querySelector('.carts');
-        const homeLayout = document.querySelector('.home-layout');
-        const navbar = document.querySelector('.nav-menu');
-        const checkout = document.querySelector('.checkout-cart');
-
-        menu.style.display = 'none';
-        carts.style.display = 'none';
-        homeLayout.style.display = 'none';
-        navbar.style.display = 'flex';
-        checkout.style.display = 'block';
-      }
-      // Otherwise, less than zero is a warning
-      else {
-        alert('Your shopping cart is empty, cannot checkout');
       }
     });
   }

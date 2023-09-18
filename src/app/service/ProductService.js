@@ -10,7 +10,6 @@ class ProductService {
 
   // Method gets the initial product list
   loadInitialData() {
-    debugger;
     return this.allProducts.slice(0, this.displayedListProduct);
   }
 

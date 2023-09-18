@@ -1,20 +1,20 @@
 import Observer from './Observer';
+import MenuConstant from '../constant/MenuConstant';
 
 class ProductView extends Observer {
-  constructor(productController, cartproductController) {
+  constructor(productController, cartController) {
     super();
     this.productController = productController;
     this.productController.productModel.addObserver(this);
 
-    this.cartproductController = cartproductController;
+    this.cartController = cartController;
 
+    this.menuContainer = document.querySelector('.list-menu');
     this.btnLoadMore = document.querySelector('.btn-load-more');
 
     this.btnLoadMore.addEventListener('click', () => {
       this.productController.loadMoreData();
     });
-
-    this.menuContainer = document.querySelector('.list-menu');
 
     this.addToCart();
   }
@@ -31,7 +31,7 @@ class ProductView extends Observer {
 
       // // Check if the product is available in the cart and add the 'added-to-cart' class if so.
       const productId = product.id;
-      const isAvaiableInCart = this.cartproductController.checkProductInCart(productId);
+      const isAvaiableInCart = this.cartController.checkProductInCart(productId);
       if (isAvaiableInCart) {
         elememntImage.classList.add('added-to-cart');
       }
@@ -47,6 +47,9 @@ class ProductView extends Observer {
       const elementSpan = document.createElement('span');
       elementSpan.className = 'text-small';
       elementSpan.innerText = product.name;
+
+      const copyright = document.querySelector('.copyright-menu');
+      copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
 
       elementLi.appendChild(elememntImage);
       elementLi.appendChild(elementSpan);
@@ -66,16 +69,16 @@ class ProductView extends Observer {
         const productImage = target.dataset.productImage;
         const productPrice = target.dataset.productPrice;
 
-        const isAddedToCart = this.cartproductController.checkProductInCart(productId);
+        const isAddedToCart = this.cartController.checkProductInCart(productId);
         // If the product does not exist in the cart, can add it
         if (!isAddedToCart) {
-          this.cartproductController.addToCart(productId, productName, productImage, productPrice);
+          this.cartController.addToCart(productId, productName, productImage, productPrice);
           target.classList.add('added-to-cart');
           alert('Added to cart');
         }
         // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
         else {
-          this.cartproductController.removeOutCart(productId);
+          this.cartController.removeOutCart(productId);
           target.classList.remove('added-to-cart');
           alert('Removed from cart');
         }
