@@ -12,6 +12,7 @@ class CartView extends Observer {
     this.cartContainer = document.querySelector('.list-cart');
 
     this.totalPrice = 0;
+
     this.renderCart(this.cartController.cartModel.productsInCart);
     this.cartController.getListDiscounts();
   }
@@ -109,7 +110,6 @@ class CartView extends Observer {
   // Method updates the total amount for the cart
   updateTotalPriceDisplay() {
     this.totalPrice = this.cartController.cartModel.totalValue;
-    console.log(typeof this.totalPrice);
     const subtotalElement = document.querySelector('.subtotal');
     subtotalElement.textContent = `$${formatNumber(+this.totalPrice)}`;
     this.checkPromoCodeInput();
@@ -119,7 +119,7 @@ class CartView extends Observer {
   checkPromoCodeInput() {
     const promoCodeInput = document.querySelector('.promo-code');
     const btnApply = document.querySelector('.btn-apply');
-    this.messageDiv = document.querySelector('.message');
+    const messageDiv = document.querySelector('.message');
 
     btnApply.addEventListener('click', () => {
       const promoCode = promoCodeInput.value;
@@ -127,21 +127,15 @@ class CartView extends Observer {
       const isExistCode = this.cartController.checkExistPromoCode(promoCode);
       // If it exists, return the message 'Valid discount code' and perform the calculation and update the subtotal again
       if (isExistCode) {
-        this.messageDiv.textContent = 'Valid discount code';
+        messageDiv.textContent = 'Valid discount code';
       }
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {
-        this.messageDiv.textContent = 'Invalid discount code';
-        this.messageDiv.style.color = 'red';
+        messageDiv.textContent = 'Invalid discount code';
+        messageDiv.style.color = 'red';
       }
     });
   }
-
-  // formatNumber(number) {
-  //   return number.toLocaleString(undefined, {
-  //     minimumFractionDigits: 2,
-  //   });
-  // }
 
   /**
    * Update the user interface and calculate totals based on new data.

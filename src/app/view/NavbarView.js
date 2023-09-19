@@ -12,6 +12,13 @@ class NavbarView extends Observer {
     this.productController = productController;
     this.productController.loadInitialData();
 
+    this.menu = document.querySelector('.menu');
+    this.carts = document.querySelector('.carts');
+    this.checkout = document.querySelector('.checkout-cart');
+    this.homeLayout = document.querySelector('.home-layout');
+    this.navbar = document.querySelector('.nav-menu');
+    this.content = document.querySelector('.component-layout');
+
     this.cartNumberElement = null;
     this.lengths = 0;
     this.currentMenu = NAVBAR.HOME;
@@ -24,14 +31,10 @@ class NavbarView extends Observer {
     btnMenu.addEventListener('click', (event) => {
       event.preventDefault();
       this.currentMenu = NAVBAR.MENU;
-      const content = document.querySelector('.component-layout');
-      const menu = document.querySelector('.menu');
-      const homeLayout = document.querySelector('.home-layout');
-      const navbar = document.querySelector('.nav-menu');
-      content.style.display = 'flex';
-      menu.style.display = 'flex';
-      homeLayout.style.display = 'none';
-      navbar.style.display = 'flex';
+      this.content.style.display = 'flex';
+      this.menu.style.display = 'flex';
+      this.homeLayout.style.display = 'none';
+      this.navbar.style.display = 'flex';
       this.renderNavbar(this.controllerNavbar.navbarModel.navbars);
       this.updateActiveLink();
     });
@@ -88,43 +91,40 @@ class NavbarView extends Observer {
 
         const navBarId = event.currentTarget.getAttribute('navBarId');
         this.currentMenu = navBarId;
-        const menu = document.querySelector('.menu');
-        const carts = document.querySelector('.carts');
-        const checkout = document.querySelector('.checkout-cart');
-        const homeLayout = document.querySelector('.home-layout');
-        const navbar = document.querySelector('.nav-menu');
+
         // Handle navigation based on the ID of the item clicked
         switch (navBarId) {
           case NAVBAR.HOME:
           case NAVBAR.LOGO:
           case NAVBAR.LOGOUT:
-            homeLayout.style.display = 'block';
-            menu.style.display = 'none';
-            carts.style.display = 'none';
-            checkout.style.display = 'none';
-            navbar.style.display = 'none';
+            this.homeLayout.style.display = 'block';
+            this.menu.style.display = 'none';
+            this.carts.style.display = 'none';
+            this.checkout.style.display = 'none';
+            this.navbar.style.display = 'none';
+            this.content.style.display = 'none';
             break;
           case NAVBAR.MENU:
-            menu.style.display = 'flex';
-            carts.style.display = 'none';
-            checkout.style.display = 'none';
+            this.menu.style.display = 'flex';
+            this.carts.style.display = 'none';
+            this.checkout.style.display = 'none';
             break;
           case NAVBAR.CART:
-            menu.style.display = 'none';
-            carts.style.display = 'block';
-            checkout.style.display = 'none';
+            this.menu.style.display = 'none';
+            this.carts.style.display = 'block';
+            this.checkout.style.display = 'none';
             break;
           case NAVBAR.CHECKOUT:
             if (this.lengths > 0) {
-              menu.style.display = 'none';
-              carts.style.display = 'none';
-              checkout.style.display = 'block';
+              this.menu.style.display = 'none';
+              this.carts.style.display = 'none';
+              this.checkout.style.display = 'block';
             } else {
               alert('Your shopping cart is empty, cannot checkout');
               this.currentMenu = NAVBAR.MENU;
-              menu.style.display = 'flex';
-              carts.style.display = 'none';
-              checkout.style.display = 'none';
+              this.menu.style.display = 'flex';
+              this.carts.style.display = 'none';
+              this.checkout.style.display = 'none';
             }
             break;
         }
@@ -154,17 +154,11 @@ class NavbarView extends Observer {
     btnConfirmOrder.addEventListener('click', () => {
       // If the length is greater than 0, then render template checkout
       if (this.lengths > 0) {
-        const menu = document.querySelector('.menu');
-        const carts = document.querySelector('.carts');
-        const homeLayout = document.querySelector('.home-layout');
-        const navbar = document.querySelector('.nav-menu');
-        const checkout = document.querySelector('.checkout-cart');
-
-        menu.style.display = 'none';
-        carts.style.display = 'none';
-        homeLayout.style.display = 'none';
-        navbar.style.display = 'flex';
-        checkout.style.display = 'block';
+        this.menu.style.display = 'none';
+        this.carts.style.display = 'none';
+        this.homeLayout.style.display = 'none';
+        this.navbar.style.display = 'flex';
+        this.checkout.style.display = 'block';
         this.currentMenu = NAVBAR.CHECKOUT;
         this.updateActiveLink();
       }

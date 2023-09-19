@@ -81,7 +81,7 @@ export class Data {
       },
       {
         id: 9,
-        name: 'Breakkie Roll',
+        name: 'Apfelstrudel',
         describe: 'Breakkie Roll delicious',
         totalPrice: 18.0,
         image: item1,
@@ -89,7 +89,7 @@ export class Data {
       },
       {
         id: 10,
-        name: 'Breakkie Roll',
+        name: 'Pudim',
         describe: 'Breakkie Roll delicious',
         quantity: 10,
         totalPrice: 25.0,
@@ -98,14 +98,14 @@ export class Data {
       },
       {
         id: 11,
-        name: 'Burrito',
+        name: 'Poutine',
         describe: 'Burrito delicious',
         totalPrice: 15.0,
         image: item3,
       },
       {
         id: 12,
-        name: 'Yin & Yang',
+        name: 'Goulash ',
         describe: 'Yin & Yang delicious',
         quantity: 10,
         totalPrice: 15.0,

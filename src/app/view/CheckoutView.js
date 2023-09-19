@@ -19,19 +19,19 @@ class CheckoutView extends Observer {
   renderCheckout() {
     const formCheckout = document.querySelector('.form-checkout');
     formCheckout.innerHTML = `
-      <label class="text-medium" for="name">Full Name:</label>
+      <label class="text-medium" for="name">Full Name <span class="required-input">*</span></label>
       <input class="form-input" type="text" id="name" name="name" required />
       <span class="message-name error"></span>
 
-      <label class="text-medium" for="email">Email:</label>
+      <label class="text-medium" for="email">Email <span class="required-input">*</span></label>
       <input class="form-input" type="email" id="email" name="email" required />
       <span class="message-email error"></span>
 
-      <label class="text-medium" for="phone">Phone Number:</label>
+      <label class="text-medium" for="phone">Phone Number <span class="required-input">*</span></label>
       <input class="form-input" type="text" id="phone" name="phone" required />
       <span class="message-phone error"></span>
 
-      <label class="text-medium" for="address">Address:</label>
+      <label class="text-medium" for="address">Address <span class="required-input">*</span></label>
       <input class="form-input" type="text" id="address" name="address" required />
       <span class="message-address error"></span>
 
@@ -211,12 +211,6 @@ class CheckoutView extends Observer {
     const updateTotal = document.querySelector('.checkout');
     updateTotal.textContent = `$${formatNumber(+this.totalPrice)}`;
   }
-
-  // formatNumber(number) {
-  //   return number.toLocaleString(undefined, {
-  //     minimumFractionDigits: 2,
-  //   });
-  // }
 
   /**
    * Update the user interface and calculate totals based on new data.

@@ -142,7 +142,7 @@
 
   .card-group {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 30px;
   }
 
@@ -175,5 +175,9 @@
     flex-direction: column;
     gap: 30px;
     margin-top: 24px;
+  }
+
+  .card-group {
+    flex-direction: column-reverse;
   }
 }
