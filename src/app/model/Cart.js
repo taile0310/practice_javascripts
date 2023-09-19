@@ -121,9 +121,12 @@ export class Cart extends Observable {
    */
   isAvailablePromo(promoCode) {
     this.discountCode = this.discounts.find((discount) => discount.code === promoCode);
-    this.totalValue =
-      this.totalValue - (this.totalValue * this.discountCode.percentReduction) / 100;
-    this.notify(this.productsInCart);
+
+    if (this.discountCode) {
+      this.totalValue =
+        this.totalValue - (this.totalValue * this.discountCode.percentReduction) / 100;
+      this.notify(this.productsInCart);
+    }
     return this.discountCode;
   }
 }

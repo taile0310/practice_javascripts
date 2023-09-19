@@ -16,6 +16,7 @@
   pointer-events: none;
   cursor: default;
 }
+
 .cart-number {
   color: white;
   position: absolute;
@@ -58,5 +59,14 @@
 
   .cart-number {
     margin-left: 20px;
+  }
+}
+
+@media screen and (min-width: 380px) and (max-width: 550px) {
+  .nav-menu {
+    margin: auto;
+    height: auto;
+    width: 309px;
+    justify-content: space-between;
   }
 }

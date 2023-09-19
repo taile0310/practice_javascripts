@@ -85,12 +85,12 @@
 /* Tablet & Mobile */
 @media screen and (max-width: 1024px) {
   .detail-dish {
-    min-width: 150px;
+    min-width: 147px;
     gap: 5px;
   }
 
   .detail-dish > :nth-child(1) {
-    width: 150px;
+    width: 147px;
   }
 
   .order-group {
@@ -137,12 +137,12 @@
   }
 
   .order-group {
-    gap: 25px;
+    gap: 23px;
   }
 
   .card-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 30px;
   }
 
@@ -162,6 +162,10 @@
   .notify-empty {
     padding: 7px;
     font-size: 23px;
+  }
+
+  .quantity-input {
+    gap: 9px;
   }
 }
 

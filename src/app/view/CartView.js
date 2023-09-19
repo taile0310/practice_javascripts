@@ -32,7 +32,9 @@ class CartView extends Observer {
         elementLi.setAttribute('data-id', `${cartItem.id}`);
         elementLi.className = 'cart-item';
         elementLi.innerHTML = `
-            <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
+            <div>
+              <img class="img-circle" src="${cartItem.image}" alt="${cartItem.name}" />
+            </div>
             <div class="order-group">
               <div class="detail-dish">
                 <span class="text-medium">${cartItem.name}</span>
@@ -129,6 +131,7 @@ class CartView extends Observer {
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {
         this.messageDiv.textContent = 'Invalid discount code';
+        this.messageDiv.style.color = 'red';
       }
     });
   }
