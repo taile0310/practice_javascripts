@@ -74,13 +74,13 @@ class ProductView extends Observer {
         if (!isAddedToCart) {
           this.cartController.addToCart(productId, productName, productImage, productPrice);
           target.classList.add('added-to-cart');
-          alert('Added to cart');
+          alert('Add product to cart');
         }
         // And vice versa, if the product already exists in the cart, when clicked it will be removed from the cart
         else {
           this.cartController.removeOutCart(productId);
           target.classList.remove('added-to-cart');
-          alert('Removed from cart');
+          alert('Delete product from cart');
         }
       }
     });
