@@ -63,7 +63,6 @@
 /* Mobile */
 @media screen and (max-width: 768px) {
   .component-layout {
-    display: flex;
     flex-direction: column;
     gap: 41px;
     padding: 35px;
