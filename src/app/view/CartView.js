@@ -119,7 +119,7 @@ class CartView extends Observer {
   checkPromoCodeInput() {
     const promoCodeInput = document.querySelector('.promo-code');
     const btnApply = document.querySelector('.btn-apply');
-    const messageDiv = document.querySelector('.message');
+    this.messageDiv = document.querySelector('.message');
 
     btnApply.addEventListener('click', () => {
       const promoCode = promoCodeInput.value;
@@ -127,12 +127,12 @@ class CartView extends Observer {
       const isExistCode = this.cartController.checkExistPromoCode(promoCode);
       // If it exists, return the message 'Valid discount code' and perform the calculation and update the subtotal again
       if (isExistCode) {
-        messageDiv.textContent = 'Valid discount code';
+        this.messageDiv.textContent = 'Valid discount code';
       }
       // Otherwise, if it does not exist, return message 'Invalid discount code'
       else {
-        messageDiv.textContent = 'Invalid discount code';
-        messageDiv.style.color = 'red';
+        this.messageDiv.textContent = 'Invalid discount code';
+        this.messageDiv.style.color = 'red';
       }
     });
   }
