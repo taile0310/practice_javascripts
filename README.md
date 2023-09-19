@@ -50,7 +50,7 @@ npm install
 - Step 05: Finally run with:
 
 ```
-npx parcel index.html
+npx parcel src./index.html
 ```
 
 - Step 06: Finally run with:
