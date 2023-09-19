@@ -1,5 +1,5 @@
 import Observer from './Observer';
-import MenuConstant from '../constant/MenuConstant';
+import { COPYRIGHT, formatNumber } from '../constant/MenuConstant';
 
 class CheckoutView extends Observer {
   constructor(checkoutController, cartController) {
@@ -55,14 +55,14 @@ class CheckoutView extends Observer {
             <h4 class="text-h4">Your total</h4>
             <div class="total-checkout">
               <span class="text-large">Total</span>
-              <span class="text-large checkout">${this.totalPrice}</span>
+              <span class="text-large checkout">${formatNumber(+this.totalPrice)}</span>
             </div>
             <button class="btn-secondary text-large font-family btn-checkout">Checkout</button>
         </section>
       `;
 
     const copyright = document.querySelector('.copyright-checkout');
-    copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
+    copyright.textContent = `${COPYRIGHT.TEXT}`;
   }
 
   //Set the required elements
@@ -209,8 +209,14 @@ class CheckoutView extends Observer {
   updateTotalForCheckout() {
     this.totalPrice = this.cartController.cartModel.totalValue;
     const updateTotal = document.querySelector('.checkout');
-    updateTotal.textContent = `$${this.totalPrice}.00`;
+    updateTotal.textContent = `$${formatNumber(+this.totalPrice)}`;
   }
+
+  // formatNumber(number) {
+  //   return number.toLocaleString(undefined, {
+  //     minimumFractionDigits: 2,
+  //   });
+  // }
 
   /**
    * Update the user interface and calculate totals based on new data.

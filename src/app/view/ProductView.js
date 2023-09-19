@@ -1,5 +1,5 @@
 import Observer from './Observer';
-import MenuConstant from '../constant/MenuConstant';
+import { COPYRIGHT } from '../constant/MenuConstant';
 
 class ProductView extends Observer {
   constructor(productController, cartController) {
@@ -49,7 +49,7 @@ class ProductView extends Observer {
       elementSpan.innerText = product.name;
 
       const copyright = document.querySelector('.copyright-menu');
-      copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
+      copyright.textContent = `${COPYRIGHT.TEXT}`;
 
       elementLi.appendChild(elememntImage);
       elementLi.appendChild(elementSpan);

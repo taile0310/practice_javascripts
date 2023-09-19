@@ -1,6 +1,6 @@
 import Observer from './Observer';
 import removeIcon from '../../asset/image/remove-icon.svg';
-import MenuConstant from '../constant/MenuConstant';
+import { COPYRIGHT, formatNumber } from '../constant/MenuConstant';
 
 class CartView extends Observer {
   constructor(cartController, navbarView) {
@@ -61,7 +61,7 @@ class CartView extends Observer {
               <h4 class="text-h4">Your Subtotal</h4>
               <div class="detail-total">
                 <span class="text-large">Subtotal</span>
-                <span class="text-large subtotal">${this.totalPrice}</span>
+                <span class="text-large subtotal">$${formatNumber(+this.totalPrice)}</span>
               </div>
               <button class="btn-secondary text-large font-family btn-confirm">
                 Confirm Order
@@ -76,7 +76,7 @@ class CartView extends Observer {
     `;
 
     const copyright = document.querySelector('.copyright-cart');
-    copyright.textContent = `${MenuConstant.COPYRIGHT_TEXT}`;
+    copyright.textContent = `${COPYRIGHT.TEXT}`;
 
     this.navbarView.confirmOrder();
   }
@@ -109,8 +109,9 @@ class CartView extends Observer {
   // Method updates the total amount for the cart
   updateTotalPriceDisplay() {
     this.totalPrice = this.cartController.cartModel.totalValue;
+    console.log(typeof this.totalPrice);
     const subtotalElement = document.querySelector('.subtotal');
-    subtotalElement.textContent = `$${this.totalPrice}.00`;
+    subtotalElement.textContent = `$${formatNumber(+this.totalPrice)}`;
     this.checkPromoCodeInput();
   }
 
@@ -135,6 +136,12 @@ class CartView extends Observer {
       }
     });
   }
+
+  // formatNumber(number) {
+  //   return number.toLocaleString(undefined, {
+  //     minimumFractionDigits: 2,
+  //   });
+  // }
 
   /**
    * Update the user interface and calculate totals based on new data.

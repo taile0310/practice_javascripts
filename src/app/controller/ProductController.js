@@ -1,11 +1,9 @@
-import { Cart } from '../model/Cart';
 import { CartService } from '../service/CartService';
 import ProductService from '../service/ProductService';
 
 class ProductController {
   constructor(productModel) {
     this.productModel = productModel;
-    this.productModelCart = new Cart();
     this.productService = new ProductService();
     this.cartService = new CartService();
   }

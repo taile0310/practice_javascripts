@@ -1,4 +1,4 @@
-import MenuConstant from '../constant/MenuConstant';
+import { NAVBAR } from '../constant/MenuConstant';
 import Observer from './Observer';
 
 class NavbarView extends Observer {
@@ -14,7 +14,7 @@ class NavbarView extends Observer {
 
     this.cartNumberElement = null;
     this.lengths = 0;
-    this.currentMenu = MenuConstant.HOME;
+    this.currentMenu = NAVBAR.HOME;
 
     this.initHomeMenu();
   }
@@ -23,7 +23,7 @@ class NavbarView extends Observer {
     const btnMenu = document.querySelector('.btnMenu');
     btnMenu.addEventListener('click', (event) => {
       event.preventDefault();
-      this.currentMenu = MenuConstant.MENU;
+      this.currentMenu = NAVBAR.MENU;
       const content = document.querySelector('.component-layout');
       const menu = document.querySelector('.menu');
       const homeLayout = document.querySelector('.home-layout');
@@ -63,10 +63,9 @@ class NavbarView extends Observer {
       const elementA = document.createElement('a');
       elementA.setAttribute('navBarId', link.id);
       elementA.className = 'nav-item';
-      elementA.href = link.path;
 
       // Check if the navigation item is for the cart
-      if (link.id == MenuConstant.CART) {
+      if (link.id == NAVBAR.CART) {
         const cartNumber = document.createElement('div');
         this.cartNumberElement = cartNumber;
         cartNumber.className = 'cart-number';
@@ -96,33 +95,33 @@ class NavbarView extends Observer {
         const navbar = document.querySelector('.nav-menu');
         // Handle navigation based on the ID of the item clicked
         switch (navBarId) {
-          case MenuConstant.HOME:
-          case MenuConstant.LOGO:
-          case MenuConstant.LOGOUT:
+          case NAVBAR.HOME:
+          case NAVBAR.LOGO:
+          case NAVBAR.LOGOUT:
             homeLayout.style.display = 'block';
             menu.style.display = 'none';
             carts.style.display = 'none';
             checkout.style.display = 'none';
             navbar.style.display = 'none';
             break;
-          case MenuConstant.MENU:
+          case NAVBAR.MENU:
             menu.style.display = 'flex';
             carts.style.display = 'none';
             checkout.style.display = 'none';
             break;
-          case MenuConstant.CART:
+          case NAVBAR.CART:
             menu.style.display = 'none';
             carts.style.display = 'block';
             checkout.style.display = 'none';
             break;
-          case MenuConstant.CHECKOUT:
+          case NAVBAR.CHECKOUT:
             if (this.lengths > 0) {
               menu.style.display = 'none';
               carts.style.display = 'none';
               checkout.style.display = 'block';
             } else {
               alert('Your shopping cart is empty, cannot checkout');
-              this.currentMenu = MenuConstant.MENU;
+              this.currentMenu = NAVBAR.MENU;
               menu.style.display = 'flex';
               carts.style.display = 'none';
               checkout.style.display = 'none';
@@ -166,7 +165,7 @@ class NavbarView extends Observer {
         homeLayout.style.display = 'none';
         navbar.style.display = 'flex';
         checkout.style.display = 'block';
-        this.currentMenu = MenuConstant.CHECKOUT;
+        this.currentMenu = NAVBAR.CHECKOUT;
         this.updateActiveLink();
       }
       // Otherwise, less than zero is a warning
